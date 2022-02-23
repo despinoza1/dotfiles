@@ -171,8 +171,8 @@ else
   nnoremap <silent> <leader>f  <Cmd>call VSCodeNotify('editor.action.formatSelection')<CR>
 
   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-  xmap <leader>a  <Plug>(coc-codeaction-selected)
-  nmap <leader>a  <Plug>(coc-codeaction-selected)
+  "xmap <leader>a  <Plug>(coc-codeaction-selected)
+  "nmap <leader>a  <Plug>(coc-codeaction-selected)
 
   " Remap for do codeAction of current line
   nnoremap <leader>ac  <Plug>(coc-codeaction)
@@ -207,9 +207,9 @@ else
   "nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
   "Explorer
-  nmap <silent> <space>e <Cmd>call VSCodeNotify('workbench.view.explorer')<CR>
+  nnoremap <silent> <space>e <Cmd>call VSCodeCall('workbench.view.explorer')<CR>
 
-  nmap <silent> <leader>t <Cmd>call VSCodeNotify('workbench.action.terminal.toggleTerminal')<CR>
+  nnoremap <silent> <leader>t <Cmd>call VSCodeCall('workbench.action.terminal.toggleTerminal')<CR>
  
   " THEME CHANGER
 function! SetCursorLineNrColorInsert(mode)
