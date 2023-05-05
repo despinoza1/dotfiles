@@ -34,6 +34,8 @@ cmd("set number")
 cmd("set cursorline")
 cmd("set cmdheight=2")
 cmd("set signcolumn=number")
+cmd("set splitbelow")
+cmd("set splitright")
 
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
