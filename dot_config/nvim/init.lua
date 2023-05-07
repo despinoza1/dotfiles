@@ -79,6 +79,12 @@ require("packer").startup(function(use)
   use("neovim/nvim-lspconfig")
   use("lewis6991/gitsigns.nvim")
   use { "williamboman/mason.nvim" }
+  use({
+     "nvim-telescope/telescope.nvim",
+    requires = {
+      "nvim-lua/plenary.nvim"
+    },
+  })
 end)
 
 ----------------------------------
@@ -116,6 +122,13 @@ map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
 map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
 map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
 map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
+
+-- nvim-telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- completion related settings
 -- This is similiar to what I use
