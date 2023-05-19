@@ -1,8 +1,6 @@
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
-require('plugins')
-
 -------------------------------------------------------------------------------
 -- These are example settings to use with nvim-metals and the nvim built-in
 -- LSP. Be sure to thoroughly read the `:help nvim-metals` docs to get an
@@ -51,6 +49,7 @@ end
 cmd([[packadd packer.nvim]])
 require("packer").startup(function(use)
   use({ "wbthomason/packer.nvim", opt = true })
+  use("nvim-lua/plenary.nvim")
 
   use {
     'kyazdani42/nvim-tree.lua',
@@ -75,7 +74,13 @@ require("packer").startup(function(use)
     },
   })
 
+  use {
+    "nvim-lualine/lualine.nvim",
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  }
+
   use("joshdick/onedark.vim")
+  use({"catppuccin/nvim", as = "catppuccin"})
   use("neovim/nvim-lspconfig")
   use("lewis6991/gitsigns.nvim")
   use { "williamboman/mason.nvim" }
@@ -229,18 +234,35 @@ api.nvim_create_autocmd("FileType", {
   group = nvim_metals_group,
 })
 
-cmd('colorscheme onedark')
+cmd('colorscheme catppuccin-macchiato')
 
 require("nvim-tree").setup()
 require("nvim-web-devicons").setup {
   color_icons = true;
   default = true;
 }
+
 require("gitsigns").setup {
   signcolumn = auto,
+  numhl = true,
   on_attach = function()
+    local gs = package.loaded.gitsigns
+
     vim.wo.signcolumn = "yes"
+
+    vim.keymap.set('n', '<leader>gb', gs.toggle_current_line_blame, {})
+    vim.keymap.set('n', '<leader>td', function()
+      gs.toggle_deleted()
+      gs.toggle_word_diff()
+    end, {})
+    vim.keymap.set('n', '<leader>hd', gs.diffthis, {})
   end
+}
+
+require('lualine').setup {
+  options = {
+    theme = "catppuccin"
+  }
 }
 
 require("lspconfig").jedi_language_server.setup{}
