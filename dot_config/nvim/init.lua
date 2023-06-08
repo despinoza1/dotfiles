@@ -34,6 +34,7 @@ cmd("set cmdheight=2")
 cmd("set signcolumn=number")
 cmd("set splitbelow")
 cmd("set splitright")
+cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
@@ -99,7 +100,8 @@ end)
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 
 -- LSP mappings
-map("n", "gD", "<cmd>lua vim.lsp.buf.definition()<CR>")
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
 map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
@@ -108,7 +110,7 @@ map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
 map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
 map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
 map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
 map("n", "<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]]) -- all workspace diagnostics
@@ -265,6 +267,58 @@ require('lualine').setup {
   }
 }
 
+local util = require 'lspconfig.util'
+
 require("lspconfig").jedi_language_server.setup{}
 require("lspconfig").rust_analyzer.setup{}
+require("lspconfig").ruff_lsp.setup{}
+require("lspconfig").diagnosticls.setup {
+  filetypes = { "python" },
+  init_options = {
+    linters = {
+      flake8 = {
+        command = "flake8",
+        args = { "--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s", "-" },
+        debounce = 100,
+        rootPatterns = { ".flake8", "setup.cfg", "tox.ini" },
+        offsetLine = 0,
+        offsetColumn = 0,
+        sourceName = "flake8",
+        formatLines = 1,
+        formatPattern = {
+          "(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$",
+          {
+            line = 1,
+            column = 2,
+            security = 3,
+            message = 4,
+          },
+        },
+        securities = {
+          W = "warning",
+          E = "error",
+          F = "error",
+          C = "error",
+          N = "error",
+        },
+      },
+    },
+    formatters = {
+      isort = {
+        command = "isort",
+	args = {"--quiet", "-"},
+        rootPatterns = { "pyproject.toml", ".isort.cfg" },
+      },
+      black = {
+        command = "black",
+        args = { "--quiet", "-" },
+        rootPatterns = { "pyproject.toml" },
+     },
+    },
+    formatFiletypes = {
+      python = { "isort", "black" },
+    }
+  }
+}
+
 require("mason").setup()
