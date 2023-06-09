@@ -84,7 +84,10 @@ require("packer").startup(function(use)
   use({"catppuccin/nvim", as = "catppuccin"})
   use("neovim/nvim-lspconfig")
   use("lewis6991/gitsigns.nvim")
-  use { "williamboman/mason.nvim" }
+  use { 
+    "williamboman/mason.nvim",
+    run = ":MasonUpdate"
+  }
   use({
      "nvim-telescope/telescope.nvim",
     requires = {
@@ -269,9 +272,15 @@ require('lualine').setup {
 
 local util = require 'lspconfig.util'
 
+require("lspconfig").dockerls.setup{}
+require("lspconfig").yamlls.setup{}
 require("lspconfig").jedi_language_server.setup{}
 require("lspconfig").rust_analyzer.setup{}
-require("lspconfig").ruff_lsp.setup{}
+require("lspconfig").ruff_lsp.setup{
+  on_attach = function(client, bufnr)
+    client.server_capabilities.hoverProvider = false
+  end
+}
 require("lspconfig").diagnosticls.setup {
   filetypes = { "python" },
   init_options = {
