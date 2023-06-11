@@ -8,6 +8,11 @@ require("packer").startup(function(use)
   use({ "wbthomason/packer.nvim", opt = true })
   use("nvim-lua/plenary.nvim")
 
+  use { 
+    "williamboman/mason.nvim",
+    run = ":MasonUpdate"
+  }
+
   use {
     'kyazdani42/nvim-tree.lua',
     requires = {
@@ -23,13 +28,6 @@ require("packer").startup(function(use)
       { "hrsh7th/vim-vsnip" },
     },
   })
-  use({
-    "scalameta/nvim-metals",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "mfussenegger/nvim-dap",
-    },
-  })
 
   use {
     "nvim-lualine/lualine.nvim",
@@ -38,12 +36,18 @@ require("packer").startup(function(use)
 
   use("joshdick/onedark.vim")
   use({"catppuccin/nvim", as = "catppuccin"})
+
+  use({
+    "scalameta/nvim-metals",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+    },
+  })
+  use("b0o/schemastore.nvim")
   use("neovim/nvim-lspconfig")
+
   use("lewis6991/gitsigns.nvim")
-  use { 
-    "williamboman/mason.nvim",
-    run = ":MasonUpdate"
-  }
   use({
      "nvim-telescope/telescope.nvim",
     requires = {
