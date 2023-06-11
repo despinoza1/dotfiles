@@ -91,9 +91,19 @@ cmp.setup({
 local util = require 'lspconfig.util'
 
 require("lspconfig").dockerls.setup{}
+require("lspconfig").jsonls.setup {
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas(),
+      validate = { enabled = true },
+    }
+  }
+}
 require("lspconfig").yamlls.setup{
   settings = {
     redhat = { telemetry = { enabled = false } },
+      schemas = require('schemastore').yaml.schemas(),
+      validate = { enabled = true },
   }
 }
 require("lspconfig").rust_analyzer.setup{}
