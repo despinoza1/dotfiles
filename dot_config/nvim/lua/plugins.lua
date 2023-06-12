@@ -13,12 +13,6 @@ require("packer").startup(function(use)
     run = ":MasonUpdate"
   }
 
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons', -- optional, for file icons
-    }
-  }
 
   use({
     "hrsh7th/nvim-cmp",
@@ -29,14 +23,31 @@ require("packer").startup(function(use)
     },
   })
 
+  ----------------------------------
+  -- UI ----------------------------
+  ----------------------------------
+  use("romgrk/barbar.nvim")
+  use("lewis6991/gitsigns.nvim")
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional, for file icons
+    }
+  }
   use {
     "nvim-lualine/lualine.nvim",
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
 
+  ----------------------------------
+  -- THEMES ------------------------
+  ----------------------------------
   use("joshdick/onedark.vim")
   use({"catppuccin/nvim", as = "catppuccin"})
 
+  ----------------------------------
+  -- LSP ---------------------------
+  ----------------------------------
   use({
     "scalameta/nvim-metals",
     requires = {
@@ -47,7 +58,6 @@ require("packer").startup(function(use)
   use("b0o/schemastore.nvim")
   use("neovim/nvim-lspconfig")
 
-  use("lewis6991/gitsigns.nvim")
   use({
      "nvim-telescope/telescope.nvim",
     requires = {
@@ -63,8 +73,15 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
+-- barbar
+require("barbar").setup()
+
 -- nvim-tree
-require("nvim-tree").setup()
+require("nvim-tree").setup {
+  view = {
+      width = 30,
+  }
+}
 require("nvim-web-devicons").setup {
   color_icons = true;
   default = true;
