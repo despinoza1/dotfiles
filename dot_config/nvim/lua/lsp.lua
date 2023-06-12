@@ -91,6 +91,13 @@ cmp.setup({
 local util = require 'lspconfig.util'
 
 require("lspconfig").dockerls.setup{}
+require("lspconfig").ltex.setup{
+  settings = {
+    ltex = {
+      language="en-US",
+    },
+  },
+}
 require("lspconfig").jsonls.setup {
   settings = {
     json = {
@@ -148,7 +155,7 @@ require("lspconfig").diagnosticls.setup {
     formatters = {
       isort = {
         command = "isort",
-	args = {"--quiet", "-"},
+        args = {"--quiet", "-"},
         rootPatterns = { "pyproject.toml", ".isort.cfg" },
       },
       black = {
