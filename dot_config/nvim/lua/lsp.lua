@@ -116,6 +116,7 @@ require("lspconfig").yamlls.setup{
 require("lspconfig").rust_analyzer.setup{}
 
 require("lspconfig").jedi_language_server.setup{}
+require("lspconfig").pylyzer.setup{}
 require("lspconfig").ruff_lsp.setup{
   on_attach = function(client, bufnr)
     client.server_capabilities.hoverProvider = false
