@@ -60,7 +60,7 @@ ZSH_THEME="headline"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages poetry)
+plugins=(git colored-man-pages poetry command-not-found)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,12 +68,8 @@ export MANPATH="/usr/local/man:$MANPATH"
 
 export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# Preferred editor
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -110,5 +106,10 @@ export HEADLINE_DO_ERR_INFO=true
 export HEADLINE_DO_GIT_STATUS_COUNTS=true
 export HEADLINE_DO_CLOCK=true
 export HEADLINE_CLOCK_FORMAT="%F %H:%M"
+
+XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}                                                2023-06-18 17:
+export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
+export DOCKER_SOCK=$XDG_RUNTIME_DIR/podman/podman.sock
+export KIND_EXPERIMENTAL_PROVIDER=podman
 
 fortune | cowsay
