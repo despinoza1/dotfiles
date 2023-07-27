@@ -86,6 +86,7 @@ export PATH="$PATH:/home/daniel/.local/share/coursier/bin"
 alias docker=podman
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+alias sync-bucket="aws s3 sync $HOME/Desktop/daniel-espinoza-bucket/ ***REMOVED***"
 
 # >>> scala-cli completions >>>
 fpath=("/home/daniel/.local/share/scalacli/completions/zsh" $fpath)
@@ -113,3 +114,9 @@ export DOCKER_SOCK=$XDG_RUNTIME_DIR/podman/podman.sock
 export KIND_EXPERIMENTAL_PROVIDER=podman
 
 fortune | cowsay
+
+if [[ ! -e /tmp/weather ]]; then
+  https --print=b 'v2.wttr.in/Plano,TX?1uQF'
+
+  touch /tmp/weather
+fi

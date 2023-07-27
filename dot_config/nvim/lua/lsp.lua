@@ -115,7 +115,8 @@ require("lspconfig").yamlls.setup{
 }
 require("lspconfig").rust_analyzer.setup{}
 
-require("lspconfig").jedi_language_server.setup{}
+--require("lspconfig").jedi_language_server.setup{}
+require("lspconfig").pyright.setup{}
 require("lspconfig").pylyzer.setup{}
 require("lspconfig").ruff_lsp.setup{
   on_attach = function(client, bufnr)
@@ -123,33 +124,33 @@ require("lspconfig").ruff_lsp.setup{
   end
 }
 require("lspconfig").diagnosticls.setup {
-  filetypes = { "python" },
+  filetypes = { 
+      "python",
+      "sh",
+  },
   init_options = {
     linters = {
-      flake8 = {
-        command = "flake8",
-        args = { "--format=%(row)d,%(col)d,%(code).1s,%(code)s: %(text)s", "-" },
+      shellcheck = {
+        command = "shellcheck",
         debounce = 100,
-        rootPatterns = { ".flake8", "setup.cfg", "tox.ini" },
+        args = { "--format=gcc", "-" },
         offsetLine = 0,
         offsetColumn = 0,
-        sourceName = "flake8",
+        sourceName = "shellcheck",
         formatLines = 1,
         formatPattern = {
-          "(\\d+),(\\d+),([A-Z]),(.*)(\\r|\\n)*$",
+          "^[^:]+:(\\d+):(\\d+):\\s+([^:]+):\\s+(.*)$",
           {
             line = 1,
             column = 2,
-            security = 3,
             message = 4,
+            security = 3,
           },
         },
         securities = {
-          W = "warning",
-          E = "error",
-          F = "error",
-          C = "error",
-          N = "error",
+            error = "error",
+            warning = "warning",
+            note = "info",
         },
       },
     },
@@ -164,6 +165,9 @@ require("lspconfig").diagnosticls.setup {
         args = { "--quiet", "-" },
         rootPatterns = { "pyproject.toml" },
      },
+    },
+    filetypes = {
+      sh = "shellcheck",
     },
     formatFiletypes = {
       python = { "isort", "black" },
