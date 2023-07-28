@@ -23,6 +23,8 @@ require("packer").startup(function(use)
     },
   })
 
+  use("tomtom/tcomment_vim")
+
   ----------------------------------
   -- UI ----------------------------
   ----------------------------------
@@ -38,6 +40,10 @@ require("packer").startup(function(use)
     "nvim-lualine/lualine.nvim",
     requires = { 'nvim-tree/nvim-web-devicons', opt = true }
   }
+  use {
+    "ellisonleao/glow.nvim",
+    config = function() require("glow").setup() end
+  }
 
   ----------------------------------
   -- THEMES ------------------------
@@ -48,6 +54,7 @@ require("packer").startup(function(use)
   ----------------------------------
   -- LSP ---------------------------
   ----------------------------------
+  use("lervag/vimtex")
   use({
     "scalameta/nvim-metals",
     requires = {
@@ -114,3 +121,6 @@ require('lualine').setup {
 
 -- mason.nvim
 require("mason").setup()
+
+-- vimtex
+vim.g.vimtex_view_method = "zathura"
