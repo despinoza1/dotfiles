@@ -124,3 +124,8 @@ require("mason").setup()
 
 -- vimtex
 vim.g.vimtex_view_method = "zathura"
+-- vim.g.vimtex_compiler_method = "generic"
+-- vim.g.vimtex_compiler_generic = {
+--   command = "ls *.tex | entr -c tectonic /_ --synctex --keep-logs",
+-- }
+

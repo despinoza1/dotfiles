@@ -18,3 +18,8 @@ cmd("set tabstop=4 shiftwidth=4 expandtab")
 cmd("set spell spelllang=en_us")
 cmd('colorscheme catppuccin-macchiato')
 
+if vim.g.neovide then
+  vim.g.neovide_cursor_animation_length = 0
+end
+
+
