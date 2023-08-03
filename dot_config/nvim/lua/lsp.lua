@@ -116,9 +116,12 @@ require("lspconfig").yamlls.setup{
 }
 require("lspconfig").rust_analyzer.setup{}
 
---require("lspconfig").jedi_language_server.setup{}
 require("lspconfig").pyright.setup{}
 require("lspconfig").pylyzer.setup{}
+require("lspconfig").lua_ls.setup{}
+require("lspconfig").clangd.setup{}
+require("lspconfig").matlab_ls.setup{}
+require("lspconfig").sqlls.setup{}
 require("lspconfig").ruff_lsp.setup{
   on_attach = function(client, bufnr)
     client.server_capabilities.hoverProvider = false
@@ -128,6 +131,7 @@ require("lspconfig").diagnosticls.setup {
   filetypes = { 
       "python",
       "sh",
+      "sql",
   },
   init_options = {
     linters = {
@@ -153,22 +157,38 @@ require("lspconfig").diagnosticls.setup {
             warning = "warning",
             note = "info",
         },
-      },
+      }, -- shellcheck
+      sqlfluff = {
+        command = "sqlfluff",
+        debounce = 100,
+        args = { "lint", "--disable-progress-bar", "--nofail", "-f", "json", "--dialect", "ansi", "-" },
+        offsetLine = 0,
+        offsetColumn = 0,
+        sourceName = "sqlfluff",
+        parseJson = {
+            errorsRoot = "[0].violations",
+
+            line = "line_no",
+            column = "line_pos",
+            message = "${description}",
+        },
+      }, -- sqlfluff
     },
     formatters = {
       isort = {
         command = "isort",
         args = {"--quiet", "-"},
         rootPatterns = { "pyproject.toml", ".isort.cfg" },
-      },
+      }, -- isort
       black = {
         command = "black",
         args = { "--quiet", "-" },
         rootPatterns = { "pyproject.toml" },
-     },
+     }, --black
     },
     filetypes = {
       sh = "shellcheck",
+      sql = "sqlfluff",
     },
     formatFiletypes = {
       python = { "isort", "black" },
