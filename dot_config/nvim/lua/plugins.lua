@@ -1,4 +1,6 @@
 local cmd = vim.cmd
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 
 ----------------------------------
 -- PLUGINS -----------------------
@@ -8,7 +10,7 @@ require("packer").startup(function(use)
   use({ "wbthomason/packer.nvim", opt = true })
   use("nvim-lua/plenary.nvim")
 
-  use { 
+  use {
     "williamboman/mason.nvim",
     run = ":MasonUpdate"
   }
@@ -44,6 +46,34 @@ require("packer").startup(function(use)
     "ellisonleao/glow.nvim",
     config = function() require("glow").setup() end
   }
+  use {
+   "amrbashir/nvim-docs-view",
+   opt = true,
+   cmd = { "DocsViewToggle" },
+   config = function()
+       require("docs-view").setup {
+         position = "right",
+         width = 60,
+       }
+   end
+  }
+  use {
+    "akinsho/toggleterm.nvim",
+    tag = '*',
+    open_mapping = [[<C-\>t]],
+    config = function()
+        require("toggleterm").setup()
+    end
+  }
+  use {
+    "folke/which-key.nvim",
+    config = function ()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+      require("which-key").setup{}
+    end
+  }
+  use("seandewar/nvimesweeper")
 
   ----------------------------------
   -- THEMES ------------------------
@@ -82,6 +112,9 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- barbar
 require("barbar").setup()
+map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
 
 -- nvim-tree
 require("nvim-tree").setup {

@@ -91,14 +91,14 @@ cmp.setup({
 local util = require 'lspconfig.util'
 
 require("lspconfig").dockerls.setup{}
-require("lspconfig").texlab.setup{
-  build = {
-      args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
-      executable = "tectonic",
-      forwardSearchAfter = false,
-      onSave = true
-    },
-}
+-- require("lspconfig").texlab.setup{
+--   build = {
+--       args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
+--       executable = "tectonic",
+--       forwardSearchAfter = false,
+--       onSave = true
+--     },
+-- }
 require("lspconfig").jsonls.setup {
   settings = {
     json = {
