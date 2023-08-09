@@ -77,6 +77,7 @@ require("packer").startup(function(use)
         "folke/todo-comments.nvim",
         requires = { 'nvim-lua/plenary.nvim' }
     }
+    use("folke/edgy.nvim")
 
     ----------------------------------
     -- THEMES ------------------------
@@ -177,3 +178,32 @@ vim.keymap.set("n", "[t", function()
 end, { desc = "Previous todo comment" })
 
 map('n', '<leader>t', '<Cmd>TodoTelescope<CR>', opts)
+
+-- edgy
+vim.opt.laststatus = 3
+vim.opt.splitkeep = "screen"
+
+require("edgy").setup {
+    bottom = {
+        {
+            ft = "toggleterm",
+            size = { height = 0.4 },
+            -- exclude floating windows
+            filter = function(buf, win)
+                return vim.api.nvim_win_get_config(win).relative == ""
+            end,
+        },
+        { ft = "qf",            title = "QuickFix" },
+        {
+            ft = "help",
+            size = { height = 20 },
+            -- only show help buffers
+            filter = function(buf)
+                return vim.bo[buf].buftype == "help"
+            end,
+        },
+        { ft = "spectre_panel", size = { height = 0.4 } },
+    },
+    left = {
+    }
+}
