@@ -108,7 +108,7 @@ export HEADLINE_DO_GIT_STATUS_COUNTS=true
 export HEADLINE_DO_CLOCK=true
 export HEADLINE_CLOCK_FORMAT="%F %H:%M"
 
-XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}                                                2023-06-18 17:
+export XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-/run/user/$(id -u)}
 export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
 export DOCKER_SOCK=$XDG_RUNTIME_DIR/podman/podman.sock
 export KIND_EXPERIMENTAL_PROVIDER=podman
