@@ -15,6 +15,10 @@ require("packer").startup(function(use)
         run = ":MasonUpdate"
     }
 
+    use("mfussenegger/nvim-dap")
+    use({
+        "mfussenegger/nvim-dap-python",
+    })
     use({
         "hrsh7th/nvim-cmp",
         requires = {
@@ -24,7 +28,14 @@ require("packer").startup(function(use)
         },
     })
 
+    use("MunifTanjim/nui.nvim")
+    use({
+        'nvim-treesitter/nvim-treesitter',
+    })
+
     use("tomtom/tcomment_vim")
+    use("folke/neodev.nvim")
+    use("tpope/vim-surround")
 
     ----------------------------------
     -- UI ----------------------------
@@ -59,7 +70,7 @@ require("packer").startup(function(use)
     use {
         "akinsho/toggleterm.nvim",
         tag = '*',
-        open_mapping = [[<leader>t]],
+        open_mapping = [[<leader>tt]],
         config = function()
             require("toggleterm").setup()
         end
@@ -78,6 +89,12 @@ require("packer").startup(function(use)
         requires = { 'nvim-lua/plenary.nvim' }
     }
     use("folke/edgy.nvim")
+    use("folke/noice.nvim")
+    use("rcarriga/nvim-notify")
+    use({
+        "rcarriga/nvim-dap-ui",
+        requires = { "mfussenegger/nvim-dap" },
+    })
 
     ----------------------------------
     -- THEMES ------------------------
@@ -106,6 +123,12 @@ require("packer").startup(function(use)
         },
     })
 end)
+
+-- nvim-dap
+map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
+
+-- nvim-tree
+map('n', '<leader>n', '<Cmd>NvimTreeToggle<CR>', opts)
 
 -- nvim-telescope
 local builtin = require('telescope.builtin')
@@ -140,14 +163,23 @@ require("gitsigns").setup {
 
         vim.wo.signcolumn = "yes"
 
-        vim.keymap.set('n', '<leader>gb', gs.toggle_current_line_blame, {})
-        vim.keymap.set('n', '<leader>td', function()
+        vim.keymap.set('n', '<leader>gb',
+            gs.toggle_current_line_blame,
+            { desc = "Git blame" })
+        vim.keymap.set('n', '<leader>gt', function()
             gs.toggle_deleted()
             gs.toggle_word_diff()
-        end, {})
-        vim.keymap.set('n', '<leader>hd', gs.diffthis, {})
+        end, { desc = "Toggle inline diff" })
+        vim.keymap.set('n', '<leader>gd', gs.diffthis, {})
     end
 }
+
+-- catppuccin
+require("catppuccin").setup({
+    integrations = {
+        barbar = true,
+    }
+})
 
 -- nvim-lualine
 require('lualine').setup {
@@ -166,6 +198,9 @@ vim.g.vimtex_view_method = "zathura"
 --   command = "ls *.tex | entr -c tectonic /_ --synctex --keep-logs",
 -- }
 
+-- neodev
+require("neodev").setup()
+
 -- todo-comments
 require("todo-comments").setup()
 
@@ -177,7 +212,7 @@ vim.keymap.set("n", "[t", function()
     require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
 
-map('n', '<leader>t', '<Cmd>TodoTelescope<CR>', opts)
+map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', opts)
 
 -- edgy
 vim.opt.laststatus = 3
@@ -207,3 +242,47 @@ require("edgy").setup {
     left = {
     }
 }
+
+-- toggleterm.nvim
+vim.keymap.set("n", "<leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
+
+-- which-key.nvim
+local wk = require("which-key")
+
+wk.register({
+    f = {
+        f = { "File Telescope" },
+        g = { "Grep Telescope" },
+        b = { "Buffer Telescope" },
+        h = { "Help Telescope" },
+        t = { "Todo Telescope" },
+    },
+}, { prefix = "<leader>" })
+
+-- noice.nvim
+require("noice").setup()
+
+-- nvim-dap-ui
+local dap, dapui                                      = require("dap"), require("dapui")
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+end
+
+dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+end
+
+dap.listeners.before.event_exited["dapui_config"]     = function()
+    dapui.close()
+end
+
+-- nvim-dap-python
+local dappy                                           = require("dap-python")
+
+dappy.setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+dappy.test_runner = 'pytest'
+
+vim.keymap.set('n', '<leader>dpr', function()
+    dappy.test_method()
+end, {})
