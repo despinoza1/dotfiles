@@ -166,11 +166,11 @@ require("gitsigns").setup {
         vim.keymap.set('n', '<leader>gb',
             gs.toggle_current_line_blame,
             { desc = "Git blame" })
-        vim.keymap.set('n', '<leader>gt', function()
+        vim.keymap.set('n', '<leader>td', function()
             gs.toggle_deleted()
             gs.toggle_word_diff()
         end, { desc = "Toggle inline diff" })
-        vim.keymap.set('n', '<leader>gd', gs.diffthis, {})
+        vim.keymap.set('n', '<leader>hd', gs.diffthis, {})
     end
 }
 
