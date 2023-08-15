@@ -1,10 +1,15 @@
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
+
 require("plugins")
 require("lsp")
+require("mappings")
+
 
 local cmd = vim.cmd
+
+cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 
 cmd("set encoding=utf-8")
 cmd("set hidden")

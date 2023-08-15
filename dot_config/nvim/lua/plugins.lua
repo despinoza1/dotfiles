@@ -1,6 +1,4 @@
 local cmd = vim.cmd
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
 
 ----------------------------------
 -- PLUGINS -----------------------
@@ -124,25 +122,6 @@ require("packer").startup(function(use)
     })
 end)
 
--- nvim-dap
-map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
-
--- nvim-tree
-map('n', '<leader>n', '<Cmd>NvimTreeToggle<CR>', opts)
-
--- nvim-telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-
--- barbar
-require("barbar").setup()
-map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
-map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
-
 -- nvim-tree
 require("nvim-tree").setup {
     view = {
@@ -166,11 +145,11 @@ require("gitsigns").setup {
         vim.keymap.set('n', '<leader>gb',
             gs.toggle_current_line_blame,
             { desc = "Git blame" })
-        vim.keymap.set('n', '<leader>td', function()
+        vim.keymap.set('n', '<leader>gt', function()
             gs.toggle_deleted()
             gs.toggle_word_diff()
         end, { desc = "Toggle inline diff" })
-        vim.keymap.set('n', '<leader>hd', gs.diffthis, {})
+        vim.keymap.set('n', '<leader>gd', gs.diffthis, {})
     end
 }
 
@@ -201,19 +180,6 @@ vim.g.vimtex_view_method = "zathura"
 -- neodev
 require("neodev").setup()
 
--- todo-comments
-require("todo-comments").setup()
-
-vim.keymap.set("n", "]t", function()
-    require("todo-comments").jump_next() -- {keywords = { "ERROR", "WARNING" }})
-end, { desc = "Next todo comment" })
-
-vim.keymap.set("n", "[t", function()
-    require("todo-comments").jump_prev()
-end, { desc = "Previous todo comment" })
-
-map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', opts)
-
 -- edgy
 vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
@@ -243,22 +209,6 @@ require("edgy").setup {
     }
 }
 
--- toggleterm.nvim
-vim.keymap.set("n", "<leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
-
--- which-key.nvim
-local wk = require("which-key")
-
-wk.register({
-    f = {
-        f = { "File Telescope" },
-        g = { "Grep Telescope" },
-        b = { "Buffer Telescope" },
-        h = { "Help Telescope" },
-        t = { "Todo Telescope" },
-    },
-}, { prefix = "<leader>" })
-
 -- noice.nvim
 require("noice").setup()
 
@@ -282,7 +232,3 @@ local dappy                                           = require("dap-python")
 
 dappy.setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 dappy.test_runner = 'pytest'
-
-vim.keymap.set('n', '<leader>dpr', function()
-    dappy.test_method()
-end, {})
