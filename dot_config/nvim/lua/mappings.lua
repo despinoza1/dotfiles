@@ -50,19 +50,6 @@ map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 -- Plugins -----------------------
 ----------------------------------
 
--- which-key.nvim
-local wk = require("which-key")
-
-wk.register({
-    f = {
-        f = { "File Telescope" },
-        g = { "Grep Telescope" },
-        b = { "Buffer Telescope" },
-        h = { "Help Telescope" },
-        t = { "Todo Telescope" },
-    },
-}, { prefix = "<leader>" })
-
 -- nvim-dap
 map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
 
@@ -83,8 +70,6 @@ map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
 map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
 
 -- todo-comments
-require("todo-comments").setup()
-
 vim.keymap.set("n", "]t", function()
     require("todo-comments").jump_next() -- {keywords = { "ERROR", "WARNING" }})
 end, { desc = "Next todo comment" })
@@ -98,8 +83,6 @@ map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', opts)
 -- toggleterm.nvim
 vim.keymap.set("n", "<leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
 
--- nvim-dap-python
-local dappy = require("dap-python")
-vim.keymap.set('n', '<leader>dpr', function()
-    dappy.test_method()
-end, {})
+-- neogen
+local neogen = require("neogen")
+vim.keymap.set('n', '<leader>doc', function() neogen.generate() end, {})
