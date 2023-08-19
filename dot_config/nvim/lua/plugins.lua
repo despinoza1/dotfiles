@@ -19,6 +19,7 @@ require("packer").startup(function(use)
     ----------------------------------
     use({
         "williamboman/mason.nvim",
+        run = "MasonUpdate",
         config = function()
             require("mason").setup()
         end
@@ -267,13 +268,6 @@ require("packer").startup(function(use)
     use({
         "lervag/vimtex",
         ft = { "latex", "tex" },
-        config = function()
-            vim.g.vimtex_view_method = "zathura"
-            -- vim.g.vimtex_compiler_method = "generic"
-            -- vim.g.vimtex_compiler_generic = {
-            --   command = "ls *.tex | entr -c tectonic /_ --synctex --keep-logs",
-            -- }
-        end
     })
     use({
         "scalameta/nvim-metals",
@@ -301,3 +295,13 @@ require("packer").startup(function(use)
         end
     })
 end)
+
+-- vimtex
+vim.g.vimtex_view_method = "zathura"
+vim.g.vimtex_compiler_method = 'tectonic'
+vim.g.vimtex_compiler_tectonic = {
+    options = {
+        "--keep-logs",
+        "--synctex",
+    }
+}
