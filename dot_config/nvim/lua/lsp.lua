@@ -142,7 +142,7 @@ require("lspconfig").diagnosticls.setup {
         formatters = {
             isort = {
                 command = "isort",
-                args = { "--quiet", "-" },
+                args = { "--quiet", "--profile", "black", "-" },
                 rootPatterns = { "pyproject.toml", ".isort.cfg" },
             }, -- isort
             black = {

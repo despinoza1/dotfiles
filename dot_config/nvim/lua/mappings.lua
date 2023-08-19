@@ -2,6 +2,22 @@ local api = vim.api
 local opts = { noremap = true, silent = true }
 
 ----------------------------------
+------ VIM -----------------------
+----------------------------------
+
+-- Window mappings
+api.nvim_set_keymap("n", "<C-h>", "<C-w>h", opts)
+api.nvim_set_keymap("n", "<C-j>", "<C-w>j", opts)
+api.nvim_set_keymap("n", "<C-k>", "<C-w>k", opts)
+api.nvim_set_keymap("n", "<C-l>", "<C-w>l", opts)
+
+-- Clipboard
+api.nvim_set_keymap("n", "<leader>y", "\"*y", opts)
+api.nvim_set_keymap("n", "<leader>Y", "\"+y", opts)
+api.nvim_set_keymap("n", "<leader>p", "\"*p", opts)
+api.nvim_set_keymap("n", "<leader>P", "\"+p", opts)
+
+----------------------------------
 ------ LSP -----------------------
 ----------------------------------
 

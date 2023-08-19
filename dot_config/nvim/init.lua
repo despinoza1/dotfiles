@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 
 cmd("set encoding=utf-8")
+cmd("set clipboard=unnamedplus")
 cmd("set hidden")
 cmd("set number")
 cmd("set cursorline")
