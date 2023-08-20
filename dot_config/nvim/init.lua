@@ -4,7 +4,8 @@ vim.g.loaded_netrwPlugin = 1
 
 require("plugins")
 require("lsp")
-require("diagnosticls")
+-- require("diagnosticls")
+require("efmls")
 require("mappings")
 
 
@@ -17,7 +18,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.lsp.buf.format()
     end
 })
--- cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
+cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
 
 cmd("set encoding=utf-8")
 cmd("set clipboard=unnamedplus")
