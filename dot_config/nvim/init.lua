@@ -4,6 +4,7 @@ vim.g.loaded_netrwPlugin = 1
 
 require("plugins")
 require("lsp")
+require("diagnosticls")
 require("mappings")
 
 

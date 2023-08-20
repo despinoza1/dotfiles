@@ -1,9 +1,20 @@
 local api = vim.api
 local opts = { noremap = true, silent = true }
 
-----------------------------------
------- VIM -----------------------
-----------------------------------
+local function map(mode, lhs, rhs, opts)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+-- global
+vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
+
+----------------------------------------------------------------------------------------------------
+------ VIM -----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 -- Window mappings
 api.nvim_set_keymap("n", "<C-h>", "<C-w>h", opts)
@@ -17,21 +28,10 @@ api.nvim_set_keymap("n", "<leader>Y", "\"+y", opts)
 api.nvim_set_keymap("n", "<leader>p", "\"*p", opts)
 api.nvim_set_keymap("n", "<leader>P", "\"+p", opts)
 
-----------------------------------
------- LSP -----------------------
-----------------------------------
+----------------------------------------------------------------------------------------------------
+------ LSP -----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
-local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    api.nvim_set_keymap(mode, lhs, rhs, options)
-end
--- global
-vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-
--- LSP mappings
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
@@ -52,8 +52,10 @@ map("n", "<leader>ld", "<cmd>lua vim.diagnostic.setloclist()<CR>")              
 map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
 map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
 
--- Example mappings for usage with nvim-dap. If you don't use that, you can
--- skip these
+----------------------------------------------------------------------------------------------------
+------ DAP -----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
+
 map("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
 map("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
 map("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
@@ -61,13 +63,11 @@ map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
 map("n", "<leader>dso", [[<cmd>lua require"dap".step_over()<CR>]])
 map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
 map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
-
-----------------------------------
--- Plugins -----------------------
-----------------------------------
-
--- nvim-dap
 map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
+
+----------------------------------------------------------------------------------------------------
+-- Plugins -----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------
 
 -- nvim-tree
 map('n', '<leader>n', '<Cmd>NvimTreeToggle<CR>', opts)
