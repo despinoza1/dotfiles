@@ -21,8 +21,33 @@ require("packer").startup(function(use)
         "williamboman/mason.nvim",
         run = "MasonUpdate",
         config = function()
-            require("mason").setup()
+            require("mason").setup({
+                ensured_installed = {
+                    "efm",
+                    "pyright",
+                    "ruff-lsp",
+                    "black",
+                    "isort",
+                    "debugpy",
+                    "texlab",
+                    "tectonic",
+                    "latexindent",
+                    "lua-language-server",
+                    "shellcheck",
+                    "clangd",
+                    "clang-format",
+                    "codelldb",
+                    "sqlls",
+                    "json-lsp",
+                    "yaml-language-server",
+                    "dockerfile-language-server",
+                }
+            })
         end
+    })
+    use({
+        'creativenull/efmls-configs-nvim',
+        requires = { 'neovim/nvim-lspconfig' },
     })
 
     use("mfussenegger/nvim-dap")
@@ -54,7 +79,7 @@ require("packer").startup(function(use)
         config = function()
             require("nvim-treesitter.configs").setup({
                 highlight = {
-                    enable = false
+                    enable = true,
                 },
                 ensured_installed = {
                     'bash',
@@ -73,7 +98,7 @@ require("packer").startup(function(use)
                     'yaml',
                     'toml',
                     'bibtex',
-                    'xml'
+                    'xml',
                 }
             })
         end
