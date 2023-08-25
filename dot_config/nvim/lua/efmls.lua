@@ -1,30 +1,24 @@
-local efmls = require("efmls-configs")
+local langs = {
+    python = {
+        require("efmls-configs.formatters.black"),
+        require("efmls-configs.formatters.isort"),
+    },
+    cpp = {
+        require("efmls-configs.formatters.clang_format"),
+    },
+    sh = {
+        require("efmls-configs.linters.shellcheck"),
+    }
+}
 
-efmls.init {
+require("lspconfig").efm.setup({
     init_options = {
         documentFormatting = true,
         codeAction = true,
     },
-}
-
-efmls.setup {
-    python = {
-        formatter = {
-            require("efmls-configs.formatters.black"),
-            {
-                formatCommand = "isort --profile black -",
-                formatStdin = true,
-            },
-        },
+    filetypes = vim.tbl_keys(langs),
+    settings = {
+        rootMarkers = { '.git' },
+        languages = langs,
     },
-    cpp = {
-        formatter = {
-            require("efmls-configs.formatters.clang_format"),
-        },
-    },
-    sh = {
-        linter = {
-            require("efmls-configs.linters.shellcheck"),
-        },
-    }
-}
+})

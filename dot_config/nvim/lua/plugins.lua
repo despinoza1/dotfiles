@@ -65,6 +65,29 @@ require("packer").startup(function(use)
         end
     })
     use({
+        "jay-babu/mason-nvim-dap.nvim",
+        requires = { 'williamboman/mason.nvim', 'mfussenegger/nvim-dap' },
+        after = "mason.nvim",
+        config = function()
+            require('mason-nvim-dap').setup({
+                handlers = {
+                    function(config)
+                        require("mason-nvim-dap").default_setup(config)
+                        if vim.fn.filereadable(".dap-launch.json") then
+                            require("dap.ext.vscode").load_launchjs(".dap-launch.json")
+                        end
+                    end,
+                    codelldb = function(config)
+                        require("mason-nvim-dap").default_setup(config)
+                        if vim.fn.filereadable(".dap-launch.json") then
+                            require("dap.ext.vscode").load_launchjs(".dap-launch.json")
+                        end
+                    end
+                },
+            })
+        end,
+    })
+    use({
         "hrsh7th/nvim-cmp",
         requires = {
             { "hrsh7th/cmp-nvim-lsp" },
@@ -140,7 +163,7 @@ require("packer").startup(function(use)
                         gs.toggle_deleted()
                         gs.toggle_word_diff()
                     end, { desc = "Toggle inline diff" })
-                    vim.keymap.set('n', '<leader>gd', gs.diffthis, {})
+                    vim.keymap.set('n', '<leader>gd', gs.diffthis, { desc = "Git Diff" })
                 end
             }
         end
@@ -213,6 +236,17 @@ require("packer").startup(function(use)
                     h = { "Help Telescope" },
                     t = { "Todo Telescope" },
                 },
+                d = {
+                    r = { "DAP REPL Toggle" },
+                    t = { "DAP Toggle Breakpoint" },
+                    l = { "DAP Run Last" },
+                    b = { "DAP Breakpoint" },
+                    K = { "DAP Widget Hover" },
+                    s = {
+                        i = { "DAP Step Into" },
+                        o = { "DAP Step Over" },
+                    },
+                },
             }, { prefix = "<leader>" })
         end
     }
@@ -283,6 +317,9 @@ require("packer").startup(function(use)
             dap.listeners.before.event_exited["dapui_config"]     = function()
                 dapui.close()
             end
+
+            vim.keymap.set('n', '<leader>du', function() dapui.open() end, { desc = "DapUI Open" })
+            vim.keymap.set('n', '<leader>dq', function() dapui.close() end, { desc = "DapUI Quit" })
         end
     })
     use({
