@@ -56,7 +56,7 @@ map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
 ------ DAP -----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
-map("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
+-- map("n", "<leader>dc", [[<cmd>lua require"dap".continue()<CR>]])
 map("n", "<leader>dr", [[<cmd>lua require"dap".repl.toggle()<CR>]])
 map("n", "<leader>dK", [[<cmd>lua require"dap.ui.widgets".hover()<CR>]])
 map("n", "<leader>dt", [[<cmd>lua require"dap".toggle_breakpoint()<CR>]])
@@ -65,12 +65,20 @@ map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
 map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
 
+local continue = function()
+    if vim.fn.filereadable(".dap-launch.json") then
+        require("dap.ext.vscode").load_launchjs(".dap-launch.json")
+    end
+    require("dap").continue()
+end
+vim.keymap.set('n', '<leader>dc', continue, { desc = "DAP Run/Continue" })
+
 ----------------------------------------------------------------------------------------------------
 -- Plugins -----------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
 
 -- nvim-tree
-map('n', '<leader>n', '<Cmd>NvimTreeToggle<CR>', opts)
+map('n', '<leader>e', '<Cmd>NvimTreeToggle<CR>', opts)
 
 -- nvim-telescope
 local builtin = require('telescope.builtin')
@@ -98,6 +106,7 @@ map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', opts)
 
 -- toggleterm.nvim
 vim.keymap.set("n", "<leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle Terminal" })
+map('t', '<esc>', [[<C-\><C-n>]], { silent = true, noremap = true })
 
 -- neogen
 local neogen = require("neogen")

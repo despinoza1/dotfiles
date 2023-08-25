@@ -44,6 +44,15 @@ cmp.setup({
 ----------------------------------------------------------------------------------------------------
 local util = require 'lspconfig.util'
 
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    callback = function()
+        vim.lsp.buf.format()
+    end
+})
+
+require("lspconfig").bashls.setup {}
 require("lspconfig").dockerls.setup {}
 require("lspconfig").texlab.setup {
     build = {

@@ -11,15 +11,6 @@ require("mappings")
 
 local cmd = vim.cmd
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    callback = function()
-        vim.lsp.buf.format()
-    end
-})
-cmd([[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]])
-
 cmd("set encoding=utf-8")
 cmd("set clipboard=unnamedplus")
 cmd("set hidden")
