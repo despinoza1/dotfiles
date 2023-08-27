@@ -1,7 +1,11 @@
 local langs = {
     python = {
+        {
+            formatCommand = string.format('%s --quiet --profile black -', vim.fn.exepath('isort')),
+            formatStdin = true,
+            rootMarkers = { '.isort.cfg', 'pyproject.toml', 'setup.cfg', 'setup.py' }
+        },
         require("efmls-configs.formatters.black"),
-        require("efmls-configs.formatters.isort"),
     },
     cpp = {
         require("efmls-configs.formatters.clang_format"),
