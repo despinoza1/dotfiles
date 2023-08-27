@@ -1,6 +1,19 @@
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
 
 require("plugins")
 require("lsp")
@@ -22,7 +35,6 @@ cmd("set splitbelow")
 cmd("set splitright")
 cmd("set tabstop=4 shiftwidth=4 expandtab")
 cmd("set spell spelllang=en_us")
-cmd('colorscheme catppuccin-macchiato')
 
 if vim.g.neovide then
     vim.g.neovide_cursor_animation_length = 0
