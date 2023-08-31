@@ -65,11 +65,15 @@ map("n", "<leader>dsi", [[<cmd>lua require"dap".step_into()<CR>]])
 map("n", "<leader>dl", [[<cmd>lua require"dap".run_last()<CR>]])
 map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
 
+local dap = require("dap")
 local continue = function()
-    if vim.fn.filereadable(".dap-launch.json") then
-        require("dap.ext.vscode").load_launchjs(".dap-launch.json")
+    dap.adapters.lldb = dap.adapters.codelldb
+
+    if vim.fn.filereadable(".vscode/launch.json") then
+        require("dap.ext.vscode").load_launchjs(nil, { lldb = { 'cpp', 'c' } })
     end
-    require("dap").continue()
+
+    dap.continue()
 end
 vim.keymap.set('n', '<leader>dc', continue, { desc = "DAP Run/Continue" })
 
