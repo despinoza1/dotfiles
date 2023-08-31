@@ -66,20 +66,7 @@ require("lazy").setup({
         dependencies = { 'williamboman/mason.nvim', 'mfussenegger/nvim-dap' },
         config = function()
             require('mason-nvim-dap').setup({
-                handlers = {
-                    function(config)
-                        require("mason-nvim-dap").default_setup(config)
-                        if vim.fn.filereadable(".dap-launch.json") then
-                            require("dap.ext.vscode").load_launchjs(".dap-launch.json")
-                        end
-                    end,
-                    codelldb = function(config)
-                        require("mason-nvim-dap").default_setup(config)
-                        if vim.fn.filereadable(".dap-launch.json") then
-                            require("dap.ext.vscode").load_launchjs(".dap-launch.json")
-                        end
-                    end
-                },
+                handlers = {},
             })
         end,
     },
@@ -305,10 +292,12 @@ require("lazy").setup({
 
             dap.listeners.before.event_terminated["dapui_config"] = function()
                 dapui.close()
+                dap.repl.close()
             end
 
             dap.listeners.before.event_exited["dapui_config"]     = function()
                 dapui.close()
+                dap.repl.close()
             end
 
             vim.keymap.set('n', '<leader>du', function() dapui.open() end, { desc = "DapUI Open" })
