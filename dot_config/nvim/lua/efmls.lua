@@ -3,7 +3,29 @@ local langs = {
         {
             formatCommand = string.format('%s --quiet --profile black -', vim.fn.exepath('isort')),
             formatStdin = true,
-            rootMarkers = { '.isort.cfg', 'pyproject.toml', 'setup.cfg', 'setup.py' }
+            rootMarkers = {
+                '.isort.cfg',
+                'pyproject.toml',
+                'setup.cfg',
+                'setup.py',
+            },
+        },
+        {
+            lintCommand = string.format(
+                "%s -q --exit-zero -f custom --msg-template '{line}:{col}:{severity} {msg}' ${INPUT} | sed 's/HIGH/error/' | sed 's/MEDIUM/warning/' | sed 's/LOW/note/'",
+                vim.fn.exepath('bandit')),
+            lintStdin = false,
+            lintFormats = {
+                '%l:%c:%trror %m',
+                '%l:%c:%tarning %m',
+                '%l:%c:%tote %m',
+            },
+            lintIgnoreExitCode = true,
+            rootMarkers = {
+                'pyproject.toml',
+                'setup.cfg',
+                'setup.py',
+            },
         },
         require("efmls-configs.formatters.black"),
     },
@@ -24,5 +46,6 @@ require("lspconfig").efm.setup({
     settings = {
         rootMarkers = { '.git' },
         languages = langs,
+        logLevel = 10,
     },
 })
