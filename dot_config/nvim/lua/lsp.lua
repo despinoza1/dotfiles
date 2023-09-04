@@ -44,13 +44,13 @@ cmp.setup({
 ----------------------------------------------------------------------------------------------------
 local util = require 'lspconfig.util'
 
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    callback = function()
-        vim.lsp.buf.format()
-    end
-})
+-- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     group = augroup,
+--     callback = function()
+--         vim.lsp.buf.format()
+--     end
+-- })
 
 require("lspconfig").bashls.setup {}
 require("lspconfig").dockerls.setup {}
@@ -80,7 +80,6 @@ require("lspconfig").yamlls.setup {
 require("lspconfig").rust_analyzer.setup {}
 
 require("lspconfig").pyright.setup {}
--- require("lspconfig").pylyzer.setup {}
 require("lspconfig").lua_ls.setup {
     settings = {
         Lua = {

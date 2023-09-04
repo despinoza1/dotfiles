@@ -17,7 +17,6 @@ vim.opt.rtp:prepend(lazypath)
 
 require("plugins")
 require("lsp")
--- require("diagnosticls")
 require("efmls")
 require("mappings")
 
