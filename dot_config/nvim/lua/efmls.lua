@@ -34,7 +34,11 @@ local langs = {
     },
     sh = {
         require("efmls-configs.linters.shellcheck"),
-    }
+        require("efmls-configs.formatters.beautysh"),
+    },
+    tex = {
+        require("efmls-configs.formatters.latexindent"),
+    },
 }
 
 require("lspconfig").efm.setup({

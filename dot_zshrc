@@ -96,6 +96,11 @@ compinit
 alias python=$(which python3)
 alias pip="$(which python3) -m pip"
 
+# >>> modular completions >>>
+export MODULAR_HOME="/home/daniel/.modular"
+export PATH="/home/daniel/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
+# <<< modular completions <<<
+
 export HEADLINE_USER_TO_HOST='@'
 export HEADLINE_HOST_TO_PATH=':'
 export HEADLINE_PATH_TO_BRANCH='|'
@@ -116,7 +121,8 @@ export KIND_EXPERIMENTAL_PROVIDER=podman
 fortune | cowsay
 
 if [[ ! -e /tmp/weather ]]; then
-  https --print=b 'v2.wttr.in/Plano,TX?1uQF'
+  http --print=b 'v2.wttr.in/Plano,TX?1uQF'
 
   touch /tmp/weather
 fi
+

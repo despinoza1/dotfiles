@@ -97,6 +97,7 @@ require("lspconfig").ruff_lsp.setup {
         client.server_capabilities.hoverProvider = false
     end
 }
+require'lspconfig'.mojo.setup{}
 
 ----------------------------------------------------------------------------------------------------
 --- Metals -----------------------------------------------------------------------------------------
