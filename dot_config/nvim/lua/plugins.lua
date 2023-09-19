@@ -118,6 +118,7 @@ require("lazy").setup({
                     library.enabled = true
                     library.plugins = true
                 end,
+                plugins = true,
                 lspconfig = true,
                 pathStrict = true,
             }
@@ -322,9 +323,9 @@ require("lazy").setup({
     },
     {
         "dccsillag/magma-nvim",
-        config = function()
-
-        end
+        version = "*",
+        build = ":UpdateRemotePlugins",
+        lazy = false,
     },
 
     ------------------------------------------------------------------------------------------------
@@ -391,6 +392,7 @@ vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_compiler_method = 'tectonic'
 vim.g.vimtex_compiler_tectonic = {
     options = {
+        "-Z shell-escape",
         "--keep-logs",
         "--synctex",
     }
