@@ -1,3 +1,4 @@
+local api = vim.api
 local cmd = vim.cmd
 
 ----------------------------------------------------------------------------------------------------
@@ -6,12 +7,13 @@ local cmd = vim.cmd
 
 require("lazy").setup({
     "nvim-lua/plenary.nvim",
+
     ------------------------------------------------------------------------------------------------
     -- VIM -----------------------------------------------------------------------------------------
     ------------------------------------------------------------------------------------------------
     "tpope/vim-surround",
     "tomtom/tcomment_vim",
-    ---
+
     ------------------------------------------------------------------------------------------------
     -- MISC ----------------------------------------------------------------------------------------
     ------------------------------------------------------------------------------------------------
@@ -87,25 +89,6 @@ require("lazy").setup({
                 highlight = {
                     enable = true,
                 },
-                ensured_installed = {
-                    'bash',
-                    'python',
-                    'latex',
-                    'rust',
-                    'scala',
-                    'lua',
-                    'cpp',
-                    'java',
-                    'matlab',
-                    'gitcommit',
-                    'dockerfile',
-                    'json',
-                    'markdown',
-                    'yaml',
-                    'toml',
-                    'bibtex',
-                    'xml',
-                }
             })
         end
     },
@@ -134,12 +117,12 @@ require("lazy").setup({
         ft = { "gitcommit", "diff" },
         init = function()
             -- load gitsigns only when a git file is opened
-            vim.api.nvim_create_autocmd({ "BufRead" }, {
-                group = vim.api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
+            api.nvim_create_autocmd({ "BufRead" }, {
+                group = api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
                 callback = function()
                     vim.fn.system("git -C " .. '"' .. vim.fn.expand "%:p:h" .. '"' .. " rev-parse")
                     if vim.v.shell_error == 0 then
-                        vim.api.nvim_del_augroup_by_name "GitSignsLazyLoad"
+                        api.nvim_del_augroup_by_name "GitSignsLazyLoad"
                         vim.schedule(function()
                             require("lazy").load { plugins = { "gitsigns.nvim" } }
                         end)
@@ -177,7 +160,10 @@ require("lazy").setup({
             require("nvim-tree").setup {
                 view = {
                     width = 30,
-                }
+                },
+                renderer = {
+                    group_empty = true,
+                },
             }
             require("nvim-web-devicons").setup {
                 color_icons = true,
@@ -198,6 +184,7 @@ require("lazy").setup({
     },
     {
         "ellisonleao/glow.nvim",
+        ft = { "markdown" },
         config = function() require("glow").setup() end
     },
     {
@@ -269,7 +256,7 @@ require("lazy").setup({
                         size = { height = 0.4 },
                         -- exclude floating windows
                         filter = function(buf, win)
-                            return vim.api.nvim_win_get_config(win).relative == ""
+                            return api.nvim_win_get_config(win).relative == ""
                         end,
                     },
                     { ft = "qf",            title = "QuickFix" },
@@ -362,10 +349,68 @@ require("lazy").setup({
     },
     {
         "scalameta/nvim-metals",
+        ft = { "scala", "sbt" },
         dependencies = {
             "nvim-lua/plenary.nvim",
             "mfussenegger/nvim-dap",
         },
+        config = function()
+            local metals_config = require("metals").bare_config()
+
+            metals_config.settings = {
+                showImplicitArguments = true,
+                excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+            }
+
+            -- *READ THIS*
+            -- I *highly* recommend setting statusBarProvider to true, however if you do,
+            -- you *have* to have a setting to display this in your statusline or else
+            -- you'll not see any messages from metals. There is more info in the help
+            -- docs about this
+            metals_config.init_options.statusBarProvider = "on"
+
+            -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
+            metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+            local dap = require("dap")
+
+            dap.configurations.scala = {
+                {
+                    type = "scala",
+                    request = "launch",
+                    name = "RunOrTest",
+                    metals = {
+                        runType = "runOrTestFile",
+                        --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
+                    },
+                },
+                {
+                    type = "scala",
+                    request = "launch",
+                    name = "Test Target",
+                    metals = {
+                        runType = "testTarget",
+                    },
+                },
+            }
+
+            metals_config.on_attach = function(client, bufnr)
+                require("metals").setup_dap()
+            end
+
+            -- Autocmd that will actually be in charging of starting the whole thing
+            local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
+            api.nvim_create_autocmd("FileType", {
+                -- NOTE: You may or may not want java included here. You will need it if you
+                -- want basic Java support but it may also conflict if you are using
+                -- something like nvim-jdtls which also works on a java filetype autocmd.
+                pattern = { "scala", "sbt", "java" },
+                callback = function()
+                    require("metals").initialize_or_attach(metals_config)
+                end,
+                group = nvim_metals_group,
+            })
+        end
     },
     "b0o/schemastore.nvim",
     "neovim/nvim-lspconfig",
