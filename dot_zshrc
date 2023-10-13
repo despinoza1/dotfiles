@@ -83,6 +83,8 @@ export PATH="$PATH:$(cs java-home)/bin"
 export PATH="$PATH:/home/daniel/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 
+alias ls=lsd
+alias cat="bat --theme=Catppuccin-macchiato --paging=never"
 alias docker=podman
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
