@@ -75,9 +75,8 @@ require("lspconfig").yamlls.setup {
         validate = { enabled = true },
     }
 }
-require("lspconfig").rust_analyzer.setup {}
+require("lspconfig").gopls.setup {}
 
-require("lspconfig").pyright.setup {}
 require("lspconfig").lua_ls.setup {
     settings = {
         Lua = {
@@ -88,12 +87,11 @@ require("lspconfig").lua_ls.setup {
     }
 }
 require("lspconfig").clangd.setup {}
-require("lspconfig").matlab_ls.setup {}
 require("lspconfig").sqlls.setup {}
+
+require("lspconfig").pyright.setup {}
 require("lspconfig").ruff_lsp.setup {
     on_attach = function(client, bufnr)
         client.server_capabilities.hoverProvider = false
     end
 }
-require'lspconfig'.mojo.setup{}
-

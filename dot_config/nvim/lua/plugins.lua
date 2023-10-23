@@ -348,6 +348,14 @@ require("lazy").setup({
         ft = { "latex", "tex" },
     },
     {
+        "simrat39/rust-tools.nvim",
+        ft = { "rust" },
+        dependencies = { "simrat39/rust-tools.nvim" },
+        config = function()
+            require('rust-tools').setup()
+        end
+    },
+    {
         "scalameta/nvim-metals",
         ft = { "scala", "sbt" },
         dependencies = {
