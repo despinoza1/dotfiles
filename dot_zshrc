@@ -65,7 +65,6 @@ plugins=(git colored-man-pages poetry command-not-found)
 source $ZSH/oh-my-zsh.sh
 
 export MANPATH="/usr/local/man:$MANPATH"
-
 export LANG=en_US.UTF-8
 
 # Preferred editor
@@ -73,6 +72,7 @@ export EDITOR='nvim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+alias cs=coursier
 
 # >>> JVM installed by coursier >>>
 export JAVA_HOME="$(cs java-home)"
