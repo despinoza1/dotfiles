@@ -75,6 +75,7 @@ require("lspconfig").yamlls.setup {
         validate = { enabled = true },
     }
 }
+require("lspconfig").taplo.setup {}
 require("lspconfig").gopls.setup {}
 
 require("lspconfig").lua_ls.setup {
