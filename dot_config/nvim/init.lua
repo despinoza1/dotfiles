@@ -1,5 +1,6 @@
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.maplocalleader = ";"
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -34,7 +35,6 @@ cmd("set splitbelow")
 cmd("set splitright")
 cmd("set tabstop=4 shiftwidth=4 expandtab")
 cmd("set spell spelllang=en_us")
--- vim.opt.colorcolumn = "100"
 
 if vim.g.neovide then
     vim.g.neovide_cursor_animation_length = 0
