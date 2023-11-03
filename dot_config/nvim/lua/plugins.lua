@@ -107,6 +107,32 @@ require("lazy").setup({
             }
         end
     },
+    {
+        "nvim-neorg/neorg",
+        build = ":Neorg sync-parsers",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("neorg").setup {
+                load = {
+                    ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.concealer"] = {
+                        config = {
+                            icon_preset = "diamond",
+                        },
+                    },                  -- Adds pretty icons to your documents
+                    ["core.dirman"] = { -- Manages Neorg workspaces
+                        config = {
+                            workspaces = {
+                                notes = "~/Documents/notes",
+                            },
+                            default_workspace = "notes",
+                        },
+                    },
+                },
+            }
+        end,
+    },
+
 
     ------------------------------------------------------------------------------------------------
     -- UI ------------------------------------------------------------------------------------------
@@ -320,6 +346,14 @@ require("lazy").setup({
         config = function()
             require('leap').add_default_mappings()
         end
+    },
+    {
+        "ecthelionvi/NeoColumn.nvim",
+        opts = {
+            bg_color="#c6a0f6",
+            NeoColumn="100",
+            always_on=true,
+        },
     },
 
     ------------------------------------------------------------------------------------------------
