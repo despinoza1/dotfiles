@@ -36,7 +36,7 @@ local langs = {
         require("efmls-configs.linters.shellcheck"),
         require("efmls-configs.formatters.beautysh"),
     },
-    tex = {
+    latex = {
         require("efmls-configs.formatters.latexindent"),
     },
 }
@@ -50,6 +50,5 @@ require("lspconfig").efm.setup({
     settings = {
         rootMarkers = { '.git' },
         languages = langs,
-        logLevel = 10,
     },
 })

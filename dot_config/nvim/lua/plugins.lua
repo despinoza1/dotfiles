@@ -81,7 +81,6 @@ require("lazy").setup({
         },
     },
 
-    "MunifTanjim/nui.nvim",
     {
         'nvim-treesitter/nvim-treesitter',
         config = function()
@@ -115,6 +114,7 @@ require("lazy").setup({
             require("neorg").setup {
                 load = {
                     ["core.defaults"] = {}, -- Loads default behaviour
+                    ["core.summary"] = {},
                     ["core.concealer"] = {
                         config = {
                             icon_preset = "diamond",
@@ -140,6 +140,7 @@ require("lazy").setup({
     -----------------------------------------------------------------------------------------------
     -- UI -----------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------------
+    "MunifTanjim/nui.nvim",
     "romgrk/barbar.nvim",
     {
         "lewis6991/gitsigns.nvim",
@@ -360,7 +361,7 @@ require("lazy").setup({
             bg_color = "#c6a0f6",
             NeoColumn = "100",
             always_on = true,
-            excluded_ft = { "text", "markdown", "qf", "toggleterm", "norg" },
+            excluded_ft = { "text", "markdown", "qf", "toggleterm", "norg", "log" },
         },
     },
 
@@ -394,7 +395,7 @@ require("lazy").setup({
     -----------------------------------------------------------------------------------------------
     {
         "lervag/vimtex",
-        ft = { "latex", "tex" },
+        ft = { "latex" },
     },
     {
         "simrat39/rust-tools.nvim",
