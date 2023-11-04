@@ -36,8 +36,3 @@ cmd("set splitright")
 cmd("set tabstop=4 shiftwidth=4 expandtab")
 cmd("set spell spelllang=en_us")
 
-if vim.g.neovide then
-    vim.g.neovide_cursor_animation_length = 0
-    vim.o.guifont = "ComicShannsMono Nerd Font Mono:h14"
-    cmd("set mouse+=a")
-end
