@@ -36,8 +36,17 @@ local langs = {
         require("efmls-configs.linters.shellcheck"),
         require("efmls-configs.formatters.beautysh"),
     },
-    latex = {
+    tex = {
         require("efmls-configs.formatters.latexindent"),
+    },
+    json = {
+        require('efmls-configs.formatters.jq'),
+    },
+    yaml = {
+        -- require('efmls-configs.formatters.yq'),
+        {
+            formatCommand = string.format("%s -Y '.' ${INPUT}", vim.fn.exepath('yq')),
+        },
     },
 }
 
