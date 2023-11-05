@@ -114,12 +114,13 @@ require("lazy").setup({
             require("neorg").setup {
                 load = {
                     ["core.defaults"] = {}, -- Loads default behaviour
-                    ["core.summary"] = {},
                     ["core.concealer"] = {
                         config = {
                             icon_preset = "diamond",
                         },
                     }, -- Adds pretty icons to your documents
+                    ["core.summary"] = {},
+                    -- ["core.ui.calendar"] = {},
                     ["core.dirman"] = { -- Manages Neorg workspaces
                         config = {
                             workspaces = {
@@ -134,6 +135,7 @@ require("lazy").setup({
     },
     {
         "dhruvasagar/vim-table-mode",
+        ft = { "markdown", "norg" },
     },
 
 
@@ -219,7 +221,6 @@ require("lazy").setup({
     },
     {
         "amrbashir/nvim-docs-view",
-        optional = true,
         cmd = { "DocsViewToggle" },
         config = function()
             require("docs-view").setup {
@@ -358,23 +359,16 @@ require("lazy").setup({
     {
         "ecthelionvi/NeoColumn.nvim",
         opts = {
-            bg_color = "#c6a0f6",
+            bg_color = "#ed8796",
             NeoColumn = "100",
             always_on = true,
-            excluded_ft = { "text", "markdown", "qf", "toggleterm", "norg", "log" },
+            excluded_ft = { "text", "markdown", "qf", "toggleterm", "norg", "tex", "log" },
         },
     },
 
     -----------------------------------------------------------------------------------------------
     -- THEMES -------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------------
-    "joshdick/onedark.vim",
-    {
-        "sainnhe/gruvbox-material",
-        config = function()
-            vim.g.gruvbox_material_background = 'soft'
-        end
-    },
     {
         "catppuccin/nvim",
         name = "catppuccin",
@@ -395,7 +389,7 @@ require("lazy").setup({
     -----------------------------------------------------------------------------------------------
     {
         "lervag/vimtex",
-        ft = { "latex" },
+        ft = { "tex" },
     },
     {
         "simrat39/rust-tools.nvim",
@@ -419,19 +413,10 @@ require("lazy").setup({
                 showImplicitArguments = true,
                 excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
             }
-
-            -- *READ THIS*
-            -- I *highly* recommend setting statusBarProvider to true, however if you do,
-            -- you *have* to have a setting to display this in your statusline or else
-            -- you'll not see any messages from metals. There is more info in the help
-            -- docs about this
             metals_config.init_options.statusBarProvider = "on"
-
-            -- Example if you are using cmp how to make sure the correct capabilities for snippets are set
             metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 
             local dap = require("dap")
-
             dap.configurations.scala = {
                 {
                     type = "scala",
@@ -459,9 +444,6 @@ require("lazy").setup({
             -- Autocmd that will actually be in charging of starting the whole thing
             local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
             api.nvim_create_autocmd("FileType", {
-                -- NOTE: You may or may not want java included here. You will need it if you
-                -- want basic Java support but it may also conflict if you are using
-                -- something like nvim-jdtls which also works on a java filetype autocmd.
                 pattern = { "scala", "sbt", "java" },
                 callback = function()
                     require("metals").initialize_or_attach(metals_config)
@@ -489,6 +471,9 @@ require("lazy").setup({
         end
     },
 })
+
+-- vim-table-mode
+vim.g.table_mode_corner = "|"
 
 -- vimtex
 vim.g.vimtex_view_method = "zathura"

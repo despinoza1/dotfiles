@@ -15,10 +15,6 @@ cmp.setup({
         end,
     },
     mapping = cmp.mapping.preset.insert({
-        -- None of this made sense to me when first looking into this since there
-        -- is no vim docs, but you can't have select = true here _unless_ you are
-        -- also using the snippet stuff. So keep in mind that if you remove
-        -- snippets you need to remove this select
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<Tab>"] = function(fallback)
             if cmp.visible() then
@@ -40,15 +36,18 @@ cmp.setup({
 ---------------------------------------------------------------------------------------------------
 -- LSP Setup --------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
-local util = require 'lspconfig.util'
 
--- local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
--- vim.api.nvim_create_autocmd("BufWritePre", {
---     group = augroup,
---     callback = function()
---         vim.lsp.buf.format()
---     end
--- })
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = augroup,
+    pattern = { "*.py", "*.lua", "*.scala", "*.sbt", "*.java", "*.rs", "*.sh", "*.tex", "*.go",
+        "*.c", "*.cpp", "*.h", "*.hpp", "*.cuda", "dockerfile", "Dockerfile", "*.json", "*.yml",
+        "*.yaml", "*.toml" },
+    callback = function()
+        vim.lsp.buf.format({ async = false })
+    end
+})
 
 require("lspconfig").bashls.setup {}
 require("lspconfig").dockerls.setup {}

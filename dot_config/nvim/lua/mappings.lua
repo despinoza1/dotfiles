@@ -28,6 +28,9 @@ api.nvim_set_keymap("n", "<leader>Y", "\"+y", opts)
 api.nvim_set_keymap("n", "<leader>p", "\"*p", opts)
 api.nvim_set_keymap("n", "<leader>P", "\"+p", opts)
 
+api.nvim_set_keymap("n", "U", "<C-r>", opts)
+api.nvim_set_keymap("n", "<esc>", ":noh<CR>", opts)
+
 ---------------------------------------------------------------------------------------------------
 ------ LSP ----------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -113,11 +116,18 @@ vim.keymap.set("n", "<leader>t", "<Cmd>ToggleTerm<CR>", { desc = "Toggle Termina
 map('t', '<esc>', [[<C-\><C-n>]], { silent = true, noremap = true })
 
 -- glow
-vim.keymap.set("n", "<leader>rm", "<cmd>Glow<CR>", { silent = true, noremap = true })
+local nvim_glow_group = api.nvim_create_augroup("nvim-glow", { clear = true })
+api.nvim_create_autocmd("FileType", {
+    pattern = { "markdown" },
+    callback = function()
+        vim.keymap.set("n", "<LocalLeader>g", "<cmd>Glow<CR>", { silent = true, noremap = true })
+    end,
+    group = nvim_glow_group,
+})
 
 -- neogen
 local neogen = require("neogen")
-vim.keymap.set('n', '<leader>doc', function() neogen.generate() end, {})
+vim.keymap.set('n', '<leader>doc', function() neogen.generate({ type = "any" }) end, {})
 
 -- magma-nvim
 vim.keymap.set("n", "<leader>mi", "<cmd>MagmaInit<CR>", { noremap = true })
