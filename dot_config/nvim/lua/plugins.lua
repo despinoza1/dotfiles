@@ -1,5 +1,4 @@
 local api = vim.api
-local cmd = vim.cmd
 
 ---------------------------------------------------------------------------------------------------
 -- PLUGINS ----------------------------------------------------------------------------------------
@@ -120,6 +119,8 @@ require("lazy").setup({
                         },
                     }, -- Adds pretty icons to your documents
                     ["core.summary"] = {},
+                    ["core.export"] = { config = { extensions = "all" } },
+                    ["core.export.markdown"] = { config = { extensions = "all" } },
                     -- ["core.ui.calendar"] = {},
                     ["core.dirman"] = { -- Manages Neorg workspaces
                         config = {
@@ -226,6 +227,28 @@ require("lazy").setup({
             require("docs-view").setup {
                 position = "right",
                 width = 60,
+            }
+        end
+    },
+    {
+        "samodostal/image.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "m00qek/baleia.nvim",
+        },
+        config = function()
+            require("image").setup {
+                render = {
+                    min_padding = 5,
+                    show_label = true,
+                    show_image_dimensions = true,
+                    use_dither = true,
+                    foreground_color = true,
+                    background_color = true
+                },
+                events = {
+                    update_on_nvim_resize = true,
+                },
             }
         end
     },
@@ -362,7 +385,9 @@ require("lazy").setup({
             bg_color = "#ed8796",
             NeoColumn = "100",
             always_on = true,
-            excluded_ft = { "text", "markdown", "qf", "toggleterm", "norg", "tex", "log" },
+            excluded_ft = {
+                "text", "markdown", "qf", "toggleterm", "norg", "tex", "log", "png", "jpg", "jpeg",
+            },
         },
     },
 
@@ -380,7 +405,7 @@ require("lazy").setup({
                     barbar = true,
                 }
             })
-            cmd('colorscheme catppuccin-macchiato')
+            vim.cmd('colorscheme catppuccin-macchiato')
         end
     },
 

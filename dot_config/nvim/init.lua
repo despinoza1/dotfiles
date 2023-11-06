@@ -1,3 +1,6 @@
+local api = vim.api
+local opt = vim.opt
+
 vim.g.loaded = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.maplocalleader = ";"
@@ -13,7 +16,7 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
-vim.opt.rtp:prepend(lazypath)
+opt.rtp:prepend(lazypath)
 
 
 require("plugins")
@@ -22,17 +25,41 @@ require("efmls")
 require("mappings")
 
 
-local cmd = vim.cmd
+opt.encoding = "utf-8"
+opt.clipboard = "unnamedplus"
 
-cmd("set encoding=utf-8")
-cmd("set clipboard=unnamedplus")
-cmd("set hidden")
-cmd("set number")
-cmd("set cursorline")
-cmd("set cmdheight=2")
-cmd("set signcolumn=number")
-cmd("set splitbelow")
-cmd("set splitright")
-cmd("set tabstop=4 shiftwidth=4 expandtab")
-cmd("set spell spelllang=en_us")
+-- Spellchecking
+opt.spell = true
+opt.spelllang = "en_us"
 
+-- Line Numbers
+opt.number = true
+opt.relativenumber = true
+opt.scrolloff = 999
+
+-- CMD Line
+opt.hidden = true
+opt.cursorline = true
+opt.cmdheight = 2
+opt.signcolumn = "number"
+
+-- Windows
+opt.splitbelow = true
+opt.splitright = true
+
+-- Spaces > Tabs
+opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 0
+
+-- Code Folding
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+local augroup = vim.api.nvim_create_augroup("OpenFolds", {})
+vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
+    group = augroup,
+    callback = function()
+        api.nvim_command("normal zR")
+    end
+})
