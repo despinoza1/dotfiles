@@ -146,6 +146,8 @@ require("lazy").setup({
                     },
                 },
             }
+
+            opt.conceallevel = 2
         end,
     },
     {
