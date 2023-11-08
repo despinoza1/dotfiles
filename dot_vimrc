@@ -6,7 +6,9 @@ set encoding=utf-8
 set hidden
 
 set nu
+set relativenumber
 set cursorline
+set scrolloff=999
 
 " Some servers have issues with backup files, see #649.
 set nobackup
@@ -17,7 +19,7 @@ set cmdheight=2
 
 set expandtab
 set tabstop=2
-set shiftwidth=2
+set shiftwidth=0
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -62,6 +64,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-vinegar'
 Plug 'lambdalisue/battery.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'bling/vim-bufferline'

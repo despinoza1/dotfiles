@@ -43,7 +43,6 @@ local langs = {
         require('efmls-configs.formatters.jq'),
     },
     yaml = {
-        -- require('efmls-configs.formatters.yq'),
         {
             formatCommand = string.format("%s -Y '.' ${INPUT}", vim.fn.exepath('yq')),
         },
