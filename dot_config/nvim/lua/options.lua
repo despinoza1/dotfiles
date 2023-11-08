@@ -33,13 +33,6 @@ opt.tabstop = 4
 opt.shiftwidth = 0
 
 -- Code Folding
+opt.foldlevelstart = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
-
-local augroup = vim.api.nvim_create_augroup("OpenFolds", {})
-vim.api.nvim_create_autocmd({ "BufReadPost", "FileReadPost" }, {
-    group = augroup,
-    callback = function()
-        api.nvim_command("normal zR")
-    end
-})
