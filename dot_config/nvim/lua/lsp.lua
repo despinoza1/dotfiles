@@ -41,9 +41,10 @@ cmp.setup({
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
     group = augroup,
-    pattern = { "*.py", "*.lua", "*.scala", "*.sbt", "*.java", "*.rs", "*.sh", "*.tex", "*.go",
-        "*.c", "*.cpp", "*.h", "*.hpp", "*.cuda", "dockerfile", "Dockerfile", "*.json", "*.yml",
-        "*.yaml", "*.toml" },
+    pattern = {
+        "*.py", "*.lua", "*.scala", "*.sbt", "*.java", "*.rs", "*.sh", "*.tex", "*.go",
+        "*.c", "*.cpp", "*.h", "*.hpp", "*.cuda", "dockerfile", "Dockerfile", "*.json", "*.toml"
+    },
     callback = function()
         vim.lsp.buf.format({ async = false })
     end
