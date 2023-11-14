@@ -1,4 +1,3 @@
-local api = vim.api
 local opt = vim.opt
 
 vim.g.loaded = 1
@@ -7,6 +6,8 @@ vim.g.maplocalleader = ";"
 
 opt.encoding = "utf-8"
 opt.clipboard = "unnamedplus"
+
+opt.termguicolors = true
 
 -- Spellchecking
 opt.spell = true
@@ -23,6 +24,9 @@ opt.cursorline = true
 opt.cmdheight = 2
 opt.signcolumn = "number"
 
+opt.inccommand = "split"
+opt.ignorecase = true
+
 -- Windows
 opt.splitbelow = true
 opt.splitright = true
@@ -30,7 +34,10 @@ opt.splitright = true
 -- Spaces > Tabs
 opt.expandtab = true
 opt.tabstop = 4
-opt.shiftwidth = 0
+opt.shiftwidth = 4
+
+-- Visual Mode
+opt.virtualedit = "block"
 
 -- Code Folding
 opt.foldlevelstart = 99

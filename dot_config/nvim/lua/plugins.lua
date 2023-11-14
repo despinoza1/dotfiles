@@ -133,6 +133,12 @@ require("lazy").setup({
                         },
                     }, -- Adds pretty icons to your documents
                     ["core.summary"] = {},
+                    ["core.esupports.metagen"] = {
+                        config = {
+                            type = "empty",
+                            update_date = true,
+                        }
+                    },
                     ["core.export"] = { config = { extensions = "all" } },
                     ["core.export.markdown"] = { config = { extensions = "all" } },
                     -- ["core.ui.calendar"] = {},
