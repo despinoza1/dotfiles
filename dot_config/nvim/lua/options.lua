@@ -16,6 +16,8 @@ opt.spelllang = "en_us"
 -- Line Numbers
 opt.number = true
 opt.relativenumber = true
+
+opt.wrap = true
 opt.scrolloff = 999
 
 -- CMD Line

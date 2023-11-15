@@ -37,21 +37,10 @@ cmp.setup({
 -- LSP Setup --------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-vim.api.nvim_create_autocmd("BufWritePre", {
-    group = augroup,
-    pattern = {
-        "*.py", "*.lua", "*.scala", "*.sbt", "*.java", "*.rs", "*.sh", "*.tex", "*.go",
-        "*.c", "*.cpp", "*.h", "*.hpp", "*.cuda", "dockerfile", "Dockerfile", "*.json", "*.toml"
-    },
-    callback = function()
-        vim.lsp.buf.format({ async = false })
-    end
-})
+local lsp_format = require("lsp-format")
 
 require("lspconfig").bashls.setup {}
-require("lspconfig").dockerls.setup {}
+require("lspconfig").dockerls.setup { on_attach = lsp_format.on_attach }
 require("lspconfig").texlab.setup {
     build = {
         args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
@@ -66,7 +55,7 @@ require("lspconfig").jsonls.setup {
             schemas = require('schemastore').json.schemas(),
             validate = { enabled = true },
         }
-    }
+    },
 }
 require("lspconfig").yamlls.setup {
     settings = {
@@ -76,7 +65,7 @@ require("lspconfig").yamlls.setup {
     }
 }
 require("lspconfig").taplo.setup {}
-require("lspconfig").gopls.setup {}
+require("lspconfig").gopls.setup { on_attach = lsp_format.on_attach }
 
 require("lspconfig").lua_ls.setup {
     settings = {
@@ -85,7 +74,8 @@ require("lspconfig").lua_ls.setup {
                 callSnippet = "Replace"
             }
         }
-    }
+    },
+    on_attach = lsp_format.on_attach
 }
 require("lspconfig").clangd.setup {}
 require("lspconfig").sqlls.setup {}

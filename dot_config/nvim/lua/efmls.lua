@@ -49,6 +49,8 @@ local langs = {
     },
 }
 
+local lsp_format = require("lsp-format")
+
 require("lspconfig").efm.setup({
     init_options = {
         documentFormatting = true,
@@ -59,4 +61,5 @@ require("lspconfig").efm.setup({
         rootMarkers = { '.git' },
         languages = langs,
     },
+    on_attach = lsp_format.on_attach,
 })
