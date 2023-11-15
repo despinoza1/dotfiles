@@ -289,6 +289,10 @@ require("lazy").setup({
         }
     },
     {
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+    {
         "folke/which-key.nvim",
         config = function()
             vim.o.timeout = true
@@ -515,6 +519,12 @@ require("lazy").setup({
         dependencies = {
             "nvim-lua/plenary.nvim"
         },
+    },
+    {
+        "lukas-reineke/lsp-format.nvim",
+        config = function()
+            require("lsp-format").setup {}
+        end
     },
     {
         "danymat/neogen",
