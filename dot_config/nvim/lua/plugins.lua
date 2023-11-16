@@ -22,37 +22,39 @@ require("lazy").setup({
     "nvim-lua/plenary.nvim",
 
     -----------------------------------------------------------------------------------------------
-    -- VIM ----------------------------------------------------------------------------------------
-    -----------------------------------------------------------------------------------------------
-    "tpope/vim-surround",
-    "tomtom/tcomment_vim",
-
-    -----------------------------------------------------------------------------------------------
     -- MISC ---------------------------------------------------------------------------------------
     -----------------------------------------------------------------------------------------------
+    "tpope/vim-surround",
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = false,
+    },
     {
         "williamboman/mason.nvim",
         config = function()
             require("mason").setup({
                 ensured_installed = {
-                    "efm",
-                    "pyright",
-                    "ruff-lsp",
+                    "bash-language-server",
+                    "beautysh",
                     "black",
-                    "isort",
-                    "debugpy",
-                    "texlab",
-                    "tectonic",
-                    "latexindent",
-                    "lua-language-server",
-                    "shellcheck",
-                    "clangd",
                     "clang-format",
                     "codelldb",
-                    "sqlls",
-                    "json-lsp",
-                    "yaml-language-server",
+                    "debugpy",
                     "dockerfile-language-server",
+                    "efm",
+                    "isort",
+                    "json-lsp",
+                    "latexindent",
+                    "lua-language-server",
+                    "pyright",
+                    "ruff-lsp",
+                    "shellcheck",
+                    "sqlls",
+                    "texlab",
+                    "yaml-language-server",
                 }
             })
         end

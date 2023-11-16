@@ -114,6 +114,7 @@ map("n", "<leader>xw", '<cmd>TroubleToggle workspace_diagnostics<CR>')
 map("n", "<leader>xb", "<cmd>TroubleToggle document_diagnostics<CR>")
 map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>")
 map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>")
+map("n", "<leader>xt", "<cmd>TodoTrouble<CR>")
 map("n", "gr", "<cmd>TroubleToggle lsp_references<CR>")
 
 -- barbar
