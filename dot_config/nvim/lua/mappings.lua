@@ -31,6 +31,8 @@ api.nvim_set_keymap("n", "<leader>P", "\"+p", opts)
 -- Misc
 api.nvim_set_keymap("n", "U", "<C-r>", opts)
 api.nvim_set_keymap("n", "<esc>", ":noh<CR>", opts)
+api.nvim_set_keymap("n", "j", "gj", opts)
+api.nvim_set_keymap("n", "k", "gk", opts)
 
 -- Insert Mode
 api.nvim_set_keymap("i", "<C-j>", "<C-o>gj", { silent = true })

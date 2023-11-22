@@ -152,6 +152,7 @@ require("lazy").setup({
                             default_workspace = "notes",
                         },
                     },
+                    -- ["core.latex.renderer"] = {},
                 },
             }
 
