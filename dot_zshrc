@@ -123,7 +123,7 @@ export KIND_EXPERIMENTAL_PROVIDER=podman
 fortune | cowsay
 
 if [[ ! -e /tmp/weather ]]; then
-  http --print=b 'v2.wttr.in/Plano,TX?1uQF'
+  http --print=b 'v2.wttr.in/Irving,TX?1uQF'
 
   touch /tmp/weather
 fi
