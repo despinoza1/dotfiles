@@ -100,6 +100,31 @@ require("lazy").setup({
         'nvim-treesitter/nvim-treesitter',
         config = function()
             require("nvim-treesitter.configs").setup({
+                ensure_installed = {
+                    "bash",
+                    "c",
+                    "dockerfile",
+                    "git_config",
+                    "git_rebase",
+                    "gitcommit",
+                    "gitignore",
+                    "json",
+                    "lua",
+                    "markdown",
+                    "markdown_inline",
+                    "python",
+                    "regex",
+                    "requirements",
+                    "rust",
+                    "scala",
+                    "sql",
+                    "ssh_config",
+                    "toml",
+                    "vim",
+                    "vimdoc",
+                    "yaml",
+                },
+                auto_install = true,
                 highlight = {
                     enable = true,
                 },
@@ -162,6 +187,9 @@ require("lazy").setup({
     {
         "dhruvasagar/vim-table-mode",
         ft = { "markdown", "norg" },
+        config = function()
+            vim.cmd('TableModeToggle')
+        end
     },
 
 
@@ -408,6 +436,12 @@ require("lazy").setup({
         version = "*",
         build = ":UpdateRemotePlugins",
         lazy = false,
+    },
+    {
+        "GCBallesteros/jupytext.nvim",
+        config = true,
+        -- Depending on your nvim distro or config you may need to make the loading not lazy
+        -- lazy=false,
     },
     {
         "ggandor/leap.nvim",

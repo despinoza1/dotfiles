@@ -86,3 +86,9 @@ require("lspconfig").ruff_lsp.setup {
         client.server_capabilities.hoverProvider = false
     end
 }
+
+-- TODO: Junk to remove later
+require 'lspconfig'.sourcekit.setup {}
+require 'lspconfig'.fortls.setup {}
+require 'lspconfig'.asm_lsp.setup {}
+require 'lspconfig'.als.setup {}

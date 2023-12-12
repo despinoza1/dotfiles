@@ -45,3 +45,13 @@ opt.virtualedit = "block"
 opt.foldlevelstart = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- Binary files
+local nvim_bin_group = vim.api.nvim_create_augroup("nvim-bin-files", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "bin" },
+    callback = function()
+        opt.fileformat = "xxd"
+    end,
+    group = nvim_bin_group,
+})
