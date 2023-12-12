@@ -86,7 +86,20 @@ map('n', '<leader>db', '<Cmd>DapToggleBreakpoint<CR>', opts)
 
 local dap = require("dap")
 local continue = function()
+    dap.adapters.gdb = {
+        type = "executable",
+        command = "gdb",
+        args = { "-i", "dap" },
+    }
     dap.adapters.lldb = dap.adapters.codelldb
+    dap.configurations.asm = {
+        {
+            name = "Launch",
+            type = "gdb",
+            request = "launch",
+            cwd = "${workspaceFolder}",
+        }
+    }
 
     if vim.fn.filereadable(".vscode/launch.json") then
         require("dap.ext.vscode").load_launchjs(nil, { lldb = { 'cpp', 'c' } })
@@ -146,6 +159,9 @@ api.nvim_create_autocmd("FileType", {
     pattern = { "markdown" },
     callback = function()
         vim.keymap.set("n", "<LocalLeader>g", "<cmd>Glow<CR>", { silent = true, noremap = true })
+
+        -- vim-table-mode
+        vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
     end,
     group = nvim_glow_group,
 })
@@ -167,3 +183,14 @@ vim.keymap.set("n", "<leader>mr", "<cmd>MagmaRestart!<CR>", { silent = true, nor
 -- neorg
 vim.keymap.set("n", "<leader>ni", "<cmd>Neorg index<CR>", { silent = true, noremap = true })
 vim.keymap.set("n", "<leader>nr", "<cmd>Neorg return<CR>", { silent = true, noremap = true })
+
+local nvim_neorg_group = api.nvim_create_augroup("nvim-neorg", { clear = true })
+api.nvim_create_autocmd("FileType", {
+    pattern = { "norg" },
+    callback = function()
+        -- vim-table-mode
+        vim.g.table_mode_corner = "+"
+        vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
+    end,
+    group = nvim_glow_group,
+})
