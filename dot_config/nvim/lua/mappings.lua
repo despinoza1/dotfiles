@@ -113,8 +113,11 @@ vim.keymap.set('n', '<leader>dc', continue, { desc = "DAP Run/Continue" })
 -- Plugins ----------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 
--- nvim-tree
-map('n', '<leader>e', '<Cmd>NvimTreeToggle<CR>', opts)
+-- tmux-navigator
+map('n', '<C-h>', '<Cmd>TmuxNavigateLeft<CR>', opts)
+map('n', '<C-l>', '<Cmd>TmuxNavigateRight<CR>', opts)
+map('n', '<C-j>', '<Cmd>TmuxNavigatDown<CR>', opts)
+map('n', '<C-k>', '<Cmd>TmuxNavigateUp<CR>', opts)
 
 -- nvim-telescope
 local builtin = require('telescope.builtin')

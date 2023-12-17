@@ -89,19 +89,13 @@ alias docker=podman
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias sync-bucket="aws s3 sync $HOME/Desktop/daniel-espinoza-bucket/ ***REMOVED***"
+alias lua="/usr/bin/lua5.1"
 
-# >>> scala-cli completions >>>
 fpath=("/home/daniel/.local/share/scalacli/completions/zsh" $fpath)
 compinit
-# <<< scala-cli completions <<<
 
 alias python=$(which python3)
 alias pip="$(which python3) -m pip"
-
-# >>> modular completions >>>
-export MODULAR_HOME="/home/daniel/.modular"
-export PATH="/home/daniel/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
-# <<< modular completions <<<
 
 export HEADLINE_USER_TO_HOST='@'
 export HEADLINE_HOST_TO_PATH=':'
