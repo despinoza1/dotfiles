@@ -14,12 +14,20 @@ if not vim.loop.fs_stat(lazypath) then
 end
 opt.rtp:prepend(lazypath)
 
+-- Luarocks
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
+
 ---------------------------------------------------------------------------------------------------
 -- PLUGINS ----------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 
 require("lazy").setup({
     "nvim-lua/plenary.nvim",
+    {
+        "christoomey/vim-tmux-navigator",
+        lazy = false,
+    },
 
     -----------------------------------------------------------------------------------------------
     -- MISC ---------------------------------------------------------------------------------------
@@ -246,23 +254,13 @@ require("lazy").setup({
         end
     },
     {
-        'nvim-tree/nvim-tree.lua',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
-        },
+        "rolv-apneseth/tfm.nvim",
+        lazy = false,
         config = function()
-            require("nvim-tree").setup {
-                view = {
-                    width = 30,
-                },
-                renderer = {
-                    group_empty = true,
-                },
-            }
-            require("nvim-web-devicons").setup {
-                color_icons = true,
-                default = true,
-            }
+            vim.api.nvim_set_keymap("n", "<leader>e", "", {
+                noremap = true,
+                callback = require("tfm").open,
+            })
         end
     },
     {
@@ -292,25 +290,27 @@ require("lazy").setup({
         end
     },
     {
-        "samodostal/image.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "m00qek/baleia.nvim",
-        },
+        "3rd/image.nvim",
         config = function()
-            require("image").setup {
-                render = {
-                    min_padding = 5,
-                    show_label = true,
-                    show_image_dimensions = true,
-                    use_dither = true,
-                    foreground_color = true,
-                    background_color = true
+            require("image").setup({
+                backend = "ueberzug",
+                integrations = {
+                    markdown = {
+                        enabled = true,
+                        clear_in_insert_mode = false,
+                        download_remote_images = true,
+                        only_render_image_at_cursor = false,
+                        filetypes = { "markdown", "vimwiki" },
+                    },
+                    neorg = {
+                        enabled = true,
+                        clear_in_insert_mode = false,
+                        download_remote_images = true,
+                        only_render_image_at_cursor = false,
+                        filetypes = { "norg" },
+                    },
                 },
-                events = {
-                    update_on_nvim_resize = true,
-                },
-            }
+            })
         end
     },
     {
