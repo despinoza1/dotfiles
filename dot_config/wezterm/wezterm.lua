@@ -14,6 +14,6 @@ config.font_size = 13.0
 
 config.enable_scroll_bar = true
 
-config.color_scheme = 'kanagawabones'
+config.color_scheme = 'DoomOne'
 
 return config
