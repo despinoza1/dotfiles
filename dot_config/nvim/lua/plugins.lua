@@ -293,7 +293,7 @@ require("lazy").setup({
         "3rd/image.nvim",
         config = function()
             require("image").setup({
-                backend = "ueberzug",
+                backend = "kitty",
                 integrations = {
                     markdown = {
                         enabled = true,
