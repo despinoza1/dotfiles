@@ -8,6 +8,8 @@ if wezterm.config_builder then
     config = wezterm.config_builder()
 end
 
+config.default_prog = { "/usr/bin/tmux" }
+
 -- This is where you actually apply your config choices
 config.font = wezterm.font 'FiraCode Nerd Font Mono'
 config.font_size = 13.0
