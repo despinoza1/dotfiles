@@ -8,6 +8,7 @@ opt.encoding = "utf-8"
 opt.clipboard = "unnamedplus"
 
 opt.termguicolors = true
+opt.conceallevel = 2
 
 -- Spellchecking
 opt.spell = true
