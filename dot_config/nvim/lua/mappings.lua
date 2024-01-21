@@ -9,10 +9,10 @@ vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 ---------------------------------------------------------------------------------------------------
 
 -- Window mappings
-api.nvim_set_keymap("n", "<C-h>", "<C-w>h", utils.opts)
-api.nvim_set_keymap("n", "<C-j>", "<C-w>j", utils.opts)
-api.nvim_set_keymap("n", "<C-k>", "<C-w>k", utils.opts)
-api.nvim_set_keymap("n", "<C-l>", "<C-w>l", utils.opts)
+-- api.nvim_set_keymap("n", "<C-h>", "<C-w>h", utils.opts)
+-- api.nvim_set_keymap("n", "<C-j>", "<C-w>j", utils.opts)
+-- api.nvim_set_keymap("n", "<C-k>", "<C-w>k", utils.opts)
+-- api.nvim_set_keymap("n", "<C-l>", "<C-w>l", utils.opts)
 
 -- Clipboard
 api.nvim_set_keymap("n", "<leader>y", "\"*y", utils.opts)
