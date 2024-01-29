@@ -30,7 +30,7 @@ return {
                 require("todo-comments").jump_prev()
             end, { desc = "Previous todo comment" })
 
-            utils.map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', opts)
+            utils.map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', utils.opts)
         end
     },
     {
