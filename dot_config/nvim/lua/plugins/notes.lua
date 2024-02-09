@@ -16,6 +16,12 @@ vim.g.vimtex_compiler_tectonic = {
 
 -- LaTeX
 return {
+    {
+        "lukas-reineke/headlines.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true, -- or `opts = {}`
+    },
+
     -- LaTeX
     {
         "lervag/vimtex",

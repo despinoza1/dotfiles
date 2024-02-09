@@ -83,12 +83,15 @@ export PATH="$PATH:$(cs java-home)/bin"
 export PATH="$PATH:/home/daniel/.local/share/coursier/bin"
 # <<< coursier install directory <<<
 
+# AWS CLI completion
+source /usr/bin/aws_zsh_completer.sh
+
 alias ls=lsd
 alias cat="bat --theme=Catppuccin-macchiato --paging=never"
 alias docker=podman
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-alias sync-bucket="aws s3 sync $HOME/Desktop/daniel-espinoza-bucket/ ***REMOVED***"
+alias sync-bucket="aws s3 sync $HOME/s3-bucket/ ***REMOVED***"
 alias lua="/usr/bin/lua5.1"
 
 fpath=("/home/daniel/.local/share/scalacli/completions/zsh" $fpath)

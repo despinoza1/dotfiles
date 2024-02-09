@@ -8,6 +8,7 @@ return {
             require("catppuccin").setup({
                 integrations = {
                     barbar = true,
+                    headlines = true,
                 }
             })
             vim.cmd("colorscheme catppuccin-frappe")
