@@ -16,14 +16,14 @@ package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/shar
 package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
 
 require("lazy").setup({
-    require("plugins.lsp"),
     require("plugins.dap"),
+    require("plugins.jupyter"),
+    require("plugins.lsp"),
     require("plugins.misc"),
     require("plugins.navigation"),
+    require("plugins.none"),
     require("plugins.notes"),
-    require("plugins.treesitter"),
     require("plugins.theme"),
+    require("plugins.treesitter"),
     require("plugins.ui"),
-    require("plugins.jupyter"),
-    require("plugins.efmls"),
 })
