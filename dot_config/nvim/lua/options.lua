@@ -21,6 +21,8 @@ opt.relativenumber = true
 opt.wrap = true
 opt.scrolloff = 999
 
+opt.colorcolumn = "99"
+
 -- CMD Line
 opt.hidden = true
 opt.cursorline = true

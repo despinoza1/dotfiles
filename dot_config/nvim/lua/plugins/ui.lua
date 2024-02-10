@@ -121,14 +121,23 @@ return {
     },
     "rcarriga/nvim-notify",
     {
-        "ecthelionvi/NeoColumn.nvim",
+        "lukas-reineke/virt-column.nvim",
         opts = {
-            bg_color = "#ed8796",
-            NeoColumn = "100",
-            always_on = true,
-            excluded_ft = {
-                "text", "markdown", "qf", "toggleterm", "norg", "tex", "log", "png", "jpg", "jpeg",
-            },
-        },
+            exclude = {
+                filetypes = {
+                    "lspinfo",
+                    "packer",
+                    "checkhealth",
+                    "help",
+                    "man",
+                    "gitcommit",
+                    "TelescopePrompt",
+                    "TelescopeResults",
+                    "norg",
+                    "tex",
+                    "markdown",
+                },
+            }
+        }
     },
 }
