@@ -29,10 +29,14 @@ return {
                     null_ls.builtins.formatting.taplo,
 
                     -- Git
+                    null_ls.builtins.code_actions.gitsigns,
                     null_ls.builtins.diagnostics.commitlint,
 
                     -- Misc
-                    null_ls.builtins.hover.dictionary,
+                    null_ls.builtins.completion.vsnip,
+                    null_ls.builtins.hover.dictionary.with({
+                        filetypes = { "org", "text", "tex", "markdown", "norg" },
+                    }),
                 },
                 on_attach = function(client, _)
                     require("lsp-format").on_attach(client)
