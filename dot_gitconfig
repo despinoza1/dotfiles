@@ -15,6 +15,9 @@
 [init]
 	defaultBranch = main
 
+[pull]
+	ff = only
+
 [core]
     pager = delta
 
