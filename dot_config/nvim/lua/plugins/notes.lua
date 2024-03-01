@@ -39,17 +39,12 @@ return {
         "ellisonleao/glow.nvim",
         ft = { "markdown" },
         config = function()
-            local nvim_glow_group = api.nvim_create_augroup("nvim-glow", { clear = true })
-            api.nvim_create_autocmd("FileType", {
-                pattern = { "markdown" },
-                callback = function()
-                    vim.keymap.set("n", "<LocalLeader>g", "<cmd>Glow<CR>", { silent = true, noremap = true })
+            require("glow").setup()
 
-                    -- vim-table-mode
-                    vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
-                end,
-                group = nvim_glow_group,
-            })
+            vim.keymap.set("n", "<LocalLeader>g", "<cmd>Glow<CR>", { silent = true, noremap = true })
+
+            -- vim-table-mode
+            vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
         end
     },
 
@@ -92,16 +87,9 @@ return {
             vim.keymap.set("n", "<leader>ni", "<cmd>Neorg index<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "<leader>nr", "<cmd>Neorg return<CR>", { silent = true, noremap = true })
 
-            local nvim_neorg_group = api.nvim_create_augroup("nvim-neorg", { clear = true })
-            api.nvim_create_autocmd("FileType", {
-                pattern = { "norg" },
-                callback = function()
-                    -- vim-table-mode
-                    vim.g.table_mode_corner = "+"
-                    vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
-                end,
-                group = nvim_neorg_group,
-            })
+            -- vim-table-mode
+            vim.g.table_mode_corner = "+"
+            vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
         end
     },
 
