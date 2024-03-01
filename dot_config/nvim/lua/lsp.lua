@@ -4,9 +4,10 @@
 
 local lsp_format = require("lsp-format")
 
-require("lspconfig").bashls.setup {}
+require("lspconfig").bashls.setup { on_attach = lsp_format.on_attach }
 require("lspconfig").dockerls.setup { on_attach = lsp_format.on_attach }
 require("lspconfig").texlab.setup {
+    on_attach = lsp_format.on_attach,
     build = {
         args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
         executable = "tectonic",
@@ -21,6 +22,7 @@ require 'lspconfig'.typst_lsp.setup {
     }
 }
 require("lspconfig").jsonls.setup {
+    on_attach = lsp_format.on_attach,
     settings = {
         json = {
             schemas = require('schemastore').json.schemas(),
@@ -35,7 +37,7 @@ require("lspconfig").yamlls.setup {
         validate = { enabled = true },
     }
 }
-require("lspconfig").taplo.setup {}
+require("lspconfig").taplo.setup { on_attach = lsp_format.on_attach }
 require("lspconfig").gopls.setup { on_attach = lsp_format.on_attach }
 
 require("lspconfig").lua_ls.setup {
