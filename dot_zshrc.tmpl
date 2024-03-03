@@ -76,6 +76,8 @@ export EDITOR='nvim'
 # AWS CLI completion
 source /usr/bin/aws_zsh_completer.sh
 
+eval "$(zoxide init --cmd cd zsh)"
+
 alias ls=lsd
 alias cat="bat --theme=Catppuccin-macchiato --paging=never"
 alias docker=podman
@@ -83,9 +85,6 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 alias sync-bucket="aws s3 sync $HOME/s3-bucket/ {{ .s3 }}"
 alias lua="/usr/bin/lua5.1"
-
-fpath=("/home/daniel/.local/share/scalacli/completions/zsh" $fpath)
-compinit
 
 alias python=$(which python3)
 alias pip="$(which python3) -m pip"
@@ -113,8 +112,8 @@ else
     fortune | cowsay
 
     if [[ ! -e /tmp/weather ]]; then
-      http --print=b 'v2.wttr.in/Irving,TX?1uQF'
+        http --print=b 'v2.wttr.in/Irving,TX?1uQF'
 
-      touch /tmp/weather
+        touch /tmp/weather
     fi
 fi
