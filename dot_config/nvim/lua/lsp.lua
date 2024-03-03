@@ -56,6 +56,7 @@ require("lspconfig").sqlls.setup {}
 require("lspconfig").pyright.setup {}
 require("lspconfig").ruff_lsp.setup {
     on_attach = function(client, bufnr)
+        lsp_format.on_attach(client, bufnr)
         client.server_capabilities.hoverProvider = false
     end
 }
