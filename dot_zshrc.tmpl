@@ -74,7 +74,9 @@ export EDITOR='nvim'
 # export ARCHFLAGS="-arch x86_64"
 
 # AWS CLI completion
-source /usr/bin/aws_zsh_completer.sh
+if [[ -e /usr/bin/aws_zsh_completer.sh ]]; then
+    source /usr/bin/aws_zsh_completer.sh
+fi
 
 eval "$(zoxide init --cmd cd zsh)"
 
@@ -112,7 +114,7 @@ else
     fortune | cowsay
 
     if [[ ! -e /tmp/weather ]]; then
-        http --print=b 'v2.wttr.in/Irving,TX?1uQF'
+        xh --print=b 'v2.wttr.in/Irving,TX?1uQF'
 
         touch /tmp/weather
     fi
