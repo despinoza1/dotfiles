@@ -11,10 +11,16 @@ return {
 
     {
         "hrsh7th/nvim-cmp",
+        requires = {
+
+            "vrslev/cmp-pypi",
+        },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-vsnip" },
             { "hrsh7th/vim-vsnip" },
+            { "hrsh7th/cmp-emoji" },
+            { "SergioRibera/cmp-dotenv" },
         },
         config = function()
             local cmp = require("cmp")
@@ -23,6 +29,9 @@ return {
                 sources = {
                     { name = "nvim_lsp" },
                     { name = "vsnip" },
+                    { name = "emoji" },
+                    { name = "dotenv" },
+                    { name = "pypi",    keyword_length = 4 },
                 },
                 snippet = {
                     expand = function(args)
@@ -52,5 +61,10 @@ return {
                 },
             })
         end
+    },
+    {
+        "vrslev/cmp-pypi",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        ft = "toml",
     },
 }

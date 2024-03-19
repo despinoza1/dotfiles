@@ -1,5 +1,9 @@
 return {
     "neovim/nvim-lspconfig",
+    {
+        "lukas-reineke/lsp-format.nvim",
+        config = true,
+    },
 
     -- Misc
     {
@@ -27,9 +31,14 @@ return {
             }
         },
     },
+
     {
-        "lukas-reineke/lsp-format.nvim",
-        config = true,
+        "zeioth/garbage-day.nvim",
+        dependencies = "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        opts = {
+            excluded_lsp_clients = { "null-ls" },
+        }
     },
 
     -- JSON/YAML
