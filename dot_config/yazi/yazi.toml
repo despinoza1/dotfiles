@@ -76,6 +76,11 @@ suppress_preload = false
 [plugins]
 preload = []
 
+[plugin]
+prepend_previewers = [
+    { name = "*.md", exec = "glow" },
+]
+
 [input]
 # cd
 cd_title  = "Change directory:"

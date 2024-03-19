@@ -41,6 +41,7 @@ require("lspconfig").taplo.setup { on_attach = lsp_format.on_attach }
 require("lspconfig").gopls.setup { on_attach = lsp_format.on_attach }
 
 require("lspconfig").lua_ls.setup {
+    on_attach = lsp_format.on_attach,
     settings = {
         Lua = {
             completion = {
@@ -48,7 +49,6 @@ require("lspconfig").lua_ls.setup {
             }
         }
     },
-    on_attach = lsp_format.on_attach
 }
 require("lspconfig").clangd.setup {}
 require("lspconfig").sqlls.setup {}
