@@ -1,5 +1,3 @@
-local api = vim.api
-
 return {
     "MunifTanjim/nui.nvim",
     {
