@@ -1,8 +1,3 @@
----@module glow.nvim
----@author Reledia
----@license N/A
-
-
 local M = {}
 
 function M:peek()

@@ -44,7 +44,7 @@ return {
             vim.keymap.set("n", "<LocalLeader>g", "<cmd>Glow<CR>", { silent = true, noremap = true })
 
             -- vim-table-mode
-            vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
+            vim.keymap.set("n", "<LocalLeader>tt", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
         end
     },
 
@@ -86,10 +86,12 @@ return {
 
             vim.keymap.set("n", "<leader>ni", "<cmd>Neorg index<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "<leader>nr", "<cmd>Neorg return<CR>", { silent = true, noremap = true })
+            vim.keymap.set("n", "<leader>nt", "<cmd>tabnew ~/Documents/notes/todo.norg<CR>",
+                { silent = true, noremap = true })
 
             -- vim-table-mode
             vim.g.table_mode_corner = "+"
-            vim.keymap.set("n", "<LocalLeader>t", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
+            vim.keymap.set("n", "<LocalLeader>tt", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
         end
     },
 
