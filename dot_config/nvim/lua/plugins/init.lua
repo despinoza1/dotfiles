@@ -18,6 +18,7 @@ package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/shar
 require("lazy").setup({
     require("plugins.lsp"),
     require("plugins.dap"),
+    require("plugins.git"),
     require("plugins.misc"),
     require("plugins.navigation"),
     require("plugins.notes"),
