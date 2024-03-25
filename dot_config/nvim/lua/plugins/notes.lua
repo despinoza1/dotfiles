@@ -26,6 +26,16 @@ return {
         "lervag/vimtex",
         ft = { "tex" },
     },
+    {
+        "jbyuki/nabla.nvim",
+        ft = { "tex", "markdown", "norg" },
+        config = function()
+            local nabla = require("nabla")
+
+            vim.keymap.set("n", "<leader>lt", nabla.toggle_virt, { desc = "Nabla toggle LaTeX math conceal" })
+            vim.keymap.set("n", "<leader>lr", nabla.popup, { desc = "Nabla popup LaTeX math render" })
+        end
+    },
 
     -- Typst
     {
@@ -51,8 +61,7 @@ return {
     -- Neorg
     {
         "nvim-neorg/neorg",
-        build = ":Neorg sync-parsers",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        dependencies = { "luarocks.nvim" },
         config = function()
             require("neorg").setup({
                 load = {
