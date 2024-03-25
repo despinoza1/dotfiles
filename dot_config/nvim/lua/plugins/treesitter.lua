@@ -36,6 +36,7 @@ return {
                 modules = {},
                 highlight = {
                     enable = true,
+                    disable = { "latex" },
                 },
                 incremental_selection = {
                     enable = true,
