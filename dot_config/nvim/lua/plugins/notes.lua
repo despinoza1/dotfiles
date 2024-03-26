@@ -1,5 +1,3 @@
-local api = vim.api
-
 -- vim-table-mode
 vim.g.table_mode_corner = "|"
 
@@ -89,6 +87,7 @@ return {
                             default_workspace = "notes",
                         },
                     },
+                    ["core.integrations.image"] = {},
                     -- ["core.latex.renderer"] = {},
                 },
             })

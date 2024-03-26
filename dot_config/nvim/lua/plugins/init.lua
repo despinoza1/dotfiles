@@ -32,5 +32,5 @@ require("lazy").setup({
     require("plugins.theme"),
     require("plugins.ui"),
     require("plugins.jupyter"),
-    require("plugins.none"),
+    require("plugins.nonels"),
 })

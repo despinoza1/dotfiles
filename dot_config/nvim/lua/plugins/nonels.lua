@@ -15,12 +15,6 @@ return {
                     -- Shell
                     null_ls.builtins.formatting.shfmt,
 
-                    -- Python
-                    -- null_ls.builtins.diagnostics.bandit,
-                    -- null_ls.builtins.diagnostics.mypy,
-                    null_ls.builtins.formatting.black,
-                    null_ls.builtins.formatting.isort,
-
                     -- YAML
                     null_ls.builtins.formatting.yamlfix,
 
