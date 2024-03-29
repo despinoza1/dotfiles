@@ -30,9 +30,9 @@ function M.concat_list(list, seperator)
 end
 
 function M.run_command(command, arguments, verbose)
-    local cmd = command .. " " .. M.concat_list(arguments, " ")
+    local cmd = command
 
-    if not arguments then
+    if arguments then
         cmd = cmd .. " " .. M.concat_list(arguments, " ")
     end
 
