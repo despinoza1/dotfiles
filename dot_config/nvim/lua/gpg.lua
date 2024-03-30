@@ -1,9 +1,9 @@
 local utils = require("utils")
+local filetypes = require("plenary.filetype")
 
 local M = {}
 
 M.config = {
-    -- TODO: Create --passphrase or --passphrase-file for decrypt and encrypt
     passphrase = nil,
     passphrase_file = nil,
 }
@@ -78,15 +78,15 @@ local cleanup = function(gpg_filename, delete)
     end
 end
 
-local read_gpg = function(gpg_filename)
+local read_gpg = function(gpg_filename, gpg_passphrase)
     local gpg_filename = vim.fn.resolve(vim.fn.expand(gpg_filename))
     local filename = vim.fn.fnamemodify(gpg_filename, ":r")
-    local extension = vim.fn.fnamemodify(filename, ":e")
+    local extension = filetypes.detect(filename, { fs_access = false })
 
     local file_exists = vim.fn.filereadable(filename) == 1
 
     if not file_exists then
-        M.gpg_decrypt(gpg_filename, filename)
+        M.gpg_decrypt(gpg_filename, filename, gpg_passphrase)
     end
 
     if vim.fn.filereadable(filename) then
@@ -112,13 +112,17 @@ local read_gpg = function(gpg_filename)
         pattern = "<buffer>",
         group = "gpg-nvim",
         callback = function(ev)
-            M.gpg_encrypt(ev)
+            M.gpg_encrypt(ev, gpg_passphrase)
         end,
     })
 
-    -- TODO: Find better way of getting known file extensions and VIM filetypes
-    -- i.e, Markdown didn't work properly, `ft=markdown` instead of `ft=md`
     vim.api.nvim_command("setlocal fenc=utf-8 ft=" .. extension)
+
+    local levels = vim.o.undolevels
+    vim.o.undolevels = -1
+    vim.api.nvim_command("silent 1delete")
+    vim.o.undolevels = levels
+
     vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "<buffer>",
         group = "gpg-nvim",
@@ -129,17 +133,30 @@ end
 
 local function setup(config)
     vim.validate({ config = { config, "table", true } })
+    M.config = vim.tbl_deep_extend("force", M.config, config or {})
+
+    local passphrase_arg = "--passphrase"
+    if M.config.passphrase then
+        passphrase_arg = passphrase_arg .. " '" .. M.config.passphrase .. "'"
+    elseif M.config.passphrase_file then
+        passphrase_arg = passphrase_arg .. "-file " .. M.config.passphrase_file
+    else
+        passphrase_arg = nil
+    end
 
     vim.api.nvim_create_augroup("gpg-nvim", { clear = true })
     vim.api.nvim_create_autocmd("BufReadCmd", {
         pattern = { "*.gpg" },
         group = "gpg-nvim",
         callback = function(ev)
-            read_gpg(ev.match)
+            read_gpg(ev.match, passphrase_arg)
         end,
     })
 end
 
-setup({})
+setup({
+    passphrase_file = "/tmp/test"
+    -- passphrase = "super-secret"
+})
 
 return M
