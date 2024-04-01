@@ -9,7 +9,7 @@ vim.g.vimtex_compiler_tectonic = {
         "-Z shell-escape",
         "--keep-logs",
         "--synctex",
-    }
+    },
 }
 
 -- typst.vim
@@ -32,13 +32,13 @@ return {
 
             vim.keymap.set("n", "<leader>lt", nabla.toggle_virt, { desc = "Nabla toggle LaTeX math conceal" })
             vim.keymap.set("n", "<leader>lr", nabla.popup, { desc = "Nabla popup LaTeX math render" })
-        end
+        end,
     },
 
     -- Typst
     {
-        'kaarmu/typst.vim',
-        ft = 'typst',
+        "kaarmu/typst.vim",
+        ft = "typst",
         lazy = false,
     },
 
@@ -53,7 +53,7 @@ return {
 
             -- vim-table-mode
             vim.keymap.set("n", "<LocalLeader>tt", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
-        end
+        end,
     },
 
     -- Neorg
@@ -74,7 +74,7 @@ return {
                         config = {
                             type = "empty",
                             update_date = true,
-                        }
+                        },
                     },
                     ["core.export"] = { config = { extensions = "all" } },
                     ["core.export.markdown"] = { config = { extensions = "all" } },
@@ -94,13 +94,17 @@ return {
 
             vim.keymap.set("n", "<leader>ni", "<cmd>Neorg index<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "<leader>nr", "<cmd>Neorg return<CR>", { silent = true, noremap = true })
-            vim.keymap.set("n", "<leader>nt", "<cmd>tabnew ~/Documents/notes/todo.norg<CR>",
-                { silent = true, noremap = true })
+            vim.keymap.set(
+                "n",
+                "<leader>nt",
+                "<cmd>tabnew ~/Documents/notes/todo.norg<CR>",
+                { silent = true, noremap = true }
+            )
 
             -- vim-table-mode
             vim.g.table_mode_corner = "+"
             vim.keymap.set("n", "<LocalLeader>tt", "<cmd>TableModeToggle<CR>", { silent = true, noremap = true })
-        end
+        end,
     },
 
     -- Table Formatting

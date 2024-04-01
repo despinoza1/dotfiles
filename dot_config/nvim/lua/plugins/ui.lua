@@ -5,8 +5,8 @@ return {
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             options = {
-                theme = "catppuccin"
-            }
+                theme = "catppuccin",
+            },
         },
     },
     {
@@ -50,7 +50,7 @@ return {
                     r = { "Neorg Return" },
                 },
             }, { prefix = "<leader>" })
-        end
+        end,
     },
     {
         "folke/edgy.nvim",
@@ -58,7 +58,7 @@ return {
             vim.opt.laststatus = 3
             vim.opt.splitkeep = "screen"
 
-            require("edgy").setup {
+            require("edgy").setup({
                 bottom = {
                     { ft = "qf",            title = "QuickFix" },
                     {
@@ -71,10 +71,9 @@ return {
                     },
                     { ft = "spectre_panel", size = { height = 0.4 } },
                 },
-                left = {
-                }
-            }
-        end
+                left = {},
+            })
+        end,
     },
     {
         "folke/noice.nvim",
@@ -98,7 +97,7 @@ return {
                     "tex",
                     "markdown",
                 },
-            }
-        }
+            },
+        },
     },
 }

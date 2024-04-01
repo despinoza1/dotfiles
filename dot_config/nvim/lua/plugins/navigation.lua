@@ -4,16 +4,16 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         dependencies = {
-            "nvim-lua/plenary.nvim"
+            "nvim-lua/plenary.nvim",
         },
         config = function()
-            local builtin = require('telescope.builtin')
+            local builtin = require("telescope.builtin")
 
-            vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-            vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-            vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-            vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-        end
+            vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+            vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+            vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
+            vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
+        end,
     },
     {
         "folke/todo-comments.nvim",
@@ -30,21 +30,21 @@ return {
                 require("todo-comments").jump_prev()
             end, { desc = "Previous todo comment" })
 
-            utils.map('n', '<leader>ft', '<Cmd>TodoTelescope<CR>', utils.opts)
-        end
+            utils.map("n", "<leader>ft", "<Cmd>TodoTelescope<CR>", utils.opts)
+        end,
     },
     {
         "folke/trouble.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            utils.map("n", "<leader>xx", '<cmd>TroubleToggle<CR>')
-            utils.map("n", "<leader>xw", '<cmd>TroubleToggle workspace_diagnostics<CR>')
+            utils.map("n", "<leader>xx", "<cmd>TroubleToggle<CR>")
+            utils.map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<CR>")
             utils.map("n", "<leader>xb", "<cmd>TroubleToggle document_diagnostics<CR>")
             utils.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>")
             utils.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>")
             utils.map("n", "<leader>xt", "<cmd>TodoTrouble<CR>")
             utils.map("n", "gr", "<cmd>TroubleToggle lsp_references<CR>")
-        end
+        end,
     },
 
     -- File Navigation
@@ -64,7 +64,7 @@ return {
                 noremap = true,
                 callback = require("tfm").open,
             })
-        end
+        end,
     },
 
     -- Buffer Navigation
@@ -72,17 +72,17 @@ return {
         "romgrk/barbar.nvim",
         config = function()
             require("barbar").setup()
-            utils.map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', utils.opts)
-            utils.map('n', '<A-.>', '<Cmd>BufferNext<CR>', utils.opts)
-            utils.map('n', '<A-c>', '<Cmd>BufferClose<CR>', utils.opts)
-        end
+            utils.map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", utils.opts)
+            utils.map("n", "<A-.>", "<Cmd>BufferNext<CR>", utils.opts)
+            utils.map("n", "<A-c>", "<Cmd>BufferClose<CR>", utils.opts)
+        end,
     },
     {
         "ggandor/leap.nvim",
         dependencies = { "tpope/vim-repeat" },
         config = function()
             require("leap").add_default_mappings()
-        end
+        end,
     },
 
     -- tmux
@@ -90,10 +90,10 @@ return {
         "christoomey/vim-tmux-navigator",
         lazy = false,
         config = function()
-            utils.map('n', '<C-h>', '<Cmd>TmuxNavigateLeft<CR>', utils.opts)
-            utils.map('n', '<C-l>', '<Cmd>TmuxNavigateRight<CR>', utils.opts)
-            utils.map('n', '<C-j>', '<Cmd>TmuxNavigateDown<CR>', utils.opts)
-            utils.map('n', '<C-k>', '<Cmd>TmuxNavigateUp<CR>', utils.opts)
-        end
+            utils.map("n", "<C-h>", "<Cmd>TmuxNavigateLeft<CR>", utils.opts)
+            utils.map("n", "<C-l>", "<Cmd>TmuxNavigateRight<CR>", utils.opts)
+            utils.map("n", "<C-j>", "<Cmd>TmuxNavigateDown<CR>", utils.opts)
+            utils.map("n", "<C-k>", "<Cmd>TmuxNavigateUp<CR>", utils.opts)
+        end,
     },
 }

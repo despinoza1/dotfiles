@@ -26,17 +26,17 @@ return {
                         type = "gdb",
                         request = "launch",
                         cwd = "${workspaceFolder}",
-                    }
+                    },
                 }
 
                 if vim.fn.filereadable(".vscode/launch.json") then
-                    require("dap.ext.vscode").load_launchjs(nil, { lldb = { 'cpp', 'c' } })
+                    require("dap.ext.vscode").load_launchjs(nil, { lldb = { "cpp", "c" } })
                 end
 
                 dap.continue()
             end
-            vim.keymap.set('n', '<leader>dc', continue, { desc = "DAP Run/Continue" })
-        end
+            vim.keymap.set("n", "<leader>dc", continue, { desc = "DAP Run/Continue" })
+        end,
     },
 
     -- UI
@@ -45,7 +45,7 @@ return {
         dependencies = { "mfussenegger/nvim-dap" },
         keys = { { "<leader>du" } },
         config = function()
-            local dap   = require("dap")
+            local dap = require("dap")
             local dapui = require("dapui")
             dapui.setup()
 
@@ -58,14 +58,18 @@ return {
                 dap.repl.close()
             end
 
-            dap.listeners.before.event_exited["dapui_config"]     = function()
+            dap.listeners.before.event_exited["dapui_config"] = function()
                 dapui.close()
                 dap.repl.close()
             end
 
-            vim.keymap.set('n', '<leader>du', function() dapui.open() end, { desc = "DapUI Open" })
-            vim.keymap.set('n', '<leader>dq', function() dapui.close() end, { desc = "DapUI Quit" })
-        end
+            vim.keymap.set("n", "<leader>du", function()
+                dapui.open()
+            end, { desc = "DapUI Open" })
+            vim.keymap.set("n", "<leader>dq", function()
+                dapui.close()
+            end, { desc = "DapUI Quit" })
+        end,
     },
 
     -- Python Integration
@@ -76,17 +80,17 @@ return {
             local dappy = require("dap-python")
 
             dappy.setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
-            dappy.test_runner = 'pytest'
-            vim.keymap.set('n', '<leader>dpr', function()
+            dappy.test_runner = "pytest"
+            vim.keymap.set("n", "<leader>dpr", function()
                 dappy.test_method()
             end, {})
-        end
+        end,
     },
 
     -- Mason Integration
     {
         "jay-babu/mason-nvim-dap.nvim",
-        dependencies = { 'williamboman/mason.nvim', 'mfussenegger/nvim-dap' },
+        dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
         opts = {
             handlers = {},
         },

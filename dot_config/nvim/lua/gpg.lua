@@ -1,6 +1,8 @@
 local utils = require("utils")
 local filetypes = require("plenary.filetype")
 
+-- Code below based on GCBallesteros/jupytext.nvim
+
 local M = {}
 
 M.config = {
@@ -22,17 +24,13 @@ function M.gpg_decrypt(input_file, output_file, passphrase_arg)
         passphrase_arg = "--passphrase '" .. passphrase .. "'"
     end
 
-    utils.run_command(
-        cmd,
-        {
-            passphrase_arg,
-            "--pinentry-mode loopback",
-            "--no-tty",
-            "--output " .. output_file,
-            "--decrypt " .. input_file,
-        },
-        false
-    )
+    utils.run_command(cmd, {
+        passphrase_arg,
+        "--pinentry-mode loopback",
+        "--no-tty",
+        "--output " .. output_file,
+        "--decrypt " .. input_file,
+    }, true)
 end
 
 function M.gpg_encrypt(event, passphrase_arg)
@@ -46,18 +44,14 @@ function M.gpg_encrypt(event, passphrase_arg)
     end
 
     vim.cmd.write({ filename, bang = true })
-    utils.run_command(
-        cmd,
-        {
-            passphrase_arg,
-            "--pinentry-mode loopback",
-            "--batch",
-            "--yes",
-            "--trust-model always",
-            "--symmetric " .. filename
-        },
-        false
-    )
+    utils.run_command(cmd, {
+        passphrase_arg,
+        "--pinentry-mode loopback",
+        "--batch",
+        "--yes",
+        "--trust-model always",
+        "--symmetric " .. filename,
+    }, false)
 
     local buf = vim.api.nvim_get_current_buf()
     vim.api.nvim_set_option_value("modified", false, { buf = buf })
@@ -96,7 +90,7 @@ local read_gpg = function(gpg_filename, gpg_passphrase)
 
         vim.api.nvim_buf_set_lines(0, 0, -1, false, file_contents)
     else
-        error "Couldn't find local decrypted file."
+        error("Couldn't find local decrypted file.")
         return
     end
 
@@ -155,7 +149,7 @@ local function setup(config)
 end
 
 setup({
-    passphrase_file = "/tmp/test"
+    passphrase_file = "/tmp/test",
     -- passphrase = "super-secret"
 })
 

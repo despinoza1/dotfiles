@@ -14,13 +14,29 @@ return {
                 sources = {
                     -- Shell
                     null_ls.builtins.formatting.shfmt,
+                    require("none-ls-shellcheck.diagnostics"),
+                    require("none-ls-shellcheck.code_actions"),
 
                     -- YAML
                     null_ls.builtins.formatting.yamlfix,
 
+                    -- C/C++
+                    null_ls.builtins.formatting.clang_format,
+
+                    -- Docker
+                    null_ls.builtins.diagnostics.hadolint,
+
                     -- Git
                     null_ls.builtins.code_actions.gitsigns,
                     null_ls.builtins.diagnostics.commitlint,
+
+                    -- SQL
+                    null_ls.builtins.diagnostics.sqlfluff.with({
+                        extra_args = { "--dialect", "postgres" }, -- change to your dialect
+                    }),
+
+                    -- Lua
+                    null_ls.builtins.formatting.stylua,
 
                     -- Misc
                     null_ls.builtins.completion.vsnip,

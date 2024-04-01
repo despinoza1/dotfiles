@@ -60,7 +60,7 @@ return {
                         },
                         selection_modes = {
                             ["@parameter.outer"] = "v", -- charwise
-                            ["@function.outer"] = "V",  -- linewise
+                            ["@function.outer"] = "V", -- linewise
                             ["@class.outer"] = "<c-v>", -- blockwise
                         },
                         include_surrounding_whitespace = true,
@@ -76,12 +76,14 @@ return {
         "danymat/neogen",
         dependencies = { "nvim-treesitter/nvim-treesitter", "hrsh7th/vim-vsnip" },
         config = function()
-            require("neogen").setup {
-                snippet_engine = "vsnip"
-            }
+            require("neogen").setup({
+                snippet_engine = "vsnip",
+            })
 
             local neogen = require("neogen")
-            vim.keymap.set('n', '<leader>doc', function() neogen.generate({ type = "any" }) end, {})
-        end
+            vim.keymap.set("n", "<leader>doc", function()
+                neogen.generate({ type = "any" })
+            end, {})
+        end,
     },
 }

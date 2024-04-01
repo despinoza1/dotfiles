@@ -2,7 +2,7 @@ return {
     "nvim-lua/plenary.nvim",
     "tpope/vim-surround",
     {
-        'numToStr/Comment.nvim',
+        "numToStr/Comment.nvim",
         opts = {
             -- add any options here
         },
@@ -12,14 +12,13 @@ return {
     {
         "hrsh7th/nvim-cmp",
         requires = {
-
             "vrslev/cmp-pypi",
+            "hrsh7th/cmp-emoji",
         },
         dependencies = {
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-vsnip" },
             { "hrsh7th/vim-vsnip" },
-            { "hrsh7th/cmp-emoji" },
             { "SergioRibera/cmp-dotenv" },
         },
         config = function()
@@ -60,11 +59,15 @@ return {
                     max_view_entries = 14,
                 },
             })
-        end
+        end,
     },
     {
         "vrslev/cmp-pypi",
         dependencies = { "nvim-lua/plenary.nvim" },
         ft = "toml",
+    },
+    {
+        "hrsh7th/cmp-emoji",
+        ft = { "tex", "text", "markdown", "norg" },
     },
 }
