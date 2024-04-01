@@ -9,9 +9,9 @@ return {
                 integrations = {
                     barbar = true,
                     headlines = true,
-                }
+                },
             })
             vim.cmd("colorscheme catppuccin-frappe")
-        end
+        end,
     },
 }

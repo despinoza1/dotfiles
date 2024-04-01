@@ -15,21 +15,35 @@ return {
         end,
         config = function()
             vim.keymap.set("n", "mi", "<cmd>MoltenInit<CR>", { noremap = true })
-            vim.keymap.set("n", "<LocalLeader>m", "<cmd>MoltenEvaluateOperator<CR>",
-                { silent = true, expr = true, noremap = true })
+            vim.keymap.set(
+                "n",
+                "<LocalLeader>m",
+                "<cmd>MoltenEvaluateOperator<CR>",
+                { silent = true, expr = true, noremap = true }
+            )
             vim.keymap.set("n", "ml", "<cmd>MoltenEvaluateLine<CR>", { silent = true, noremap = true })
             vim.keymap.set("x", "<leader>m", "<cmd>MoltenEvaluateVisual<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "mc", "<cmd>MoltenReevaluateCell<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "md", "<cmd>MoltenDelete<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "mx", "<cmd>MoltenInterrupt<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "mr", "<cmd>MoltenRestart!<CR>", { silent = true, noremap = true })
-        end
+        end,
     },
     {
         "GCBallesteros/NotebookNavigator.nvim",
         keys = {
-            { "]h", function() require("notebook-navigator").move_cell "d" end },
-            { "[h", function() require("notebook-navigator").move_cell "u" end },
+            {
+                "]h",
+                function()
+                    require("notebook-navigator").move_cell("d")
+                end,
+            },
+            {
+                "[h",
+                function()
+                    require("notebook-navigator").move_cell("u")
+                end,
+            },
             { "mR", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
             { "mr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
         },
@@ -40,7 +54,7 @@ return {
         },
         event = "VeryLazy",
         config = function()
-            local nn = require "notebook-navigator"
+            local nn = require("notebook-navigator")
             nn.setup({ activate_hydra_keys = "<leader>h" })
         end,
     },

@@ -28,7 +28,7 @@ return {
                 "sqlls",
                 "texlab",
                 "yaml-language-server",
-            }
+            },
         },
     },
 
@@ -38,7 +38,7 @@ return {
         event = "VeryLazy",
         opts = {
             excluded_lsp_clients = { "null-ls" },
-        }
+        },
     },
 
     -- JSON/YAML
