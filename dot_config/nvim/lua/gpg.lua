@@ -75,7 +75,11 @@ end
 local read_gpg = function(gpg_filename, gpg_passphrase)
     local gpg_filename = vim.fn.resolve(vim.fn.expand(gpg_filename))
     local filename = vim.fn.fnamemodify(gpg_filename, ":r")
+
     local extension = filetypes.detect(filename, { fs_access = false })
+    if extension == "" then
+        extension = vim.fn.fnamemodify(filename, ":e")
+    end
 
     local file_exists = vim.fn.filereadable(filename) == 1
 

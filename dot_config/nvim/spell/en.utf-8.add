@@ -160,3 +160,6 @@ dimensionality
 rollout
 resample
 rollouts
+RNN
+LSTM
+GRU
