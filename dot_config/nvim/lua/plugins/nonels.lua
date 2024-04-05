@@ -38,6 +38,9 @@ return {
                     -- Lua
                     null_ls.builtins.formatting.stylua,
 
+                    -- Python
+                    null_ls.builtins.formatting.isort,
+
                     -- Misc
                     null_ls.builtins.completion.vsnip,
                     null_ls.builtins.hover.dictionary.with({
