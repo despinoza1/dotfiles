@@ -1,0 +1,4 @@
+whitelines = 1
+line_length = 99
+sequence_style = "keep_style"
+none_representation = "null"

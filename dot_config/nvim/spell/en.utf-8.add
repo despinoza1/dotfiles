@@ -163,3 +163,5 @@ rollouts
 RNN
 LSTM
 GRU
+siamese
+contrastive
