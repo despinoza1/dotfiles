@@ -14,11 +14,14 @@ return {
                 sources = {
                     -- Shell
                     null_ls.builtins.formatting.shfmt,
+                    null_ls.builtins.hover.printenv,
                     require("none-ls-shellcheck.diagnostics"),
                     require("none-ls-shellcheck.code_actions"),
 
                     -- YAML
-                    null_ls.builtins.formatting.yamlfix,
+                    null_ls.builtins.formatting.yamlfix.with({
+                        extra_args = { "-c", "~/.config/yamlfix/base.toml" },
+                    }),
 
                     -- C/C++
                     null_ls.builtins.formatting.clang_format,
