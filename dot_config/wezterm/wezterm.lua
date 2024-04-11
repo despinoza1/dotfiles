@@ -1,4 +1,4 @@
-local wezterm = require 'wezterm'
+local wezterm = require("wezterm")
 
 local config = {}
 
@@ -11,11 +11,11 @@ end
 config.default_prog = { "/usr/bin/tmux" }
 
 -- This is where you actually apply your config choices
-config.font = wezterm.font 'FiraCode Nerd Font Mono'
-config.font_size = 13.0
+config.font = wezterm.font("IosevkaTerm Nerd Font")
+config.font_size = 14.0
 
 config.enable_scroll_bar = true
 
-config.color_scheme = 'DoomOne'
+config.color_scheme = "DoomOne"
 
 return config
