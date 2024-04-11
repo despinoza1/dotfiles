@@ -153,8 +153,7 @@ local function setup(config)
 end
 
 setup({
-    passphrase_file = "/tmp/test",
-    -- passphrase = "super-secret"
+    passphrase_file = "~/.config/notes/passphrase",
 })
 
 return M
