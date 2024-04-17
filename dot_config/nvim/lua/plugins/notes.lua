@@ -89,6 +89,8 @@ return {
                     },
                     ["core.integrations.image"] = {},
                     -- ["core.latex.renderer"] = {},
+                    ["core.tangle"] = { config = { report_on_empty = false } },
+                    ["core.looking-glass"] = {},
                 },
             })
 
@@ -100,6 +102,11 @@ return {
                 "<cmd>tabnew ~/Documents/notes/todo.norg<CR>",
                 { silent = true, noremap = true }
             )
+
+            vim.api.nvim_create_autocmd("BufWritePost", {
+                pattern = "*.norg",
+                command = "Neorg tangle current-file",
+            })
 
             -- vim-table-mode
             vim.g.table_mode_corner = "+"
