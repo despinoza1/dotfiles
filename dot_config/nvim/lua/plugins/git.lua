@@ -27,6 +27,17 @@ return {
 
                 vim.wo.signcolumn = "yes"
 
+                -- Stage
+                vim.keymap.set("n", "<leader>gss", gs.stage_hunk, { desc = "Git Stage Hunk" })
+                vim.keymap.set("n", "<leader>gsS", gs.stage_buffer, { desc = "Git Stage Buffer" })
+
+                -- Undo
+                vim.keymap.set("n", "<leader>gsu", gs.undo_stage_hunk, { desc = "Git Undo Stage Hunk" })
+
+                -- Reset
+                vim.keymap.set("n", "<leader>gsr", gs.reset_hunk, { desc = "Git Reset Hunk" })
+                vim.keymap.set("n", "<leader>gsR", gs.reset_buffer, { desc = "Git Reset Buffer" })
+
                 vim.keymap.set("n", "<leader>gb", gs.toggle_current_line_blame, { desc = "Git blame" })
                 vim.keymap.set("n", "<leader>gt", function()
                     gs.toggle_deleted()
@@ -37,7 +48,21 @@ return {
         },
     },
     {
-        "sindrets/diffview.nvim",
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
+        config = function()
+            local neogit = require("neogit")
+            neogit.setup({})
+
+            vim.keymap.set("n", "<leader>gu", neogit.open, { desc = "Open NeoGit current directory" })
+            vim.keymap.set("n", "<leader>gU", function()
+                neogit.open({ cwd = vim.fn.expand("%:p:h") })
+            end, { desc = "Open NeoGit at buffer" })
+        end,
     },
     {
         "kilavila/nvim-gitignore",

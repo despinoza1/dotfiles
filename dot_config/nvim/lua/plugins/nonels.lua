@@ -31,7 +31,9 @@ return {
 
                     -- Git
                     null_ls.builtins.code_actions.gitsigns,
-                    null_ls.builtins.diagnostics.commitlint,
+                    null_ls.builtins.diagnostics.commitlint.with({
+                        filetypes = { "gitcommit", "NeogitCommitMessage" },
+                    }),
 
                     -- SQL
                     null_ls.builtins.diagnostics.sqlfluff.with({
