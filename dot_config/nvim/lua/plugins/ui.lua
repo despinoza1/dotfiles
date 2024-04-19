@@ -75,10 +75,10 @@ return {
             })
         end,
     },
-    {
-        "folke/noice.nvim",
-        config = true,
-    },
+    -- {
+    --     "folke/noice.nvim",
+    --     config = true,
+    -- },
     "rcarriga/nvim-notify",
     {
         "lukas-reineke/virt-column.nvim",
