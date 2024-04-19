@@ -27,6 +27,7 @@ return {
             vim.keymap.set("n", "md", "<cmd>MoltenDelete<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "mx", "<cmd>MoltenInterrupt<CR>", { silent = true, noremap = true })
             vim.keymap.set("n", "mr", "<cmd>MoltenRestart!<CR>", { silent = true, noremap = true })
+            vim.keymap.set("n", "mo", "<cmd>noautocmd MoltenEnterOutput<CR>", { silent = true, noremap = true })
         end,
     },
     {
