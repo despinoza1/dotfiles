@@ -173,3 +173,6 @@ filesystem
 decrypt
 linux
 denoising
+recommender
+geolocalization
+odometry
