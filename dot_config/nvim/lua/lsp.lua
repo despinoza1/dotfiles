@@ -2,11 +2,13 @@
 -- LSP Setup --------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lsp_format = require("lsp-format")
 
-require("lspconfig").bashls.setup({ on_attach = lsp_format.on_attach })
-require("lspconfig").dockerls.setup({ on_attach = lsp_format.on_attach })
+require("lspconfig").bashls.setup({ capabilities = capabilities, on_attach = lsp_format.on_attach })
+require("lspconfig").dockerls.setup({ capabilities = capabilities, on_attach = lsp_format.on_attach })
 require("lspconfig").texlab.setup({
+    capabilities = capabilities,
     on_attach = lsp_format.on_attach,
     build = {
         args = { "-X", "compile", "%f", "--synctex", "--keep-logs", "--keep-intermediates" },
@@ -16,12 +18,14 @@ require("lspconfig").texlab.setup({
     },
 })
 require("lspconfig").typst_lsp.setup({
+    capabilities = capabilities,
     settings = {
         exportPdf = "onType", -- Choose onType, onSave or never.
         -- serverPath = "" -- Normally, there is no need to uncomment it.
     },
 })
 require("lspconfig").jsonls.setup({
+    capabilities = capabilities,
     on_attach = lsp_format.on_attach,
     settings = {
         json = {
@@ -31,16 +35,18 @@ require("lspconfig").jsonls.setup({
     },
 })
 require("lspconfig").yamlls.setup({
+    capabilities = capabilities,
     settings = {
         redhat = { telemetry = { enabled = false } },
         schemas = require("schemastore").yaml.schemas(),
         validate = { enabled = true },
     },
 })
-require("lspconfig").taplo.setup({ on_attach = lsp_format.on_attach })
-require("lspconfig").gopls.setup({ on_attach = lsp_format.on_attach })
+require("lspconfig").taplo.setup({ capabilities = capabilities, on_attach = lsp_format.on_attach })
+require("lspconfig").gopls.setup({ capabilities = capabilities, on_attach = lsp_format.on_attach })
 
 require("lspconfig").lua_ls.setup({
+    capabilities = capabilities,
     on_attach = lsp_format.on_attach,
     settings = {
         Lua = {
@@ -50,10 +56,11 @@ require("lspconfig").lua_ls.setup({
         },
     },
 })
-require("lspconfig").clangd.setup({})
-require("lspconfig").sqlls.setup({})
+require("lspconfig").clangd.setup({ capabilities = capabilities })
+require("lspconfig").sqlls.setup({ capabilities = capabilities })
 
 require("lspconfig").pyright.setup({
+    capabilities = capabilities,
     settings = {
         pyright = {
             disableOrganizeImports = true,
@@ -61,6 +68,7 @@ require("lspconfig").pyright.setup({
     },
 })
 require("lspconfig").ruff_lsp.setup({
+    capabilities = capabilities,
     on_attach = function(client, bufnr)
         lsp_format.on_attach(client, bufnr)
         client.server_capabilities.hoverProvider = false
