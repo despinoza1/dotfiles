@@ -29,6 +29,7 @@ opt.hidden = true
 opt.cursorline = true
 opt.cmdheight = 2
 opt.signcolumn = "number"
+opt.wildoptions = "tagfile"
 
 opt.inccommand = "split"
 opt.ignorecase = true
