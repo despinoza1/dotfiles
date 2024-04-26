@@ -27,7 +27,7 @@ return {
             cmp.setup({
                 enabled = function()
                     if cmp.config.context then
-                      return not cmp.config.context.in_syntax_group("Comment")
+                        return not cmp.config.context.in_syntax_group("Comment")
                     end
                     return true
                 end,
@@ -61,9 +61,6 @@ return {
                         end
                     end,
                 }),
-                performance = {
-                    max_view_entries = 14,
-                },
             })
         end,
     },
