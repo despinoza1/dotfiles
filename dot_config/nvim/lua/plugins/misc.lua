@@ -25,6 +25,12 @@ return {
             local cmp = require("cmp")
 
             cmp.setup({
+                enabled = function()
+                    if cmp.config.context then
+                      return not cmp.config.context.in_syntax_group("Comment")
+                    end
+                    return true
+                end,
                 sources = {
                     { name = "nvim_lsp" },
                     { name = "vsnip" },
