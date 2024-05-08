@@ -20,9 +20,9 @@ return {
             })
         end,
         opts = {
-            signcolumn = auto,
+            signcolumn = true,
             numhl = true,
-            on_attach = function()
+            on_attach = function(bufnr)
                 local gs = package.loaded.gitsigns
 
                 vim.wo.signcolumn = "yes"
@@ -44,6 +44,29 @@ return {
                     gs.toggle_word_diff()
                 end, { desc = "Toggle inline diff" })
                 vim.keymap.set("n", "<leader>gd", gs.diffthis, { desc = "Git Diff" })
+
+                local function map(mode, l, r, opts)
+                    opts = opts or {}
+                    opts.buffer = bufnr
+                    vim.keymap.set(mode, l, r, opts)
+                end
+
+                map('n', ']h', function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ ']h', bang = true })
+                    else
+                        gs.nav_hunk('next')
+                    end
+                end)
+
+
+                map('n', '[h', function()
+                    if vim.wo.diff then
+                        vim.cmd.normal({ '[h', bang = true })
+                    else
+                        gs.nav_hunk('prev')
+                    end
+                end)
             end,
         },
     },
