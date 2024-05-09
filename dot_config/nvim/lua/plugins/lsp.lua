@@ -61,6 +61,6 @@ return {
     -- Rust
     {
         "mrcjkb/rustaceanvim",
-        ft = { "rust" },
+        lazy = false,
     },
 }

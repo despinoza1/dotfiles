@@ -51,20 +51,19 @@ return {
                     vim.keymap.set(mode, l, r, opts)
                 end
 
-                map('n', ']h', function()
+                map("n", "]h", function()
                     if vim.wo.diff then
-                        vim.cmd.normal({ ']h', bang = true })
+                        vim.cmd.normal({ "]h", bang = true })
                     else
-                        gs.nav_hunk('next')
+                        gs.nav_hunk("next")
                     end
                 end)
 
-
-                map('n', '[h', function()
+                map("n", "[h", function()
                     if vim.wo.diff then
-                        vim.cmd.normal({ '[h', bang = true })
+                        vim.cmd.normal({ "[h", bang = true })
                     else
-                        gs.nav_hunk('prev')
+                        gs.nav_hunk("prev")
                     end
                 end)
             end,
