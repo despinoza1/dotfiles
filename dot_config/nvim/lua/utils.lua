@@ -12,6 +12,11 @@ function M.map(mode, lhs, rhs, opts)
     api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+function M.keymap(mode, lhs, rhs, opts)
+    local options = opts or {}
+    api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
 function M.concat_list(list, seperator)
     if not list or #list == 0 then
         return ""

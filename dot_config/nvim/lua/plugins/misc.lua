@@ -1,6 +1,16 @@
+local utils = require("utils")
+
 return {
     "nvim-lua/plenary.nvim",
     "tpope/vim-surround",
+
+    {
+        "mbbill/undotree",
+        config = function()
+            utils.keymap("n", "<leader>u", "<cmd>UndotreeToggle<CR>")
+        end,
+    },
+
     {
         "numToStr/Comment.nvim",
         opts = {
@@ -27,8 +37,16 @@ return {
             cmp.setup({
                 enabled = function()
                     if cmp.config.context then
-                        return not cmp.config.context.in_syntax_group("Comment")
+                        local context = cmp.config.context
+
+                        return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
                     end
+
+                    local buftype = vim.api.nvim_get_option_value("buftype", {})
+                    if buftype == "prompt" then
+                        return false
+                    end
+
                     return true
                 end,
                 sources = {
