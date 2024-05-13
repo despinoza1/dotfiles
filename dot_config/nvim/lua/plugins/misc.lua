@@ -29,6 +29,7 @@ return {
             { "hrsh7th/cmp-nvim-lsp" },
             { "hrsh7th/cmp-vsnip" },
             { "hrsh7th/vim-vsnip" },
+            { "hrsh7th/cmp-path" },
             { "SergioRibera/cmp-dotenv" },
         },
         config = function()
@@ -52,6 +53,7 @@ return {
                 sources = {
                     { name = "nvim_lsp" },
                     { name = "vsnip" },
+                    { name = "path" },
                     { name = "emoji" },
                     { name = "dotenv" },
                     { name = "pypi",    keyword_length = 4 },
