@@ -15,10 +15,10 @@ vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 -- api.nvim_set_keymap("n", "<C-l>", "<C-w>l", utils.opts)
 
 -- Clipboard
-api.nvim_set_keymap("n", "<leader>y", "\"*y", utils.opts)
-api.nvim_set_keymap("n", "<leader>Y", "\"+y", utils.opts)
-api.nvim_set_keymap("n", "<leader>p", "\"*p", utils.opts)
-api.nvim_set_keymap("n", "<leader>P", "\"+p", utils.opts)
+api.nvim_set_keymap("n", "<leader>y", '"*y', utils.opts)
+api.nvim_set_keymap("n", "<leader>Y", '"+y', utils.opts)
+api.nvim_set_keymap("n", "<leader>p", '"*p', utils.opts)
+api.nvim_set_keymap("n", "<leader>P", '"+p', utils.opts)
 
 -- Misc
 api.nvim_set_keymap("n", "U", "<C-r>", utils.opts)
@@ -40,7 +40,7 @@ utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
 utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
 utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
 utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
--- utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
+utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
 utils.map("n", "<leader>sd", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
 utils.map("n", "<leader>sw", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 

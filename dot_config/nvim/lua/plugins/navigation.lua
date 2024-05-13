@@ -33,19 +33,6 @@ return {
             utils.map("n", "<leader>ft", "<Cmd>TodoTelescope<CR>", utils.opts)
         end,
     },
-    {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            utils.map("n", "<leader>xx", "<cmd>TroubleToggle<CR>")
-            utils.map("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<CR>")
-            utils.map("n", "<leader>xb", "<cmd>TroubleToggle document_diagnostics<CR>")
-            utils.map("n", "<leader>xq", "<cmd>TroubleToggle quickfix<CR>")
-            utils.map("n", "<leader>xl", "<cmd>TroubleToggle loclist<CR>")
-            utils.map("n", "<leader>xt", "<cmd>TodoTrouble<CR>")
-            utils.map("n", "gr", "<cmd>TroubleToggle lsp_references<CR>")
-        end,
-    },
 
     -- File Navigation
     {
@@ -54,16 +41,6 @@ return {
         config = function()
             require("oil").setup()
             vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-        end,
-    },
-    {
-        "rolv-apneseth/tfm.nvim",
-        lazy = false,
-        config = function()
-            vim.api.nvim_set_keymap("n", "<leader>e", "", {
-                noremap = true,
-                callback = require("tfm").open,
-            })
         end,
     },
 
