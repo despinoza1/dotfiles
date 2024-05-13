@@ -12,8 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Luarocks
-package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
-package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
+-- package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?/init.lua;"
+-- package.path = package.path .. ";" .. vim.fn.expand("$HOME") .. "/.luarocks/share/lua/5.1/?.lua;"
 
 require("lazy").setup({
     {
@@ -23,7 +23,6 @@ require("lazy").setup({
     },
 
     require("plugins.lsp"),
-    require("plugins.dap"),
     require("plugins.git"),
     require("plugins.misc"),
     require("plugins.navigation"),

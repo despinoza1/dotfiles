@@ -12,34 +12,11 @@ vim.g.vimtex_compiler_tectonic = {
     },
 }
 
--- typst.vim
-vim.g.typst_conceal = 1
-vim.g.typst_conceal_math = 1
-vim.g.typst_conceal_emoji = 1
-vim.g.typst_pdf_viewer = "zathura"
-
 return {
     -- LaTeX
     {
         "lervag/vimtex",
         ft = { "tex" },
-    },
-    {
-        "jbyuki/nabla.nvim",
-        ft = { "tex", "markdown", "norg" },
-        config = function()
-            local nabla = require("nabla")
-
-            vim.keymap.set("n", "<leader>lt", nabla.toggle_virt, { desc = "Nabla toggle LaTeX math conceal" })
-            vim.keymap.set("n", "<leader>lr", nabla.popup, { desc = "Nabla popup LaTeX math render" })
-        end,
-    },
-
-    -- Typst
-    {
-        "kaarmu/typst.vim",
-        ft = "typst",
-        lazy = false,
     },
 
     -- Markdown
@@ -123,12 +100,13 @@ return {
     -- Image Support
     {
         "3rd/image.nvim",
+        dependencies = { "luarocks.nvim" },
         opts = {
             backend = "kitty",
-            max_width = 100,
-            max_height = 12,
-            max_height_window_percentage = math.huge,
-            max_width_window_percentage = math.huge,
+            -- max_width = 100,
+            -- max_height = 12,
+            max_height_window_percentage = 50, --math.huge,
+            -- max_width_window_percentage = math.huge,
             window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
             window_overlap_clear_ft_ignore = { "cmp_menu", "cmp_docs", "" },
             integrations = {

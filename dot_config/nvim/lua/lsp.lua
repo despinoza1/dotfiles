@@ -17,13 +17,6 @@ require("lspconfig").texlab.setup({
         onSave = false,
     },
 })
-require("lspconfig").typst_lsp.setup({
-    capabilities = capabilities,
-    settings = {
-        exportPdf = "onType", -- Choose onType, onSave or never.
-        -- serverPath = "" -- Normally, there is no need to uncomment it.
-    },
-})
 require("lspconfig").jsonls.setup({
     capabilities = capabilities,
     on_attach = lsp_format.on_attach,
