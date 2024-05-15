@@ -33,6 +33,14 @@ return {
             }, { prefix = "<leader>" })
         end,
     },
+    {
+        "kevinhwang91/nvim-bqf",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        opts = {
+            auto_enable = true,
+            auto_resize_height = true,
+        },
+    },
     "rcarriga/nvim-notify",
     {
         "lukas-reineke/virt-column.nvim",
