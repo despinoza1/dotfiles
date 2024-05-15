@@ -36,13 +36,13 @@ return {
         "GCBallesteros/NotebookNavigator.nvim",
         keys = {
             {
-                "]j",
+                "]c",
                 function()
                     require("notebook-navigator").move_cell("d")
                 end,
             },
             {
-                "[j",
+                "[c",
                 function()
                     require("notebook-navigator").move_cell("u")
                 end,
