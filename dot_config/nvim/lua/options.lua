@@ -6,7 +6,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ";"
 
 opt.encoding = "utf-8"
-opt.clipboard = "unnamedplus"
 
 opt.termguicolors = true
 opt.conceallevel = 2
@@ -43,6 +42,9 @@ opt.expandtab = true
 opt.tabstop = 4
 opt.shiftwidth = 4
 
+opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+
 -- Visual Mode
 opt.virtualedit = "block"
 
@@ -54,9 +56,9 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- Binary files
 local nvim_bin_group = vim.api.nvim_create_augroup("nvim-bin-files", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-    pattern = { "bin" },
-    callback = function()
-        opt.fileformat = "xxd"
-    end,
-    group = nvim_bin_group,
+  pattern = { "bin" },
+  callback = function()
+    opt.fileformat = "xxd"
+  end,
+  group = nvim_bin_group,
 })
