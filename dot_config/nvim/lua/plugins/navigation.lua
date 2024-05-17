@@ -6,6 +6,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
+    event = "VimEnter",
     config = function()
       local builtin = require("telescope.builtin")
 
@@ -25,9 +26,10 @@ return {
   {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VimEnter",
     config = function()
       -- Requires ripgrep for Telescope integration
-      require("todo-comments").setup()
+      require("todo-comments").setup({ signs = false })
 
       utils.keymap("n", "]t", function()
         require("todo-comments").jump_next() -- {keywords = { "ERROR", "WARNING" }})
@@ -47,7 +49,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("oil").setup()
-      utils.keymap("n", "-", "<Cmd>Oil<CR>", { desc = "Open parent directory" })
+      utils.keymap("n", "-", "<Cmd>Oil<CR>", { desc = "Open Parent Directory" })
     end,
   },
 
@@ -71,7 +73,7 @@ return {
 
       utils.keymap("n", "<leader>a", function()
         harpoon:list():add()
-      end)
+      end, { desc = "Add file" })
       -- basic telescope configuration
       local conf = require("telescope.config").values
       local function toggle_telescope(harpoon_files)

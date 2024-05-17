@@ -19,6 +19,7 @@ require("lazy").setup({
     config = true,
   },
 
+  require("plugins.cmp"),
   require("plugins.lsp"),
   require("plugins.git"),
   require("plugins.misc"),

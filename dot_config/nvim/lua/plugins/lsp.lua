@@ -67,7 +67,6 @@ return {
 
       config.lua_ls.setup({
         capabilities = capabilities,
-        on_attach = lsp_format.on_attach,
         settings = {
           Lua = {
             completion = {
@@ -97,20 +96,18 @@ return {
 
       config.zls.setup({ capabilities = capabilities })
 
-      utils.map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-      utils.map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>")
-      utils.map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-      utils.map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-      utils.map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-      utils.map("n", "<leader>sd", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
-      utils.map("n", "<leader>sw", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
+      utils.map("n", "gd", vim.lsp.buf.definition)
+      utils.map("n", "gD", vim.lsp.buf.declaration)
+      utils.map("n", "K", vim.lsp.buf.hover)
+      utils.map("n", "gi", vim.lsp.buf.implementation)
+      utils.map("n", "gr", vim.lsp.buf.references)
 
-      utils.map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
-      utils.map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
+      utils.map("n", "<leader>ca", vim.lsp.buf.code_action)
+      utils.map("n", "<leader>cd", vim.lsp.buf.document_symbol)
+      utils.map("n", "<leader>cw", vim.lsp.buf.workspace_symbol)
 
-      utils.map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-      utils.map("n", "<leader>fm", "<cmd>lua vim.lsp.buf.format()<CR>")
-      utils.map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+      utils.map("n", "<leader>rn", vim.lsp.buf.rename)
+      utils.map("n", "<leader>fm", vim.lsp.buf.format)
     end,
   },
   {
