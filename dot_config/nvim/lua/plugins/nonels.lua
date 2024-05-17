@@ -46,7 +46,6 @@ return {
           null_ls.builtins.formatting.isort,
 
           -- Misc
-          null_ls.builtins.completion.vsnip,
           null_ls.builtins.hover.dictionary.with({
             filetypes = { "org", "text", "tex", "markdown", "norg" },
           }),

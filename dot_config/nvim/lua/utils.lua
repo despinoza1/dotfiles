@@ -6,12 +6,12 @@ function M.extend_default_opts(opts)
   return vim.tbl_extend("force", M.opts, opts)
 end
 
-function M.map(mode, lhs, func, opts)
+function M.map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then
-    options = vim.tbl_extend("force", options, opts)
+    options = M.extend_default_opts(opts)
   end
-  vim.keymap.set(mode, lhs, func, options)
+  vim.keymap.set(mode, lhs, rhs, options)
 end
 
 function M.keymap(mode, lhs, func, opts)
