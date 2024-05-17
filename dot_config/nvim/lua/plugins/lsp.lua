@@ -102,12 +102,17 @@ return {
       utils.map("n", "gi", vim.lsp.buf.implementation)
       utils.map("n", "gr", vim.lsp.buf.references)
 
-      utils.map("n", "<leader>ca", vim.lsp.buf.code_action)
-      utils.map("n", "<leader>cd", vim.lsp.buf.document_symbol)
-      utils.map("n", "<leader>cw", vim.lsp.buf.workspace_symbol)
+      utils.map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+      utils.map("n", "<leader>cd", vim.lsp.buf.document_symbol, { desc = "Code Document Symbols" })
+      utils.map(
+        "n",
+        "<leader>cw",
+        vim.lsp.buf.workspace_symbol,
+        { desc = "Code Workspace Symbols" }
+      )
+      utils.map("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
 
-      utils.map("n", "<leader>rn", vim.lsp.buf.rename)
-      utils.map("n", "<leader>fm", vim.lsp.buf.format)
+      utils.map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Symbol" })
     end,
   },
   {
@@ -121,23 +126,22 @@ return {
     opts = {
       ensured_installed = {
         "bash-language-server",
-        "beautysh",
-        "black",
-        "clang-format",
-        "codelldb",
-        "debugpy",
+        "commitlint",
         "dockerfile-language-server",
-        "efm",
+        "hadolint",
         "isort",
         "json-lsp",
-        "latexindent",
         "lua-language-server",
         "pyright",
         "ruff-lsp",
         "shellcheck",
         "sqlls",
+        "stylua",
+        "taplo",
         "texlab",
         "yaml-language-server",
+        "yamlfix",
+        "zls",
       },
     },
   },

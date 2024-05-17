@@ -1,13 +1,11 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    requires = {
-      "vrslev/cmp-pypi",
-      "hrsh7th/cmp-emoji",
-    },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-path",
+      "vrslev/cmp-pypi",
+      "hrsh7th/cmp-emoji",
       "SergioRibera/cmp-dotenv",
       "saadparwaiz1/cmp_luasnip",
       {
