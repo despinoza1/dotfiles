@@ -4,7 +4,9 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    opts = {},
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     config = function()
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
@@ -71,9 +73,6 @@ return {
         },
       })
     end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
   },
   {
     "danymat/neogen",

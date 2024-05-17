@@ -86,7 +86,9 @@ return {
     },
     config = function()
       local neogit = require("neogit")
-      neogit.setup({})
+      neogit.setup({
+        graph_style = "unicode",
+      })
 
       utils.keymap("n", "<leader>gu", neogit.open, { desc = "Open NeoGit current directory" })
       utils.keymap("n", "<leader>gU", function()
