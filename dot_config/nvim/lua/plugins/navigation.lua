@@ -55,15 +55,6 @@ return {
 
   -- Buffer Navigation
   {
-    "romgrk/barbar.nvim",
-    config = function()
-      require("barbar").setup()
-      utils.map("n", "<A-,>", "<Cmd>BufferPrevious<CR>")
-      utils.map("n", "<A-.>", "<Cmd>BufferNext<CR>")
-      utils.map("n", "<A-c>", "<Cmd>BufferClose<CR>")
-    end,
-  },
-  {
     "chentoast/marks.nvim",
     config = function()
       require("marks").setup({})
