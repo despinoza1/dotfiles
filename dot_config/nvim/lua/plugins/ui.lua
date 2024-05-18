@@ -31,7 +31,7 @@ return {
         c = { "Code Action/Lens" },
         f = { "Find [Telescope]" },
         g = { "Git" },
-        m = { "Molten [Jupyter]" },
+        j = { "Jupyter" },
         n = { "Neorg" },
         t = { "TreeSitter" },
       }, { prefix = "<leader>" })
