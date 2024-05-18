@@ -14,20 +14,35 @@ return {
       vim.g.molten_output_win_max_height = 20
     end,
     config = function()
-      utils.keymap("n", "<leader>mi", "<cmd>MoltenInit<CR>", { noremap = true })
       utils.keymap(
         "n",
-        "<LocalLeader>m",
+        "<leader>ji",
+        "<cmd>MoltenInit<CR>",
+        { noremap = true, desc = "Jupyter Init" }
+      )
+      utils.keymap(
+        "n",
+        "<LocalLeader>j",
         "<cmd>MoltenEvaluateOperator<CR>",
         { silent = true, expr = true, noremap = true }
       )
-      utils.map("n", "<leader>ml", "<cmd>MoltenEvaluateLine<CR>")
-      utils.map("x", "<leader>m", "<cmd>MoltenEvaluateVisual<CR>")
-      utils.map("n", "<leader>mc", "<cmd>MoltenReevaluateCell<CR>")
-      utils.map("n", "<leader>md", "<cmd>MoltenDelete<CR>")
-      utils.map("n", "<leader>mx", "<cmd>MoltenInterrupt<CR>")
-      utils.map("n", "<leader>mr", "<cmd>MoltenRestart!<CR>")
-      utils.map("n", "<leader>mo", "<cmd>noautocmd MoltenEnterOutput<CR>")
+      utils.map(
+        "n",
+        "<leader>jl",
+        "<cmd>MoltenEvaluateLine<CR>",
+        { desc = "Jupyter Evaluate Line" }
+      )
+      utils.map("x", "<leader>j", "<cmd>MoltenEvaluateVisual<CR>", { desc = "Jupyter Evaluate" })
+      utils.map("n", "<leader>jc", "<cmd>MoltenReevaluateCell<CR>", { desc = "Jupyter Rerun Cell" })
+      utils.map("n", "<leader>jd", "<cmd>MoltenDelete<CR>", { desc = "Jupyter Delete Cell" })
+      utils.map("n", "<leader>jx", "<cmd>MoltenInterrupt<CR>", { desc = "Jupyter Interrupt" })
+      utils.map("n", "<leader>jr", "<cmd>MoltenRestart!<CR>", { desc = "Jupyter Restart" })
+      utils.map(
+        "n",
+        "<leader>jo",
+        "<cmd>noautocmd MoltenEnterOutput<CR>",
+        { desc = "Jupyter Output" }
+      )
     end,
   },
   {
@@ -45,8 +60,8 @@ return {
           require("notebook-navigator").move_cell("u")
         end,
       },
-      { "<leader>mR", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-      { "<leader>mr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+      { "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
+      { "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
     },
     dependencies = {
       "echasnovski/mini.comment",
@@ -56,7 +71,7 @@ return {
     event = "VeryLazy",
     config = function()
       local nn = require("notebook-navigator")
-      nn.setup({ activate_hydra_keys = "<leader>mn" })
+      nn.setup({ activate_hydra_keys = "<leader>jn" })
     end,
   },
 }
