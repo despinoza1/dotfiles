@@ -10,6 +10,10 @@ opt.encoding = "utf-8"
 opt.termguicolors = true
 opt.conceallevel = 2
 
+opt.showmode = false
+opt.signcolumn = "yes"
+opt.undofile = true
+
 -- Spellchecking
 opt.spell = true
 opt.spelllang = "en_us"
