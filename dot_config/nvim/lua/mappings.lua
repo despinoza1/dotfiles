@@ -33,3 +33,8 @@ utils.keymap("i", "<C-k>", "<C-o>gk", { silent = true })
 -- Diagnostics
 utils.keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open Diagnostic in Float" })
 utils.keymap("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Location List of Diagnostics" })
+
+-- Buffers
+utils.keymap("n", "<A-,>", ":bprevious<CR>", { silent = true })
+utils.keymap("n", "<A-.>", ":bnext<CR>", { silent = true })
+utils.keymap("n", "<A-c>", ":bdelete<CR>", { silent = true })

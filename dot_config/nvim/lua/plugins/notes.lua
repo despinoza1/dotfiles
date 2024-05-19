@@ -57,7 +57,7 @@ return {
           },
           ["core.export"] = { config = { extensions = "all" } },
           ["core.export.markdown"] = { config = { extensions = "all" } },
-          -- ["core.ui.calendar"] = {},
+          ["core.ui.calendar"] = {},
           ["core.dirman"] = { -- Manages Neorg workspaces
             config = {
               workspaces = {
@@ -67,7 +67,7 @@ return {
             },
           },
           ["core.integrations.image"] = {},
-          -- ["core.latex.renderer"] = {},
+          ["core.latex.renderer"] = {},
           ["core.tangle"] = { config = { report_on_empty = false } },
           ["core.looking-glass"] = {},
         },
