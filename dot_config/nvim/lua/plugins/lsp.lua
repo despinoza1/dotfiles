@@ -113,6 +113,10 @@ return {
       utils.map("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
 
       utils.map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Symbol" })
+
+      utils.keymap("n", "<leader>h", function()
+        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+      end, { desc = "Toggle Inlay Hints" })
     end,
   },
   {
