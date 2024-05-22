@@ -6,6 +6,7 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "andymass/vim-matchup",
     },
     config = function()
       require("nvim-treesitter.configs").setup({
@@ -70,6 +71,9 @@ return {
             },
             include_surrounding_whitespace = true,
           },
+        },
+        matchup = {
+          enable = true,
         },
       })
     end,

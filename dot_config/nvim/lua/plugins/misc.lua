@@ -12,6 +12,22 @@ return {
   },
   {
     "David-Kunz/gen.nvim",
+    cmd = "Gen",
+    keys = {
+      { "<leader>mc", "<Cmd>Gen Chat<CR>", desc = "Chat with LLM Model" },
+      {
+        "<leader>mr",
+        ":Gen Review_Code<CR>",
+        mode = "v",
+        desc = "Review Code with LLM Model",
+      },
+      {
+        "<leader>mg",
+        ":Gen Enhance_Grammar_Spelling<CR>",
+        mode = "v",
+        desc = "Grammar Nazi with LLM Model",
+      },
+    },
     config = function()
       require("gen").setup({
         model = "phi3",
