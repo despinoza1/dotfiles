@@ -1,5 +1,67 @@
 local utils = require("utils")
 
+local function lsp_attach()
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("local-lsp-attach", { clear = true }),
+    callback = function(event)
+      utils.keymap("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
+      utils.keymap("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
+      utils.keymap("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+      utils.keymap("n", "gi", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
+      utils.keymap("n", "gr", vim.lsp.buf.references, { desc = "Goto References" })
+
+      utils.keymap("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+      utils.keymap(
+        "n",
+        "<leader>cd",
+        vim.lsp.buf.document_symbol,
+        { desc = "Code Document Symbols" }
+      )
+      utils.keymap(
+        "n",
+        "<leader>cw",
+        vim.lsp.buf.workspace_symbol,
+        { desc = "Code Workspace Symbols" }
+      )
+      utils.keymap("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
+
+      utils.keymap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Symbol" })
+
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
+      if client and client.server_capabilities.documentHighlightProvider then
+        local highlight_augroup =
+          vim.api.nvim_create_augroup("local-lsp-highlight", { clear = false })
+
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+          buffer = event.buf,
+          group = highlight_augroup,
+          callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+          buffer = event.buf,
+          group = highlight_augroup,
+          callback = vim.lsp.buf.clear_references,
+        })
+
+        vim.api.nvim_create_autocmd("LspDetach", {
+          group = vim.api.nvim_create_augroup("local-lsp-detach", { clear = true }),
+          callback = function(event2)
+            vim.lsp.buf.clear_references()
+            vim.api.nvim_clear_autocmds({ group = "local-lsp-highlight", buffer = event2.buf })
+          end,
+        })
+      end
+
+      if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+        utils.keymap("n", "<leader>h", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+        end, { desc = "Toggle Inlay Hints" })
+      end
+    end,
+  })
+end
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -13,110 +75,81 @@ return {
       { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      local lsp_format = require("lsp-format")
-      local config = require("lspconfig")
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      capabilities =
+        vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-      config.bashls.setup({
-        capabilities = capabilities,
-        on_attach = lsp_format.on_attach,
-      })
-      config.dockerls.setup({
-        capabilities = capabilities,
-        on_attach = lsp_format.on_attach,
-      })
-      config.texlab.setup({
-        capabilities = capabilities,
-        on_attach = lsp_format.on_attach,
-        build = {
-          args = {
-            "-X",
-            "compile",
-            "%f",
-            "--synctex",
-            "--keep-logs",
-            "--keep-intermediates",
-          },
-          executable = "tectonic",
-          forwardSearchAfter = false,
-          onSave = false,
-        },
-      })
-      config.jsonls.setup({
-        capabilities = capabilities,
-        on_attach = lsp_format.on_attach,
-        settings = {
-          json = {
-            schemas = require("schemastore").json.schemas(),
-            validate = { enabled = true },
+      require("lsp-format").setup({})
+
+      local servers = {
+        bashls = {},
+        dockerls = {},
+        texlab = {
+          build = {
+            args = {
+              "-X",
+              "compile",
+              "%f",
+              "--synctex",
+              "--keep-logs",
+              "--keep-intermediates",
+            },
+            executable = "tectonic",
+            forwardSearchAfter = false,
+            onSave = false,
           },
         },
-      })
-      config.yamlls.setup({
-        capabilities = capabilities,
-        settings = {
-          redhat = { telemetry = { enabled = false } },
-          schemas = require("schemastore").yaml.schemas(),
-          validate = { enabled = true },
-        },
-      })
-      config.taplo.setup({
-        capabilities = capabilities,
-        on_attach = lsp_format.on_attach,
-      })
-
-      config.lua_ls.setup({
-        capabilities = capabilities,
-        settings = {
-          Lua = {
-            completion = {
-              callSnippet = "Replace",
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enabled = true },
             },
           },
         },
-      })
-      config.clangd.setup({ capabilities = capabilities })
-      config.sqlls.setup({ capabilities = capabilities })
-
-      config.pyright.setup({
-        capabilities = capabilities,
-        settings = {
-          pyright = {
-            disableOrganizeImports = true,
+        yamlls = {
+          settings = {
+            redhat = { telemetry = { enabled = false } },
+            schemas = require("schemastore").yaml.schemas(),
+            validate = { enabled = true },
           },
         },
-      })
-      config.ruff_lsp.setup({
-        capabilities = capabilities,
-        on_attach = function(client, bufnr)
-          lsp_format.on_attach(client, bufnr)
-          client.server_capabilities.hoverProvider = false
-        end,
-      })
+        taplo = {},
+        lua_ls = {
+          settings = {
+            Lua = {
+              completion = {
+                callSnippet = "Replace",
+              },
+            },
+          },
+        },
+        sqlls = {},
+        pyright = {
+          settings = {
+            pyright = {
+              disableOrganizeImports = true,
+            },
+          },
+        },
+        ruff = {
+          on_attach = function(client, bufnr)
+            require("lsp-format").on_attach(client, bufnr)
+            client.server_capabilities.hoverProvider = false
+          end,
+        },
+        zls = {},
+      }
 
-      config.zls.setup({ capabilities = capabilities })
+      for server_name, settings in pairs(servers) do
+        settings.capabilities =
+          vim.tbl_deep_extend("force", {}, capabilities, settings.capabilities or {})
+        settings.on_attach = settings.on_attach or require("lsp-format").on_attach
 
-      utils.map("n", "gd", vim.lsp.buf.definition)
-      utils.map("n", "gD", vim.lsp.buf.declaration)
-      utils.map("n", "K", vim.lsp.buf.hover)
-      utils.map("n", "gi", vim.lsp.buf.implementation)
-      utils.map("n", "gr", vim.lsp.buf.references)
+        require("lspconfig")[server_name].setup(settings)
+      end
 
-      utils.map("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
-      utils.map("n", "<leader>cd", vim.lsp.buf.document_symbol, { desc = "Code Document Symbols" })
-      utils.map(
-        "n",
-        "<leader>cw",
-        vim.lsp.buf.workspace_symbol,
-        { desc = "Code Workspace Symbols" }
-      )
-      utils.map("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
-
-      utils.map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Symbol" })
-
-      utils.keymap("n", "<leader>h", function()
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-      end, { desc = "Toggle Inlay Hints" })
+      lsp_attach()
     end,
   },
   {
@@ -137,7 +170,7 @@ return {
         "json-lsp",
         "lua-language-server",
         "pyright",
-        "ruff-lsp",
+        "ruff",
         "shellcheck",
         "sqlls",
         "stylua",
