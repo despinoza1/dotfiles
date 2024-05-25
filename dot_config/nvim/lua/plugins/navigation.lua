@@ -12,15 +12,15 @@ return {
 
       utils.keymap("n", "<leader>ff", builtin.find_files, { desc = "File Telescope" })
       utils.keymap("n", "<leader>fg", builtin.live_grep, { desc = "Grep Telescope" })
-      utils.keymap("n", "<leader>fb", builtin.buffers, { desc = "Buffer Name Telescope" })
       utils.keymap("n", "<leader>fh", builtin.help_tags, { desc = "Help Telescope" })
-
-      utils.keymap("n", "<leader>fc", function()
+      vim.keymap.set("n", "<leader>fb", function()
         builtin.live_grep({
           grep_open_files = true,
-          prompt_title = "Live Grep in Current Files",
+          prompt_title = "Live Grep in Current Buffers",
         })
-      end, { desc = "Current Buffer Telescope" })
+      end, { desc = "Buffers Telescope" })
+
+      utils.keymap("n", "<leader><leader>", builtin.buffers, { desc = "Buffers Telescope" })
     end,
   },
   {

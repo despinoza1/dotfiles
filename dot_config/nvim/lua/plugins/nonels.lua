@@ -23,9 +23,6 @@ return {
             extra_args = { "-c", "~/.config/yamlfix/base.toml" },
           }),
 
-          -- C/C++
-          null_ls.builtins.formatting.clang_format,
-
           -- Docker
           null_ls.builtins.diagnostics.hadolint,
 
