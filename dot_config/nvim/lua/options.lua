@@ -12,6 +12,10 @@ opt.showmode = false
 opt.signcolumn = "yes"
 opt.undofile = true
 
+opt.updatetime = 250
+opt.timeout = true
+opt.timeoutlen = 300
+
 -- Spellchecking
 opt.spell = true
 opt.spelllang = "en_us"
@@ -58,9 +62,9 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- Binary files
 local nvim_bin_group = vim.api.nvim_create_augroup("nvim-bin-files", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "bin" },
-  callback = function()
-    opt.fileformat = "xxd"
-  end,
-  group = nvim_bin_group,
+    pattern = { "bin" },
+    callback = function()
+        opt.fileformat = "xxd"
+    end,
+    group = nvim_bin_group,
 })
