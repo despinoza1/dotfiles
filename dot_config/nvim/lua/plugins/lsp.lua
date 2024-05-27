@@ -72,7 +72,6 @@ return {
       "hrsh7th/cmp-nvim-lsp",
       "folke/neodev.nvim",
       "nvim-telescope/telescope.nvim",
-      { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()

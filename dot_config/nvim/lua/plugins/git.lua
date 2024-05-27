@@ -36,15 +36,15 @@ return {
         vim.wo.signcolumn = "yes"
 
         -- Stage
-        utils.keymap("n", "<leader>gss", gs.stage_hunk, { desc = "Git Stage Hunk" })
-        utils.keymap("n", "<leader>gsS", gs.stage_buffer, { desc = "Git Stage Buffer" })
+        utils.keymap("n", "<leader>gs", gs.stage_hunk, { desc = "Git Stage Hunk" })
+        utils.keymap("n", "<leader>gS", gs.stage_buffer, { desc = "Git Stage Buffer" })
 
         -- Undo
-        utils.keymap("n", "<leader>gsu", gs.undo_stage_hunk, { desc = "Git Undo Stage Hunk" })
+        utils.keymap("n", "<leader>gh", gs.undo_stage_hunk, { desc = "Git Undo Stage Hunk" })
 
         -- Reset
-        utils.keymap("n", "<leader>gsr", gs.reset_hunk, { desc = "Git Reset Hunk" })
-        utils.keymap("n", "<leader>gsR", gs.reset_buffer, { desc = "Git Reset Buffer" })
+        utils.keymap("n", "<leader>gr", gs.reset_hunk, { desc = "Git Reset Hunk" })
+        utils.keymap("n", "<leader>gR", gs.reset_buffer, { desc = "Git Reset Buffer" })
 
         utils.keymap("n", "<leader>gb", gs.toggle_current_line_blame, { desc = "Git blame" })
         utils.keymap("n", "<leader>gt", function()

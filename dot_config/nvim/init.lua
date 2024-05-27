@@ -1,4 +1,4 @@
 require("options")
-require("plugins")
+require("lazy_init")
 require("mappings")
 require("gpg")
