@@ -1,8 +1,5 @@
 local utils = require("utils")
 
--- global
-vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-
 -- Window mappings
 -- utils.map("n", "<C-h>", "<C-w>h")
 -- utils.map("n", "<C-j>", "<C-w>j")
@@ -38,3 +35,12 @@ utils.keymap("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Location Lis
 utils.keymap("n", "<A-,>", ":bprevious<CR>", { silent = true })
 utils.keymap("n", "<A-.>", ":bnext<CR>", { silent = true })
 utils.keymap("n", "<A-c>", ":bdelete<CR>", { silent = true })
+
+-- Execute
+utils.keymap("n", "<leader>xs", "yy2o<ESC>kpV:!/bin/sh<CR>", { desc = "Execute with Shell" })
+utils.keymap(
+  "v",
+  "<leader>xs",
+  "y'<P'<O<ESC>'>o<ESC>:<C-u>'<,'>!/bin/sh<CR>",
+  { desc = "Execute with Shell" }
+)

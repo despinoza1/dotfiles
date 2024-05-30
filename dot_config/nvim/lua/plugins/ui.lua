@@ -1,5 +1,4 @@
 return {
-  "MunifTanjim/nui.nvim",
   {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -31,6 +30,7 @@ return {
         j = { "Jupyter" },
         n = { "Neorg" },
         t = { "TreeSitter" },
+        x = { "Execute" },
       }, { prefix = "<leader>" })
     end,
   },
@@ -42,7 +42,6 @@ return {
       auto_resize_height = true,
     },
   },
-  "rcarriga/nvim-notify",
   {
     "lukas-reineke/virt-column.nvim",
     opts = {
