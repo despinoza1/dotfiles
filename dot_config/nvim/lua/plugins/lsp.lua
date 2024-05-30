@@ -70,7 +70,6 @@ return {
       "b0o/schemastore.nvim",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
-      "folke/neodev.nvim",
       "nvim-telescope/telescope.nvim",
     },
     config = function()
@@ -115,6 +114,28 @@ return {
         },
         taplo = {},
         lua_ls = {
+          on_init = function(client)
+            local path = client.workspace_folder[1].name
+            if
+              vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "./luarc.jsonc")
+            then
+              return
+            end
+
+            client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+              runtime = {
+                version = "LuaJIT",
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  vim.fn.stdpath("data") .. "/lazy/lazy.nvim/lua/lazy",
+                },
+              },
+            })
+          end,
+          on_attach = function() end,
           settings = {
             Lua = {
               completion = {
@@ -125,6 +146,7 @@ return {
         },
         sqlls = {},
         pyright = {
+          on_attach = function() end,
           settings = {
             pyright = {
               disableOrganizeImports = true,
@@ -184,20 +206,6 @@ return {
 
   -- JSON/YAML
   "b0o/schemastore.nvim",
-
-  -- Lua
-  {
-    "folke/neodev.nvim",
-    opts = {
-      override = function(_, library)
-        library.enabled = true
-        library.plugins = true
-      end,
-      plugins = true,
-      lspconfig = true,
-      pathStrict = true,
-    },
-  },
 
   -- Rust
   {
