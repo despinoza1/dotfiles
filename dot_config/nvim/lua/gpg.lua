@@ -129,7 +129,7 @@ local read_gpg = function(gpg_filename, gpg_passphrase)
   })
 end
 
-local function setup(config)
+function M.setup(config)
   vim.validate({ config = { config, "table", true } })
   M.config = vim.tbl_deep_extend("force", M.config, config or {})
 
@@ -151,9 +151,5 @@ local function setup(config)
     end,
   })
 end
-
-setup({
-  passphrase_file = "~/.config/notes/passphrase",
-})
 
 return M

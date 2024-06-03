@@ -3,7 +3,7 @@ return {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
+      { url = "https://codeberg.org/FelipeLema/cmp-async-path.git" },
       "vrslev/cmp-pypi",
       "hrsh7th/cmp-emoji",
       "SergioRibera/cmp-dotenv",
@@ -42,7 +42,7 @@ return {
         sources = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "path" },
+          { name = "async_path" },
           { name = "emoji" },
           { name = "dotenv" },
           { name = "pypi", keyword_length = 4 },
