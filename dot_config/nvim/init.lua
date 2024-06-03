@@ -1,4 +1,6 @@
 require("options")
 require("lazy_init")
 require("mappings")
-require("gpg")
+require("gpg").setup({
+  passphrase_file = "~/.config/notes/passphrase",
+})

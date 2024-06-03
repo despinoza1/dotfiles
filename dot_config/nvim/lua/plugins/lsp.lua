@@ -71,6 +71,7 @@ return {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "nvim-telescope/telescope.nvim",
+      { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -159,6 +160,7 @@ return {
             client.server_capabilities.hoverProvider = false
           end,
         },
+        rust_analyzer = {},
         zls = {},
       }
 
@@ -206,10 +208,4 @@ return {
 
   -- JSON/YAML
   "b0o/schemastore.nvim",
-
-  -- Rust
-  {
-    "mrcjkb/rustaceanvim",
-    lazy = false,
-  },
 }

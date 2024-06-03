@@ -21,10 +21,10 @@ return {
     keys = {
       { "<leader>mc", "<Cmd>Gen Chat<CR>", desc = "Chat with LLM Model" },
       {
-        "<leader>mr",
-        ":Gen Review_Code<CR>",
+        "<leader>ms",
+        ":Gen Summarize<CR>",
         mode = "v",
-        desc = "Review Code with LLM Model",
+        desc = "Summarize text with LLM Model",
       },
       {
         "<leader>mg",
