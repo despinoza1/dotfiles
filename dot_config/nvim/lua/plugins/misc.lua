@@ -20,6 +20,7 @@ return {
     cmd = "Gen",
     keys = {
       { "<leader>mc", "<Cmd>Gen Chat<CR>", desc = "Chat with LLM Model" },
+      { "<leader>mg", "<Cmd>Gen Generate<CR>", desc = "Generate with LLM Model" },
       {
         "<leader>ms",
         ":Gen Summarize<CR>",

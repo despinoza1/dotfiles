@@ -2,12 +2,14 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
+      "nvim-lua/plenary.nvim",
       "hrsh7th/cmp-nvim-lsp",
       { url = "https://codeberg.org/FelipeLema/cmp-async-path.git" },
       "vrslev/cmp-pypi",
       "hrsh7th/cmp-emoji",
       "SergioRibera/cmp-dotenv",
       "saadparwaiz1/cmp_luasnip",
+      "f3fora/cmp-spell",
       {
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp",
@@ -40,12 +42,13 @@ return {
         end,
         completion = { completeopt = "menu,menuone,noinsert" },
         sources = {
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
+          { name = "nvim_lsp", priority = 99 },
+          { name = "luasnip", max_item_count = 5 },
           { name = "async_path" },
-          { name = "emoji" },
+          { name = "emoji", insert = true },
           { name = "dotenv" },
           { name = "pypi", keyword_length = 4 },
+          { name = "spell" },
         },
         snippet = {
           expand = function(args)
@@ -81,14 +84,5 @@ return {
         }),
       })
     end,
-  },
-  {
-    "vrslev/cmp-pypi",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    ft = "toml",
-  },
-  {
-    "hrsh7th/cmp-emoji",
-    ft = { "tex", "text", "markdown", "norg" },
   },
 }
