@@ -28,6 +28,7 @@ return {
         f = { "Find [Telescope]" },
         g = { "Git" },
         j = { "Jupyter" },
+        m = { "AI Model" },
         n = { "Neorg" },
         t = { "TreeSitter" },
         x = { "Execute" },

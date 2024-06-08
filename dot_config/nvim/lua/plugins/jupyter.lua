@@ -36,7 +36,7 @@ return {
       utils.map("n", "<leader>jc", "<cmd>MoltenReevaluateCell<CR>", { desc = "Jupyter Rerun Cell" })
       utils.map("n", "<leader>jd", "<cmd>MoltenDelete<CR>", { desc = "Jupyter Delete Cell" })
       utils.map("n", "<leader>jx", "<cmd>MoltenInterrupt<CR>", { desc = "Jupyter Interrupt" })
-      utils.map("n", "<leader>jr", "<cmd>MoltenRestart!<CR>", { desc = "Jupyter Restart" })
+      utils.map("n", "<leader>jX", "<cmd>MoltenRestart!<CR>", { desc = "Jupyter Restart" })
       utils.map(
         "n",
         "<leader>jo",
@@ -53,15 +53,25 @@ return {
         function()
           require("notebook-navigator").move_cell("d")
         end,
+        desc = "Next Jupyter Cell",
       },
       {
         "[c",
         function()
           require("notebook-navigator").move_cell("u")
         end,
+        desc = "Previous Jupyter Cell",
       },
-      { "<leader>jR", "<cmd>lua require('notebook-navigator').run_cell()<cr>" },
-      { "<leader>jr", "<cmd>lua require('notebook-navigator').run_and_move()<cr>" },
+      {
+        "<leader>jR",
+        "<cmd>lua require('notebook-navigator').run_cell()<cr>",
+        desc = "Jupyter Run Cell",
+      },
+      {
+        "<leader>jr",
+        "<cmd>lua require('notebook-navigator').run_and_move()<cr>",
+        desc = "Jupyter Run Cell and Move",
+      },
     },
     dependencies = {
       "echasnovski/mini.comment",

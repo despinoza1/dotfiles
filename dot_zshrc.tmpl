@@ -12,7 +12,7 @@ ZSH_THEME="headline"
 export PYTHON_AUTO_VRUN=true
 export PYTHON_VENV_NAME=".venv"
 
-plugins=(git git-commit colored-man-pages python poetry vi-mode)
+plugins=(git git-commit colored-man-pages python poetry timer vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -32,8 +32,12 @@ export HEADLINE_LINE_MODE=off
 export HEADLINE_DO_ERR=true
 export HEADLINE_DO_ERR_INFO=true
 export HEADLINE_DO_GIT_STATUS_COUNTS=true
-export HEADLINE_DO_CLOCK=true
+export HEADLINE_DO_CLOCK=false
 export HEADLINE_CLOCK_FORMAT="%F %H:%M"
+
+export TIMER_FORMAT='[%d]'
+export TIMER_PRECISION=2
+export TIMER_THRESHOLD=5
 
 # Aliases
 alias ls=lsd
