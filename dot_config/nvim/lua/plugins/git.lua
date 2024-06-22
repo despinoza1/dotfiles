@@ -84,6 +84,7 @@ return {
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
+    keys = { "<leader>gu", "<leader>gU" },
     config = function()
       local neogit = require("neogit")
       neogit.setup({
@@ -99,5 +100,6 @@ return {
 
   {
     "kilavila/nvim-gitignore",
+    cmd = "Gitignore",
   },
 }

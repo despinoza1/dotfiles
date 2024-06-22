@@ -5,8 +5,6 @@ return {
       "nvim-lua/plenary.nvim",
       "hrsh7th/cmp-nvim-lsp",
       { url = "https://codeberg.org/FelipeLema/cmp-async-path.git" },
-      "vrslev/cmp-pypi",
-      "hrsh7th/cmp-emoji",
       "SergioRibera/cmp-dotenv",
       "saadparwaiz1/cmp_luasnip",
       "f3fora/cmp-spell",
@@ -85,4 +83,6 @@ return {
       })
     end,
   },
+  { "vrslev/cmp-pypi", ft = "toml" },
+  { "hrsh7th/cmp-emoji", ft = { "markdown", "org", "norg", "tex", "txt" } },
 }

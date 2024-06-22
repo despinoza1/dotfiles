@@ -191,10 +191,13 @@ return {
         "hadolint",
         "isort",
         "json-lsp",
+        "jupytext",
+        "latexindent",
         "lua-language-server",
         "pyright",
         "ruff",
         "shellcheck",
+        "shfmt",
         "sqlls",
         "stylua",
         "taplo",
@@ -205,7 +208,4 @@ return {
       },
     },
   },
-
-  -- JSON/YAML
-  "b0o/schemastore.nvim",
 }

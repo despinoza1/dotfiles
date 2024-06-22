@@ -1,24 +1,21 @@
 local utils = require("utils")
 
--- vim-table-mode
-vim.g.table_mode_corner = "|"
-
--- vimtex
-vim.g.vimtex_view_method = "zathura"
-vim.g.vimtex_compiler_method = "tectonic"
-vim.g.vimtex_compiler_tectonic = {
-  options = {
-    "-Z shell-escape",
-    "--keep-logs",
-    "--synctex",
-  },
-}
-
 return {
   -- LaTeX
   {
     "lervag/vimtex",
     ft = { "tex" },
+    init = function()
+      vim.g.vimtex_view_method = "zathura"
+      vim.g.vimtex_compiler_method = "tectonic"
+      vim.g.vimtex_compiler_tectonic = {
+        options = {
+          "-Z shell-escape",
+          "--keep-logs",
+          "--synctex",
+        },
+      }
+    end,
   },
 
   -- Markdown
@@ -39,6 +36,8 @@ return {
   {
     "nvim-neorg/neorg",
     dependencies = { "luarocks.nvim" },
+    ft = { "norg" },
+    keys = "<leader>n",
     config = function()
       require("neorg").setup({
         load = {
@@ -97,6 +96,9 @@ return {
   {
     "dhruvasagar/vim-table-mode",
     ft = { "markdown", "norg" },
+    init = function()
+      vim.g.table_mode_corner = "|"
+    end,
   },
 
   -- Image Support

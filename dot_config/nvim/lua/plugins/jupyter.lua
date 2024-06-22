@@ -1,18 +1,19 @@
 local utils = require("utils")
 
 return {
-  {
-    "GCBallesteros/jupytext.nvim",
-    config = true,
-  },
+  { "GCBallesteros/jupytext.nvim", config = true },
+
   {
     "benlubas/molten-nvim",
-    dependencies = { "3rd/image.nvim", "GCBallesteros/jupytext.nvim" },
+    dependencies = {
+      "3rd/image.nvim",
+    },
     build = ":UpdateRemotePlugins",
     init = function()
       vim.g.molten_image_provider = "image.nvim"
       vim.g.molten_output_win_max_height = 20
     end,
+    keys = "<leader>j",
     config = function()
       utils.keymap(
         "n",
@@ -75,10 +76,10 @@ return {
     },
     dependencies = {
       "echasnovski/mini.comment",
-      "benlubas/molten-nvim",
       "nvimtools/hydra.nvim",
+      "benlubas/molten-nvim",
     },
-    event = "VeryLazy",
+    lazy = true,
     config = function()
       local nn = require("notebook-navigator")
       nn.setup({ activate_hydra_keys = "<leader>jn" })
