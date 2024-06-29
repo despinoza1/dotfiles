@@ -20,12 +20,20 @@ return {
 
   -- Markdown
   {
-    "ellisonleao/glow.nvim",
+    "OXY2DEV/markview.nvim",
+    enabled = false,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+    },
     ft = { "markdown" },
     config = function()
-      require("glow").setup()
-
-      utils.map("n", "<LocalLeader>g", "<cmd>Glow<CR>", { desc = "Open Markdown in Glow" })
+      require("markview").setup({
+        header = {
+          {
+            style = "simple",
+          },
+        },
+      })
 
       -- vim-table-mode
       utils.map("n", "<LocalLeader>tt", "<cmd>TableModeToggle<CR>")
@@ -35,7 +43,6 @@ return {
   -- Neorg
   {
     "nvim-neorg/neorg",
-    dependencies = { "luarocks.nvim" },
     ft = { "norg" },
     keys = "<leader>n",
     config = function()
@@ -104,7 +111,6 @@ return {
   -- Image Support
   {
     "3rd/image.nvim",
-    dependencies = { "luarocks.nvim" },
     opts = {
       backend = "kitty",
       -- max_width = 100,

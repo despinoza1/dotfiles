@@ -1,11 +1,6 @@
 return {
   "nvim-lua/plenary.nvim",
   "tpope/vim-surround",
-  {
-    "vhyrro/luarocks.nvim",
-    priority = 1000,
-    config = true,
-  },
 
   {
     "mbbill/undotree",
