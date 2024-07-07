@@ -21,17 +21,59 @@ return {
   -- Markdown
   {
     "OXY2DEV/markview.nvim",
-    enabled = false,
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons",
     },
     ft = { "markdown" },
     config = function()
       require("markview").setup({
-        header = {
-          {
-            style = "simple",
+        modes = { "n" },
+        headings = {
+          style = "simple",
+        },
+        code_blocks = {
+          style = "language",
+          hl = "CatMantle",
+
+          position = "overlay",
+          language_direction = "right",
+
+          pad_amount = 2,
+
+          sign = false,
+        },
+        list_items = {
+          enable = true,
+          shift_amount = 2,
+          marker_plus = {
+            add_padding = true,
+
+            text = "•",
+            hl = "rainbow2",
           },
+          marker_minus = {
+            add_padding = true,
+
+            text = "•",
+            hl = "rainbow4",
+          },
+          marker_star = {
+            add_padding = true,
+
+            text = "•",
+            text_hl = "rainbow2",
+          },
+          marker_dot = {
+            add_padding = true,
+          },
+        },
+        inline_codes = {
+          enable = true,
+          corner_left = " ",
+          corner_right = " ",
+
+          hl = "CatCrustTeal",
         },
       })
 
@@ -111,6 +153,7 @@ return {
   -- Image Support
   {
     "3rd/image.nvim",
+    enabled = false,
     opts = {
       backend = "kitty",
       -- max_width = 100,

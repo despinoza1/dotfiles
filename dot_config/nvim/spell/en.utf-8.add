@@ -185,3 +185,5 @@ namespaces
 coercions
 cryptographic
 perceptron
+covariance
+random

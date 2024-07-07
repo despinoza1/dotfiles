@@ -1,7 +1,7 @@
 local opt = vim.opt
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = ";"
+vim.g.maplocalleader = "\\"
 
 opt.encoding = "utf-8"
 
