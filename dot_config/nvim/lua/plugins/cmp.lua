@@ -43,7 +43,6 @@ return {
           { name = "nvim_lsp", priority = 99 },
           { name = "luasnip", max_item_count = 5 },
           { name = "async_path" },
-          { name = "emoji", insert = true },
           { name = "dotenv" },
           { name = "pypi", keyword_length = 4 },
           { name = "spell" },
@@ -84,5 +83,4 @@ return {
     end,
   },
   { "vrslev/cmp-pypi", ft = "toml" },
-  { "hrsh7th/cmp-emoji", ft = { "markdown", "org", "norg", "tex", "txt" } },
 }
