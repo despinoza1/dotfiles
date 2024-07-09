@@ -12,10 +12,13 @@ utils.keymap("n", "<M-k>", "<C-w>+")
 utils.keymap("n", "<M-j>", "<C-w>-")
 
 -- Clipboard
-utils.map("n", "<leader>y", '"+y', { desc = "Yank to Sytem Clipboard" })
+utils.map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to Sytem Clipboard" })
+
 utils.map("n", "<leader>p", '"+p', { desc = "Paste from Sytem Clipboard" })
-utils.map("v", "<leader>y", '"+y', { desc = "Yank to Sytem Clipboard" })
 utils.map("i", "<C-v>", '<C-o>"+p', { desc = "Paste from Sytem Clipboard" })
+utils.map("x", "<leader>p", '"_dP', { desc = "Delete into Void Register and Paste" })
+
+utils.map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete into Void Register" })
 
 -- Misc
 utils.map("n", "U", "<C-r>", { desc = "Undo" })

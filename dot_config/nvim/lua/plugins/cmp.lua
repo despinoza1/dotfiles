@@ -8,6 +8,7 @@ return {
       "SergioRibera/cmp-dotenv",
       "saadparwaiz1/cmp_luasnip",
       "f3fora/cmp-spell",
+      "lukas-reineke/cmp-under-comparator",
       {
         "L3MON4D3/LuaSnip",
         build = "make install_jsregexp",
@@ -79,6 +80,18 @@ return {
             end
           end, { "i", "s" }),
         }),
+        sorting = {
+          comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            require("cmp-under-comparator").under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+          },
+        },
       })
     end,
   },
