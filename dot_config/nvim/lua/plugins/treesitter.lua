@@ -6,9 +6,15 @@ return {
     build = ":TSUpdate",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
       "andymass/vim-matchup",
     },
     config = function()
+      require("treesitter-context").setup({
+        enable = true,
+        line_numbers = true,
+      })
+
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "bash",
