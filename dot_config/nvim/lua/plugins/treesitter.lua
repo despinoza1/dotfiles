@@ -11,9 +11,15 @@ return {
     },
     config = function()
       require("treesitter-context").setup({
-        enable = true,
+        enable = false,
         line_numbers = true,
       })
+      utils.map(
+        "n",
+        "<Leader>tt",
+        "<Cmd>TSContextToggle<CR>",
+        { desc = "Treesitter Context Toggle" }
+      )
 
       require("nvim-treesitter.configs").setup({
         ensure_installed = {

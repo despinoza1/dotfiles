@@ -51,7 +51,9 @@ return {
           }),
         },
         on_attach = function(client, _)
-          require("lsp-format").on_attach(client)
+          if client.supports_method("textDocument/formatting") then
+            require("lsp-format").on_attach(client)
+          end
         end,
       })
     end,

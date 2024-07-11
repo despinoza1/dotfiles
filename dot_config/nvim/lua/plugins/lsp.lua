@@ -55,7 +55,7 @@ local function lsp_attach()
 
       if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
         utils.keymap("n", "<leader>h", function()
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, { desc = "Toggle Inlay Hints" })
       end
     end,
@@ -139,6 +139,7 @@ return {
           on_attach = function() end,
           settings = {
             Lua = {
+              hint = { enable = true },
               completion = {
                 callSnippet = "Replace",
               },
@@ -146,10 +147,11 @@ return {
           },
         },
         sqlls = {},
-        pyright = {
+        basedpyright = {
           on_attach = function() end,
           settings = {
-            pyright = {
+            basedpyright = {
+              typeCheckingMode = "standard",
               disableOrganizeImports = true,
             },
           },
@@ -179,12 +181,24 @@ return {
     "lukas-reineke/lsp-format.nvim",
     config = true,
   },
+  {
+    "chrisgrieser/nvim-lsp-endhints",
+    event = "LspAttach",
+    opts = {
+      icons = {
+        type = "",
+        parameter = "",
+      },
+      autoEnableHints = false,
+    },
+  },
 
   -- Misc
   {
     "williamboman/mason.nvim",
     opts = {
       ensured_installed = {
+        "basedpyright",
         "bash-language-server",
         "commitlint",
         "dockerfile-language-server",
@@ -194,7 +208,6 @@ return {
         "jupytext",
         "latexindent",
         "lua-language-server",
-        "pyright",
         "ruff",
         "shellcheck",
         "shfmt",
