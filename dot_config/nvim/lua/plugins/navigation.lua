@@ -47,6 +47,7 @@ return {
   {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
+    keys = "-",
     config = function()
       require("oil").setup()
       utils.keymap("n", "-", "<Cmd>Oil<CR>", { desc = "Open Parent Directory" })
@@ -70,7 +71,6 @@ return {
   -- tmux
   {
     "christoomey/vim-tmux-navigator",
-    lazy = false,
     config = function()
       utils.map("n", "<C-h>", "<Cmd>TmuxNavigateLeft<CR>")
       utils.map("n", "<C-l>", "<Cmd>TmuxNavigateRight<CR>")
