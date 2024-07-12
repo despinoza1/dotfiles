@@ -21,18 +21,24 @@ return {
     event = "VimEnter",
     config = function()
       local wk = require("which-key")
-      wk.setup()
+      wk.setup({
+        icons = {
+          rules = false,
+        },
+      })
 
-      wk.register({
-        c = { "Code Action/Lens" },
-        f = { "Find [Telescope]" },
-        g = { "Git" },
-        j = { "Jupyter" },
-        m = { "AI Model" },
-        n = { "Neorg" },
-        t = { "TreeSitter" },
-        x = { "Execute" },
-      }, { prefix = "<leader>" })
+      wk.add({
+        { "<leader>c", desc = "Code Action/Lens" },
+        { "<leader>f", desc = "Find [Telescope]" },
+        { "<leader>g", desc = "Git" },
+        { "<leader>j", desc = "Jupyter" },
+        { "<leader>l", desc = "Location List" },
+        { "<leader>m", desc = "AI Model" },
+        { "<leader>n", desc = "Neorg" },
+        { "<leader>q", desc = "Quickfix" },
+        { "<leader>t", desc = "TreeSitter" },
+        { "<leader>x", desc = "Execute" },
+      })
     end,
   },
   {

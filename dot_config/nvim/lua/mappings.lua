@@ -32,12 +32,33 @@ utils.keymap("i", "<C-k>", "<C-o>gk", { silent = true })
 
 -- Diagnostics
 utils.keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open Diagnostic in Float" })
-utils.keymap("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Location List of Diagnostics" })
+utils.keymap(
+  "n",
+  "<leader>ld",
+  vim.diagnostic.setloclist,
+  { desc = "Location List of Diagnostics" }
+)
 
 -- Buffers
 utils.keymap("n", "<A-,>", ":bprevious<CR>", { silent = true })
 utils.keymap("n", "<A-.>", ":bnext<CR>", { silent = true })
 utils.keymap("n", "<A-c>", ":bdelete<CR>", { silent = true })
+
+-- QuickFix
+utils.keymap("n", "<leader>qo", ":copen<CR>", { desc = "Open Quickfix" })
+utils.keymap("n", "]q", ":cnext<CR>", { desc = "Next item Quickfix" })
+utils.keymap("n", "[q", ":cprevious<CR>", { desc = "Previous item Quickfix" })
+utils.keymap("n", "]Q", ":clast<CR>", { desc = "Last item Quickfix" })
+utils.keymap("n", "[Q", ":cfirst<CR>", { desc = "First item Quickfix" })
+utils.keymap("n", "<leader>qc", ":cclose<CR>", { desc = "Close Quickfix" })
+
+-- Location List
+utils.keymap("n", "<leader>lo", ":lopen<CR>", { desc = "Open Location List" })
+utils.keymap("n", "]l", ":lnext<CR>", { desc = "Next item Location List" })
+utils.keymap("n", "[l", ":lprevious<CR>", { desc = "Previous item Location List" })
+utils.keymap("n", "]L", ":llast<CR>", { desc = "Last item Location List" })
+utils.keymap("n", "[L", ":lfirst<CR>", { desc = "First item Location List" })
+utils.keymap("n", "<leader>lc", ":lclose<CR>", { desc = "Close Location List" })
 
 -- Execute
 utils.keymap("n", "<leader>xs", "yy2o<ESC>kpV:!/bin/sh<CR>", { desc = "Execute with Shell" })
