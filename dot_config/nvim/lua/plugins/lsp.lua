@@ -139,7 +139,7 @@ return {
           on_attach = function() end,
           settings = {
             Lua = {
-              hint = { enable = true },
+              -- hint = { enable = true },
               completion = {
                 callSnippet = "Replace",
               },
