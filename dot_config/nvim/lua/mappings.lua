@@ -12,19 +12,19 @@ utils.keymap("n", "<M-k>", "<C-w>+")
 utils.keymap("n", "<M-j>", "<C-w>-")
 
 -- Clipboard
-utils.map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to Sytem Clipboard" })
+utils.map({ "n", "x" }, "<leader>y", '"+y', { desc = "Yank to Sytem Clipboard" })
 
 utils.map("n", "<leader>p", '"+p', { desc = "Paste from Sytem Clipboard" })
 utils.map("i", "<C-v>", '<C-o>"+p', { desc = "Paste from Sytem Clipboard" })
 utils.map("x", "<leader>p", '"_dP', { desc = "Delete into Void Register and Paste" })
 
-utils.map({ "n", "v" }, "<leader>d", '"_d', { desc = "Delete into Void Register" })
+utils.map({ "n", "x" }, "<leader>d", '"_d', { desc = "Delete into Void Register" })
 
 -- Misc
 utils.map("n", "U", "<C-r>", { desc = "Undo" })
-utils.map("n", "<esc>", ":noh<CR>", { silent = true })
-utils.map("n", "j", "gj", { silent = true })
-utils.map("n", "k", "gk", { silent = true })
+utils.map({ "i", "n" }, "<esc>", "<cmd>noh<CR><esc>", { silent = true })
+utils.map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { silent = true, expr = true })
+utils.map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { silent = true, expr = true })
 
 -- Insert Mode
 utils.keymap("i", "<C-j>", "<C-o>gj", { silent = true })

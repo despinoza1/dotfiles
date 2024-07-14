@@ -13,7 +13,7 @@ local function lsp_attach()
       utils.keymap("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
       utils.keymap(
         "n",
-        "<leader>cd",
+        "<leader>cs",
         vim.lsp.buf.document_symbol,
         { desc = "Code Document Symbols" }
       )
@@ -25,7 +25,7 @@ local function lsp_attach()
       )
       utils.keymap("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
 
-      utils.keymap("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename Symbol" })
+      utils.keymap("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Code Rename Symbol" })
 
       local client = vim.lsp.get_client_by_id(event.data.client_id)
       if client and client.server_capabilities.documentHighlightProvider then
@@ -54,7 +54,7 @@ local function lsp_attach()
       end
 
       if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-        utils.keymap("n", "<leader>h", function()
+        utils.keymap("n", "<leader>ch", function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, { desc = "Toggle Inlay Hints" })
       end
@@ -186,7 +186,7 @@ return {
     event = "LspAttach",
     opts = {
       icons = {
-        type = "",
+        type = " ",
         parameter = "",
       },
       autoEnableHints = false,
