@@ -78,6 +78,7 @@ return {
   -- Neorg
   {
     "nvim-neorg/neorg",
+    version = "*",
     dependencies = {
       "dhruvasagar/vim-table-mode",
     },
