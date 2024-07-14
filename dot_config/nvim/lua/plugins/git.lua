@@ -4,9 +4,9 @@ local utils = require("utils")
 return {
   {
     "lewis6991/gitsigns.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     ft = { "gitcommit", "diff" },
     init = function()
-      -- load gitsigns only when a git file is opened
       api.nvim_create_autocmd({ "BufRead" }, {
         group = api.nvim_create_augroup("GitSignsLazyLoad", { clear = true }),
         callback = function()
@@ -59,21 +59,12 @@ return {
           utils.keymap(mode, l, r, opts)
         end
 
-        map("n", "]h", function()
-          if vim.wo.diff then
-            vim.cmd.normal({ "]h", bang = true })
-          else
-            gs.nav_hunk("next")
-          end
-        end, { desc = "Next hunk" })
+        local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+        local next_hunk, prev_hunk =
+          ts_repeatable_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
 
-        map("n", "[h", function()
-          if vim.wo.diff then
-            vim.cmd.normal({ "[h", bang = true })
-          else
-            gs.nav_hunk("prev")
-          end
-        end, { desc = "Previous hunk" })
+        utils.keymap({ "n", "x", "o" }, "]h", next_hunk, { desc = "Next hunk" })
+        utils.keymap({ "n", "x", "o" }, "[h", prev_hunk, { desc = "Previous hunk" })
       end,
     },
   },
@@ -87,9 +78,7 @@ return {
     keys = { "<leader>gu", "<leader>gU" },
     config = function()
       local neogit = require("neogit")
-      neogit.setup({
-        graph_style = "unicode",
-      })
+      neogit.setup({})
 
       utils.keymap("n", "<leader>gu", neogit.open, { desc = "Open NeoGit current directory" })
       utils.keymap("n", "<leader>gU", function()
