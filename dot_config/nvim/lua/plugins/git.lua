@@ -36,35 +36,35 @@ return {
         vim.wo.signcolumn = "yes"
 
         -- Stage
-        utils.keymap("n", "<leader>gs", gs.stage_hunk, { desc = "Git Stage Hunk" })
-        utils.keymap("n", "<leader>gS", gs.stage_buffer, { desc = "Git Stage Buffer" })
-
-        -- Undo
-        utils.keymap("n", "<leader>gh", gs.undo_stage_hunk, { desc = "Git Undo Stage Hunk" })
-
-        -- Reset
-        utils.keymap("n", "<leader>gr", gs.reset_hunk, { desc = "Git Reset Hunk" })
-        utils.keymap("n", "<leader>gR", gs.reset_buffer, { desc = "Git Reset Buffer" })
-
-        utils.keymap("n", "<leader>gb", gs.toggle_current_line_blame, { desc = "Git blame" })
-        utils.keymap("n", "<leader>gt", function()
-          gs.toggle_deleted()
-          gs.toggle_word_diff()
-        end, { desc = "Toggle inline diff" })
-        utils.keymap("n", "<leader>gd", gs.diffthis, { desc = "Git Diff" })
-
         local function map(mode, l, r, opts)
           opts = opts or {}
           opts.buffer = bufnr
           utils.keymap(mode, l, r, opts)
         end
 
+        map("n", "<leader>gs", gs.stage_hunk, { desc = "Git Stage Hunk" })
+        map("n", "<leader>gS", gs.stage_buffer, { desc = "Git Stage Buffer" })
+
+        -- Undo
+        map("n", "<leader>gh", gs.undo_stage_hunk, { desc = "Git Undo Stage Hunk" })
+
+        -- Reset
+        map("n", "<leader>gr", gs.reset_hunk, { desc = "Git Reset Hunk" })
+        map("n", "<leader>gR", gs.reset_buffer, { desc = "Git Reset Buffer" })
+
+        map("n", "<leader>gb", gs.toggle_current_line_blame, { desc = "Git blame" })
+        map("n", "<leader>gt", function()
+          gs.toggle_deleted()
+          gs.toggle_word_diff()
+        end, { desc = "Toggle inline diff" })
+        map("n", "<leader>gd", gs.diffthis, { desc = "Git Diff" })
+
         local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
         local next_hunk, prev_hunk =
           ts_repeatable_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
 
-        utils.keymap({ "n", "x", "o" }, "]h", next_hunk, { desc = "Next hunk" })
-        utils.keymap({ "n", "x", "o" }, "[h", prev_hunk, { desc = "Previous hunk" })
+        map({ "n", "x", "o" }, "]h", next_hunk, { desc = "Next hunk" })
+        map({ "n", "x", "o" }, "[h", prev_hunk, { desc = "Previous hunk" })
       end,
     },
   },
