@@ -4,6 +4,7 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    event = "VeryLazy",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
@@ -60,9 +61,9 @@ return {
           enable = true,
           keymaps = {
             init_selection = "<Leader>ts",
-            node_incremental = "<Leader>ti",
-            scope_incremental = "<Leader>tc",
-            node_decremental = "<Leader>td",
+            node_incremental = "ti",
+            scope_incremental = "ts",
+            node_decremental = "td",
           },
         },
         textobjects = {
@@ -70,39 +71,71 @@ return {
             enable = true,
             lookahead = true,
             keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-              ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+              ["af"] = { query = "@function.outer", desc = "a function" },
+              ["if"] = { query = "@function.inner", desc = "inner function" },
+              ["al"] = { query = "@loop.outer", desc = "a loop" },
+              ["il"] = { query = "@loop.inner", desc = "inner loop" },
+              ["ac"] = { query = "@class.outer", desc = "a class" },
+              ["ic"] = { query = "@class.inner", desc = "inner class" },
+              ["as"] = { query = "@scope", query_group = "locals", desc = "a language scope" },
+              ["is"] = { query = "@scope", query_group = "locals", desc = "inner language scope" },
             },
             selection_modes = {
-              ["@parameter.outer"] = "v", -- charwise
-              ["@function.outer"] = "V", -- linewise
-              ["@class.outer"] = "<c-v>", -- blockwise
+              ["@parameter.outer"] = "v",
+              ["@function.outer"] = "V",
+              ["@class.outer"] = "V",
             },
             include_surrounding_whitespace = true,
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start = {
+              ["]f"] = { query = "@function.outer", desc = "Next function start" },
+              ["]c"] = { query = "@class.outer", desc = "Next class start" },
+            },
+            goto_next_end = {
+              ["]F"] = { query = "@function.outer", desc = "Next function end" },
+              ["]C"] = { query = "@class.outer", desc = "Next class end" },
+            },
+            goto_previous_start = {
+              ["[f"] = { query = "@function.outer", desc = "Previous function start" },
+              ["[c"] = { query = "@class.outer", desc = "Previous class start" },
+            },
+            goto_previous_end = {
+              ["[F"] = { query = "@function.outer", desc = "Previous function end" },
+              ["[C"] = { query = "@class.outer", desc = "Previous class end" },
+            },
           },
         },
         matchup = {
           enable = true,
         },
       })
+
+      local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+      vim.keymap.set({ "n", "x", "o" }, ";", ts_repeatable_move.repeat_last_move)
+      vim.keymap.set({ "n", "x", "o" }, ",", ts_repeatable_move.repeat_last_move_opposite)
+
+      vim.keymap.set({ "n", "x", "o" }, "f", ts_repeatable_move.builtin_f_expr, { expr = true })
+      vim.keymap.set({ "n", "x", "o" }, "F", ts_repeatable_move.builtin_F_expr, { expr = true })
+      vim.keymap.set({ "n", "x", "o" }, "t", ts_repeatable_move.builtin_t_expr, { expr = true })
+      vim.keymap.set({ "n", "x", "o" }, "T", ts_repeatable_move.builtin_T_expr, { expr = true })
     end,
   },
   {
     "danymat/neogen",
     dependencies = { "nvim-treesitter/nvim-treesitter", "L3MON4D3/LuaSnip" },
-    keys = "<leader>doc",
+    keys = "<leader>cd",
     config = function()
       require("neogen").setup({
         snippet_engine = "luasnip",
       })
 
       local neogen = require("neogen")
-      utils.keymap("n", "<leader>doc", function()
+      utils.keymap("n", "<leader>cd", function()
         neogen.generate({ type = "any" })
-      end, { desc = "Generate Docstring" })
+      end, { desc = "Code Generate Docstring" })
     end,
   },
 }
