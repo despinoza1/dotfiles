@@ -44,11 +44,6 @@ return {
 
           -- Python
           null_ls.builtins.formatting.isort,
-
-          -- Misc
-          null_ls.builtins.diagnostics.proselint.with({
-            filetypes = { "org", "text", "tex", "markdown", "norg" },
-          }),
         },
         on_attach = function(client, _)
           if client.supports_method("textDocument/formatting") then
