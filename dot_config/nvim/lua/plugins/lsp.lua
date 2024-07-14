@@ -4,28 +4,48 @@ local function lsp_attach()
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("local-lsp-attach", { clear = true }),
     callback = function(event)
-      utils.keymap("n", "gd", vim.lsp.buf.definition, { desc = "Goto Definition" })
-      utils.keymap("n", "gD", vim.lsp.buf.declaration, { desc = "Goto Declaration" })
-      utils.keymap("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
-      utils.keymap("n", "gi", vim.lsp.buf.implementation, { desc = "Goto Implementation" })
-      utils.keymap("n", "gr", vim.lsp.buf.references, { desc = "Goto References" })
+      local opts = { buffer = event.buf, remap = false }
+      local extend_opts = function(o)
+        return vim.tbl_extend("force", opts, o)
+      end
 
-      utils.keymap("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Action" })
+      utils.keymap("n", "gd", vim.lsp.buf.definition, extend_opts({ desc = "Goto Definition" }))
+      utils.keymap("n", "gD", vim.lsp.buf.declaration, extend_opts({ desc = "Goto Declaration" }))
+      utils.keymap("n", "K", vim.lsp.buf.hover, extend_opts({ desc = "Hover Documentation" }))
+      utils.keymap(
+        "n",
+        "gi",
+        vim.lsp.buf.implementation,
+        extend_opts({ desc = "Goto Implementation" })
+      )
+      utils.keymap("n", "gr", vim.lsp.buf.references, extend_opts({ desc = "Goto References" }))
+
+      utils.keymap(
+        "n",
+        "<leader>ca",
+        vim.lsp.buf.code_action,
+        extend_opts({ desc = "Code Action" })
+      )
       utils.keymap(
         "n",
         "<leader>cs",
         vim.lsp.buf.document_symbol,
-        { desc = "Code Document Symbols" }
+        extend_opts({ desc = "Code Document Symbols" })
       )
       utils.keymap(
         "n",
         "<leader>cw",
         vim.lsp.buf.workspace_symbol,
-        { desc = "Code Workspace Symbols" }
+        extend_opts({ desc = "Code Workspace Symbols" })
       )
-      utils.keymap("n", "<leader>cf", vim.lsp.buf.format, { desc = "Code Format" })
+      utils.keymap("n", "<leader>cf", vim.lsp.buf.format, extend_opts({ desc = "Code Format" }))
 
-      utils.keymap("n", "<leader>cr", vim.lsp.buf.rename, { desc = "Code Rename Symbol" })
+      utils.keymap(
+        "n",
+        "<leader>cr",
+        vim.lsp.buf.rename,
+        extend_opts({ desc = "Code Rename Symbol" })
+      )
 
       local client = vim.lsp.get_client_by_id(event.data.client_id)
       if client and client.server_capabilities.documentHighlightProvider then
@@ -56,7 +76,7 @@ local function lsp_attach()
       if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
         utils.keymap("n", "<leader>ch", function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-        end, { desc = "Toggle Inlay Hints" })
+        end, extend_opts({ desc = "Toggle Inlay Hints" }))
       end
     end,
   })
