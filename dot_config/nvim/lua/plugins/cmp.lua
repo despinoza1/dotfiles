@@ -111,7 +111,7 @@ return {
     ft = "toml",
     config = function()
       local sources = vim.deepcopy(default_sources)
-      sources[#sources + 1] = { name = "pypi", keyword_length = 4 }
+      sources[#sources + 1] = { name = "pypi", keyword_length = 4, group_index = 1 }
       require("cmp").setup.buffer({
         sources = sources,
       })
@@ -120,10 +120,10 @@ return {
   {
     "SergioRibera/cmp-dotenv",
     dependencies = { "hrsh7th/nvim-cmp" },
-    ft = { "sh", "yaml", "python", "norg", "markdown" },
+    ft = { "sh", "yaml", "python", "markdown" },
     config = function()
       local sources = vim.deepcopy(default_sources)
-      sources[#sources + 1] = { name = "dotenv" }
+      sources[#sources + 1] = { name = "dotenv", group_index = 2 }
       require("cmp").setup.buffer({
         sources = sources,
       })
