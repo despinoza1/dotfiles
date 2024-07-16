@@ -1,3 +1,11 @@
+local default_sources = {
+  { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
+  { name = "buffer", group_index = 2 },
+  { name = "nvim_lsp", group_index = 1 },
+  { name = "luasnip", max_item_count = 5, group_index = 1 },
+  { name = "async_path", group_index = 1 },
+}
+
 return {
   {
     "hrsh7th/nvim-cmp",
@@ -39,15 +47,7 @@ return {
           return true
         end,
         completion = { completeopt = "menu,menuone,noinsert" },
-        sources = {
-          { name = "spell" },
-          { name = "buffer" },
-          { name = "nvim_lsp", priority = 99 },
-          { name = "luasnip", max_item_count = 5 },
-          { name = "async_path" },
-          { name = "dotenv" },
-          { name = "pypi", keyword_length = 4 },
-        },
+        sources = default_sources,
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -105,6 +105,28 @@ return {
       })
     end,
   },
-  { "vrslev/cmp-pypi", ft = "toml" },
-  { "SergioRibera/cmp-dotenv", ft = { "sh", "yaml" } },
+  {
+    "vrslev/cmp-pypi",
+    dependencies = { "hrsh7th/nvim-cmp" },
+    ft = "toml",
+    config = function()
+      local sources = vim.deepcopy(default_sources)
+      sources[#sources + 1] = { name = "pypi", keyword_length = 4 }
+      require("cmp").setup.buffer({
+        sources = sources,
+      })
+    end,
+  },
+  {
+    "SergioRibera/cmp-dotenv",
+    dependencies = { "hrsh7th/nvim-cmp" },
+    ft = { "sh", "yaml", "python", "norg", "markdown" },
+    config = function()
+      local sources = vim.deepcopy(default_sources)
+      sources[#sources + 1] = { name = "dotenv" }
+      require("cmp").setup.buffer({
+        sources = sources,
+      })
+    end,
+  },
 }
