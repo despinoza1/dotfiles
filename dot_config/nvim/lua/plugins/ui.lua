@@ -54,4 +54,10 @@ return {
       auto_resize_height = true,
     },
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    ft = "yaml",
+    main = "ibl",
+    opts = {},
+  },
 }

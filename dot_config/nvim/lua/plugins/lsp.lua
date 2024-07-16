@@ -28,14 +28,14 @@ local function lsp_attach()
       )
       utils.keymap(
         "n",
-        "<leader>cs",
-        vim.lsp.buf.document_symbol,
-        extend_opts({ desc = "Code Document Symbols" })
+        "<leader>cb",
+        require("telescope.builtin").lsp_document_symbols,
+        extend_opts({ desc = "Code Buffer Symbols" })
       )
       utils.keymap(
         "n",
         "<leader>cw",
-        vim.lsp.buf.workspace_symbol,
+        require("telescope.builtin").lsp_dynamic_workspace_symbols,
         extend_opts({ desc = "Code Workspace Symbols" })
       )
       utils.keymap("n", "<leader>cf", vim.lsp.buf.format, extend_opts({ desc = "Code Format" }))
@@ -138,7 +138,8 @@ return {
           on_init = function(client)
             local path = client.workspace_folders[1].name
             if
-              vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "./luarc.jsonc")
+              (vim.uv or vim.loop).fs_stat(path .. "/.luarc.json")
+              or (vim.uv or vim.loop).fs_stat(path .. "./luarc.jsonc")
             then
               return
             end
