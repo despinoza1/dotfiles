@@ -4,7 +4,10 @@ local utils = require("utils")
 return {
   {
     "lewis6991/gitsigns.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-telescope/telescope.nvim",
+    },
     ft = { "gitcommit", "diff" },
     init = function()
       api.nvim_create_autocmd({ "BufRead" }, {
@@ -58,6 +61,13 @@ return {
           gs.toggle_word_diff()
         end, { desc = "Toggle inline diff" })
         map("n", "<leader>gd", gs.diffthis, { desc = "Git Diff" })
+
+        map(
+          "n",
+          "<leader>gf",
+          utils.telescope_diff_from_history,
+          { desc = "Git Diff on Buffer's History" }
+        )
 
         local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
         local next_hunk, prev_hunk =

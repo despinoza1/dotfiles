@@ -73,7 +73,7 @@ if [[ -x "$(command -v podman)" ]]; then
 fi
 
 if [[ -z "${TMUX}" ]]; then
-    tmux
+    exec tmux
 else
     fortune | cowsay
 

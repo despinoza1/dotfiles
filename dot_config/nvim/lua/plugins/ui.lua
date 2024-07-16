@@ -58,6 +58,17 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     ft = "yaml",
     main = "ibl",
-    opts = {},
+    config = function()
+      require("ibl").setup({ enabled = false })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "*",
+        callback = function(event)
+          if event.match == "yaml" then
+            require("ibl").setup_buffer(event.buf, { enabled = true })
+          end
+        end,
+      })
+    end,
   },
 }

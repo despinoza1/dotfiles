@@ -81,6 +81,7 @@ return {
     version = "*",
     dependencies = {
       "dhruvasagar/vim-table-mode",
+      "hrsh7th/nvim-cmp",
     },
     ft = { "norg" },
     keys = {
@@ -93,6 +94,12 @@ return {
       require("neorg").setup({
         load = {
           ["core.defaults"] = {},
+          ["core.completion"] = {
+            config = {
+              engine = "nvim-cmp",
+            },
+          },
+          ["core.integrations.nvim-cmp"] = {},
           ["core.concealer"] = {
             config = {
               icon_preset = "diamond",
@@ -105,7 +112,6 @@ return {
               update_date = true,
             },
           },
-          ["core.ui.calendar"] = {},
           ["core.dirman"] = {
             config = {
               workspaces = {
@@ -125,6 +131,16 @@ return {
 
       local frappe = require("catppuccin.palettes").get_palette("frappe")
       vim.api.nvim_set_hl(0, "@neorg.links.location.timestamp.norg", { fg = frappe.red })
+
+      require("cmp").setup.buffer({
+        sources = {
+          { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
+          { name = "buffer", group_index = 2 },
+          { name = "dotenv", group_index = 2 },
+          { name = "async_path", group_index = 1 },
+          { name = "neorg", group_index = 1 },
+        },
+      })
     end,
   },
 
