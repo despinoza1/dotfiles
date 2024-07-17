@@ -134,7 +134,9 @@ function M.telescope_diff_from_history()
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
-        M.diff_file_from_history(selection.value, current_file)
+
+        vim.cmd("DiffviewOpen " .. selection.value .. "..HEAD")
+        -- M.diff_file_from_history(selection.value, current_file)
       end)
       return true
     end,

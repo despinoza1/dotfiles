@@ -6,6 +6,7 @@ return {
     "lewis6991/gitsigns.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
+      "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
     ft = { "gitcommit", "diff" },
@@ -62,11 +63,14 @@ return {
         end, { desc = "Toggle inline diff" })
         map("n", "<leader>gd", gs.diffthis, { desc = "Git Diff" })
 
+        map("n", "<leader>gf", function()
+          vim.cmd("DiffviewFileHistory %")
+        end, { desc = "Git Diff on Buffer's History" })
         map(
           "n",
-          "<leader>gf",
+          "<leader>fd",
           utils.telescope_diff_from_history,
-          { desc = "Git Diff on Buffer's History" }
+          { desc = "Find Git Diff on Buffer's History" }
         )
 
         local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
