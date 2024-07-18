@@ -25,19 +25,23 @@ return {
   },
   {
     "folke/todo-comments.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     event = "VimEnter",
     config = function()
       -- Requires ripgrep for Telescope integration
       require("todo-comments").setup({ signs = false })
 
-      utils.keymap("n", "]t", function()
-        require("todo-comments").jump_next() -- {keywords = { "ERROR", "WARNING" }})
-      end, { desc = "Next todo comment" })
+      local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+      local jump_next, jump_prev = ts_repeatable_move.make_repeatable_move_pair(
+        require("todo-comments").jump_next,
+        require("todo-comments").jump_prev
+      )
 
-      utils.keymap("n", "[t", function()
-        require("todo-comments").jump_prev()
-      end, { desc = "Previous todo comment" })
+      utils.keymap("n", "]t", jump_next, { desc = "Next todo comment" })
+      utils.keymap("n", "[t", jump_prev, { desc = "Previous todo comment" })
 
       utils.map("n", "<leader>ft", "<Cmd>TodoTelescope<CR>", { desc = "Todo Telescope" })
     end,

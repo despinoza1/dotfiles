@@ -44,18 +44,29 @@ utils.keymap("n", "<A-,>", ":bprevious<CR>", { silent = true })
 utils.keymap("n", "<A-.>", ":bnext<CR>", { silent = true })
 utils.keymap("n", "<A-c>", ":bdelete<CR>", { silent = true })
 
+local make_repeatable = function(next, prev)
+  local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+  return ts_repeatable_move.make_repeatable_move_pair(function()
+    vim.cmd(next)
+  end, function()
+    vim.cmd(prev)
+  end)
+end
+
 -- QuickFix
+local qf_next, qf_prev = make_repeatable("cnext", "cprevious")
 utils.keymap("n", "<leader>qo", ":copen<CR>", { desc = "Open Quickfix" })
-utils.keymap("n", "]q", ":cnext<CR>", { desc = "Next item Quickfix" })
-utils.keymap("n", "[q", ":cprevious<CR>", { desc = "Previous item Quickfix" })
+utils.keymap("n", "]q", qf_next, { desc = "Next item Quickfix" })
+utils.keymap("n", "[q", qf_prev, { desc = "Previous item Quickfix" })
 utils.keymap("n", "]Q", ":clast<CR>", { desc = "Last item Quickfix" })
 utils.keymap("n", "[Q", ":cfirst<CR>", { desc = "First item Quickfix" })
 utils.keymap("n", "<leader>qc", ":cclose<CR>", { desc = "Close Quickfix" })
 
 -- Location List
+local ll_next, ll_prev = make_repeatable("lnext", "lprevious")
 utils.keymap("n", "<leader>lo", ":lopen<CR>", { desc = "Open Location List" })
-utils.keymap("n", "]l", ":lnext<CR>", { desc = "Next item Location List" })
-utils.keymap("n", "[l", ":lprevious<CR>", { desc = "Previous item Location List" })
+utils.keymap("n", "]l", ll_next, { desc = "Next item Location List" })
+utils.keymap("n", "[l", ll_prev, { desc = "Previous item Location List" })
 utils.keymap("n", "]L", ":llast<CR>", { desc = "Last item Location List" })
 utils.keymap("n", "[L", ":lfirst<CR>", { desc = "First item Location List" })
 utils.keymap("n", "<leader>lc", ":lclose<CR>", { desc = "Close Location List" })
