@@ -21,6 +21,7 @@ return {
     "OXY2DEV/markview.nvim",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
+      "dhruvasagar/vim-table-mode",
       "nvim-tree/nvim-web-devicons",
     },
     ft = { "markdown" },

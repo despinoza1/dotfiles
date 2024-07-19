@@ -23,20 +23,18 @@ return {
     config = function()
       local wk = require("which-key")
       wk.setup({
+        preset = "helix",
+        notify = false,
         icons = {
           rules = false,
         },
-        delay = 300,
-        modes = {
-          i = false,
-        },
+        delay = 350,
       })
 
       wk.add({
         { "<leader>c", group = "Code Action/Lens" },
         { "<leader>f", group = "Find [Telescope]" },
         { "<leader>g", group = "Git" },
-        { "<leader>j", group = "Jupyter" },
         { "<leader>l", group = "Location List" },
         { "<leader>m", group = "AI Model" },
         { "<leader>n", group = "Notes" },

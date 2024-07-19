@@ -57,14 +57,8 @@ return {
           enable = true,
           disable = { "latex" },
         },
-        incremental_selection = {
+        indent = {
           enable = true,
-          keymaps = {
-            init_selection = "<Leader>ts",
-            node_incremental = "ti",
-            scope_incremental = "ts",
-            node_decremental = "td",
-          },
         },
         textobjects = {
           select = {
