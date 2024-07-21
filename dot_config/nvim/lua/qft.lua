@@ -47,33 +47,40 @@ function M:stop()
   end
 end
 
-utils.keymap("n", "<leader>qt", function()
-  M.config.enabled = not M.config.enabled
+function M.setup(config)
+  vim.validate({ config = { config, "table", true } })
+  M.config = vim.tbl_deep_extend("force", M.config, config or {})
 
-  if M.config.enabled then
-    M:start()
-  else
-    M:stop()
-  end
-end, { desc = "Quickfix Timer Toggle" })
+  utils.keymap("n", "<leader>qt", function()
+    M.config.enabled = not M.config.enabled
 
-vim.api.nvim_create_autocmd("WinLeave", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.buftype == "quickfix" then
-      local buf = vim.fn.bufnr()
-      local winid = vim.fn.win_getid()
-
-      M:start(buf, winid)
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd("WinEnter", {
-  pattern = "*",
-  callback = function()
-    if vim.bo.buftype == "quickfix" then
+    if M.config.enabled then
+      M:start()
+    else
       M:stop()
     end
-  end,
-})
+  end, { desc = "Quickfix Timer Toggle" })
+
+  vim.api.nvim_create_autocmd("WinLeave", {
+    pattern = "*",
+    callback = function()
+      if vim.bo.buftype == "quickfix" then
+        local buf = vim.fn.bufnr()
+        local winid = vim.fn.win_getid()
+
+        M:start(buf, winid)
+      end
+    end,
+  })
+
+  vim.api.nvim_create_autocmd("WinEnter", {
+    pattern = "*",
+    callback = function()
+      if vim.bo.buftype == "quickfix" then
+        M:stop()
+      end
+    end,
+  })
+end
+
+return M
