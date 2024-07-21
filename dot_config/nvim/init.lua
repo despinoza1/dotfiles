@@ -1,6 +1,6 @@
 require("options")
 require("autocmds")
-require("qft")
+require("qft").setup({})
 require("lazy_init")
 require("mappings")
 require("gpg").setup({
