@@ -202,17 +202,6 @@ return {
     "lukas-reineke/lsp-format.nvim",
     config = true,
   },
-  {
-    "chrisgrieser/nvim-lsp-endhints",
-    event = "LspAttach",
-    opts = {
-      icons = {
-        type = " ",
-        parameter = "",
-      },
-      autoEnableHints = false,
-    },
-  },
 
   -- Misc
   {
