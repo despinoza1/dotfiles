@@ -16,66 +16,6 @@ return {
     end,
   },
 
-  -- Markdown
-  {
-    "OXY2DEV/markview.nvim",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "dhruvasagar/vim-table-mode",
-      "nvim-tree/nvim-web-devicons",
-    },
-    ft = { "markdown" },
-    opts = {
-      modes = { "n" },
-      headings = {
-        style = "simple",
-      },
-      code_blocks = {
-        style = "language",
-        hl = "CatMantle",
-
-        position = "overlay",
-        language_direction = "right",
-
-        pad_amount = 2,
-
-        sign = false,
-      },
-      list_items = {
-        enable = true,
-        shift_amount = 2,
-        marker_plus = {
-          add_padding = true,
-
-          text = "•",
-          hl = "rainbow2",
-        },
-        marker_minus = {
-          add_padding = true,
-
-          text = "•",
-          hl = "rainbow4",
-        },
-        marker_star = {
-          add_padding = true,
-
-          text = "•",
-          text_hl = "rainbow2",
-        },
-        marker_dot = {
-          add_padding = true,
-        },
-      },
-      inline_codes = {
-        enable = true,
-        corner_left = " ",
-        corner_right = " ",
-
-        hl = "CatCrustTeal",
-      },
-    },
-  },
-
   -- Neorg
   {
     "nvim-neorg/neorg",
@@ -122,9 +62,9 @@ return {
             },
           },
           ["core.tangle"] = { config = { report_on_empty = false } },
-          ["core.looking-glass"] = {},
         },
       })
+
       vim.api.nvim_create_autocmd("BufWritePost", {
         pattern = "*.norg",
         command = "Neorg tangle current-file",
@@ -142,6 +82,13 @@ return {
           { name = "neorg", group_index = 1 },
         },
       })
+
+      vim.keymap.set(
+        "n",
+        "<LocalLeader>cf",
+        "<Plug>(neorg.looking-glass.magnify-code-block)",
+        { desc = "Code Block Focus" }
+      )
     end,
   },
 
