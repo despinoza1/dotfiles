@@ -32,17 +32,38 @@ return {
     config = function()
       require("gen").setup({
         model = "phi3",
-        host = "localhost",
-        port = "11434",
+        host = vim.env.OLLAMA_HOST,
+        port = vim.env.OLLAMA_PORT,
         quit_map = "q",
         retry_map = "<c-r>",
+        command = function(options)
+          local body = { model = options.model, stream = true }
+          local cmd = "curl --silent --no-buffer -X POST https://"
+            .. options.host
+            .. ":"
+            .. options.port
+
+          if vim.env.OLLAMA_HOST == nil then
+            cmd = cmd .. "/api/chat"
+          else
+            cmd = cmd .. "/ollama/api/chat"
+          end
+
+          if vim.env.OLLAMA_BEARER_TOKEN ~= nil then
+            cmd = cmd .. " --header 'Authorization: Basic " .. vim.env.OLLAMA_BEARER_TOKEN .. "'"
+          end
+
+          return cmd .. " -d $body"
+        end,
         init = function(options)
-          local exist = vim.fn.filereadable("/tmp/gen.nvim.pid")
-          if exist ~= 1 then
-            pcall(
-              io.popen,
-              "/bin/sh -c 'echo $$>/tmp/gen.nvim.pid && exec ollama serve > /dev/null 2>&1' &"
-            )
+          if vim.env.OLLAMA_HOST == nil then
+            local exist = vim.fn.filereadable("/tmp/gen.nvim.pid")
+            if exist ~= 1 then
+              pcall(
+                io.popen,
+                "/bin/sh -c 'echo $$>/tmp/gen.nvim.pid && exec ollama serve > /dev/null 2>&1' &"
+              )
+            end
           end
         end,
         display_mode = "split",
