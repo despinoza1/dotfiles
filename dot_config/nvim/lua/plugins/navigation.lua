@@ -56,6 +56,21 @@ return {
       utils.keymap("n", "-", "<Cmd>Oil<CR>", { desc = "Open Parent Directory" })
     end,
   },
+  {
+    "rolv-apneseth/tfm.nvim",
+    opts = {
+      file_manager = "yazi",
+      replace_netrw = false,
+      enable_cmds = true,
+    },
+    keys = {
+      {
+        "<leader>fe",
+        ":Tfm<CR>",
+        desc = "File Explorer",
+      },
+    },
+  },
 
   -- Buffer Navigation
   {
