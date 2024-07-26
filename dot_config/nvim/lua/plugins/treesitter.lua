@@ -120,16 +120,17 @@ return {
   {
     "danymat/neogen",
     dependencies = { "nvim-treesitter/nvim-treesitter", "L3MON4D3/LuaSnip" },
-    keys = "<leader>cd",
-    config = function()
-      require("neogen").setup({
-        snippet_engine = "luasnip",
-      })
-
-      local neogen = require("neogen")
-      utils.keymap("n", "<leader>cd", function()
-        neogen.generate({ type = "any" })
-      end, { desc = "Code Generate Docstring" })
-    end,
+    keys = {
+      {
+        "<leader>cd",
+        function()
+          require("neogen").generate({ type = "any" })
+        end,
+        desc = "Code Generate Docstring",
+      },
+    },
+    opts = {
+      snippet_engine = "luasnip",
+    },
   },
 }

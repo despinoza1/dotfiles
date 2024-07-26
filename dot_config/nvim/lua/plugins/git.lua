@@ -89,16 +89,23 @@ return {
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    keys = { "<leader>gu", "<leader>gU" },
-    config = function()
-      local neogit = require("neogit")
-      neogit.setup({})
-
-      utils.keymap("n", "<leader>gu", neogit.open, { desc = "Open NeoGit current directory" })
-      utils.keymap("n", "<leader>gU", function()
-        neogit.open({ cwd = vim.fn.expand("%:p:h") })
-      end, { desc = "Open NeoGit at buffer" })
-    end,
+    keys = {
+      {
+        "<leader>gu",
+        function()
+          require("neogit").open()
+        end,
+        desc = "Open NeoGit current directory",
+      },
+      {
+        "<leader>gU",
+        function()
+          require("neogit").open({ cwd = vim.fn.expand("%:p:h") })
+        end,
+        desc = "Open NeoGit at buffer",
+      },
+    },
+    opts = true,
   },
 
   {
