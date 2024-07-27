@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 return {
   -- LaTeX
   {
@@ -62,6 +64,7 @@ return {
             },
           },
           ["core.tangle"] = { config = { report_on_empty = false } },
+          ["external.wtoc"] = {},
         },
       })
 
@@ -69,6 +72,7 @@ return {
         pattern = "*.norg",
         command = "Neorg tangle current-file",
       })
+      utils.keymap("n", "<LocalLeader>w", "<Cmd>Neorg wtoc<CR>", { desc = "Open Workspace ToC" })
 
       local frappe = require("catppuccin.palettes").get_palette("frappe")
       vim.api.nvim_set_hl(0, "@neorg.links.location.timestamp.norg", { fg = frappe.red })
@@ -82,13 +86,6 @@ return {
           { name = "neorg", group_index = 1 },
         },
       })
-
-      vim.keymap.set(
-        "n",
-        "<LocalLeader>cf",
-        "<Plug>(neorg.looking-glass.magnify-code-block)",
-        { desc = "Code Block Focus" }
-      )
     end,
   },
 
