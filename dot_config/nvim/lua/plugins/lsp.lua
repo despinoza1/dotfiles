@@ -38,7 +38,6 @@ local function lsp_attach()
         require("telescope.builtin").lsp_dynamic_workspace_symbols,
         extend_opts({ desc = "Code Workspace Symbols" })
       )
-      utils.keymap("n", "<leader>cf", vim.lsp.buf.format, extend_opts({ desc = "Code Format" }))
 
       utils.keymap(
         "n",
@@ -86,7 +85,6 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "lukas-reineke/lsp-format.nvim",
       "b0o/schemastore.nvim",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
@@ -97,8 +95,6 @@ return {
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities =
         vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-      require("lsp-format").setup({})
 
       local servers = {
         bashls = {},
@@ -179,7 +175,6 @@ return {
         },
         ruff = {
           on_attach = function(client, bufnr)
-            require("lsp-format").on_attach(client, bufnr)
             client.server_capabilities.hoverProvider = false
           end,
         },
@@ -190,17 +185,12 @@ return {
       for server_name, settings in pairs(servers) do
         settings.capabilities =
           vim.tbl_deep_extend("force", {}, capabilities, settings.capabilities or {})
-        settings.on_attach = settings.on_attach or require("lsp-format").on_attach
 
         require("lspconfig")[server_name].setup(settings)
       end
 
       lsp_attach()
     end,
-  },
-  {
-    "lukas-reineke/lsp-format.nvim",
-    config = true,
   },
 
   -- Misc
