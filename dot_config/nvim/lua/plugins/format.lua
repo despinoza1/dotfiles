@@ -21,16 +21,18 @@ return {
       },
       formatters = {
         yamlfix = {
-          prepend_arguments = {
-            "-c",
-            "~/.config/yamlfix/base.toml",
+          env = {
+            YAMLFIX_WHITELINES = 1,
+            YAMLFIX_LINE_LENGTH = 99,
+            YAMLFIX_SEQUENCE_STYLE = "keep_style",
+            YAMLFIX_NONE_REPRESENTATION = "null",
           },
         },
       },
       formatters_by_ft = {
         json = { "jq" },
         lua = { "stylua" },
-        python = { "ruff_format" },
+        python = { "ruff_format", "isort" },
         sh = { "shellcheck", "shfmt" },
         sql = { "sqlfluff" },
         tex = { "latexindent" },
