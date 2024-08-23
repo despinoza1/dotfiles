@@ -11,8 +11,7 @@ M.config = {
 }
 
 local function get_passphrase()
-  -- FIXME: Passphrase is stored in history
-  local user_input = vim.fn.input("Enter file's passphrase: ")
+  local user_input = vim.fn.inputsecret("Enter file's passphrase: ")
   return user_input
 end
 
