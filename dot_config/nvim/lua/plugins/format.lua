@@ -30,6 +30,7 @@ return {
         },
       },
       formatters_by_ft = {
+        c = { "clang-format" },
         json = { "jq" },
         lua = { "stylua" },
         python = { "ruff_format", "isort" },
