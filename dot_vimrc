@@ -1,125 +1,147 @@
-" Set internal encoding of vim, not needed on neovim, since coc.nvim using some
-" unicode characters in the file autoload/float.vim
+nnoremap <SPACE> <Nop>
+
+let mapleader=' '
+let maplocalleader='\\'
+
 set encoding=utf-8
+set nocompatible
 
-" TextEdit might fail if hidden is not set.
-set hidden
+filetype on
+filetype plugin on
+filetype indent on
 
-set nu
-set relativenumber
+syntax on
+
+set termguicolors
+set statusline=
+set statusline+=\ %F\ %M\ %Y\ %R
+set statusline+=%=
+set statusline+=\ hex:\ 0x%B\ percent:\ %p%%\ %l:%c
+set laststatus=2
+
 set cursorline
+
+if !isdirectory($HOME."/.vim")
+    call mkdir($HOME."/.vim", "", 0770)
+endif
+if !isdirectory($HOME."/.vim/undo-dir")
+    call mkdir($HOME."/.vim/undo-dir", "", 0700)
+endif
+set undodir=~/.vim/undo-dir
+set undofile
+
+set ttimeout
+if &ttimeout == -1
+    set ttimeoutlen=50
+endif
+
+set spell
+set spelllang=en_us
+
+set incsearch
+set hlsearch
+
+set number
+set relativenumber
 set scrolloff=999
 
-" Some servers have issues with backup files, see #649.
+set wrap
+
 set nobackup
 set nowritebackup
 
-" Give more space for displaying messages.
-set cmdheight=2
-
 set expandtab
-set tabstop=2
-set shiftwidth=0
+set tabstop=4
+set shiftwidth=4
 
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
+set noshowmode
+set cursorline
+set cmdheight=2
+set signcolumn=number
+set wildoptions=tagfile
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
+set ignorecase
 
-" Split directions that make sense
 set splitbelow
 set splitright
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+set virtualedit=block
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
-call plug#begin()
+nnoremap <silent> <Esc> :nohlsearch<CR>
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'lambdalisue/battery.vim'
-Plug 'joshdick/onedark.vim'
-Plug 'bling/vim-bufferline'
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-call plug#end()
+for i in range(97,122)
+  let c = nr2char(i)
+  exec "map \e".c." <M-".c.">"
+  exec "map! \e".c." <M-".c.">"
+endfor
+nmap <M-h> <C-w>5<
+nmap <M-l> <C-w>5>
+nmap <M-k> <C-w>+
+nmap <M-j> <C-w>-
 
-colorscheme onedark
+nnoremap <silent> <leader>y "+y
+vnoremap <silent> <leader>y "+y
 
-let g:airline_powerline_fonts = 1
+nnoremap <silent> <leader>p "+p
+inoremap <silent> <C-v>y <C-o>"+p
+xnoremap <silent> <leader>p "_dP
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
+nnoremap <silent> <leader>d "_d
+vnoremap <silent> <leader>d "_d
+
+nnoremap U <C-r>
+
+nnoremap <leader>xs yy2o<ESC>kpV:!/bin/sh<CR>
+vnoremap <leader>xs y'<P'<O<ESC>'>o<ESC>:<C-u>'<,'>!/bin/sh<CR>
+
+nnoremap k gk
+nnoremap j gj
+
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qc :cclose<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [q :cprevious<CR>
+nnoremap ]Q :clast<CR>
+nnoremap [Q :cfirst<CR>
+
+nnoremap <leader>lo :lopen<CR>
+nnoremap <leader>lc :lclose<CR>
+nnoremap ]l :lnext<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]L :llast<CR>
+nnoremap [L :lfirst<CR>
+
+if filereadable($HOME."/.vim/autoload/plug.vim")
+    call plug#begin()
+
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-vinegar'
+    Plug 'tpope/vim-repeat'
+    Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+    Plug 'mbbill/undotree'
+    Plug 'junegunn/fzf'
+
+    call plug#end()
+
+    nmap <leader>u :UndotreeToggle<CR>
+
+    colorscheme catppuccin_frappe
+
+    hi clear SpellBad
+    hi SpellBad cterm=underline,bold ctermfg=red
+    hi clear SpellCap
+    hi SpellCap cterm=underline,bold ctermfg=yellow
+    hi clear SpellLocal
+    hi SpellLocal cterm=underline,bold ctermfg=blue
+    hi clear SpellRare
+    hi SpellRare cterm=underline,bold ctermfg=green
 endif
-let g:airline_symbols.space = "\ua0"
-
-" unicode symbols
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.linenr = '␊'
-let g:airline_symbols.linenr = '␤'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
-
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = " ☰ "
-let g:airline_symbols.maxlinenr = ''
-
-function! Battery_icon()
-  let l:battery_icon = {
-    \ 5: " ",
-    \ 4: " ",
-    \ 3: " ",
-    \ 2: " ",
-    \ 1: " "}
-
-  let l:backend = battery#backend()
-  let l:nf = float2nr(round(backend.value / 20.0))
-  return printf('%s', get(battery_icon, nf))
-endfunction
-let g:airline_section_x = airline#section#create(['%{battery#sign()} %{battery#value()}%% %{Battery_icon()}'])
-
-let g:battery#update_statusline = 1
-
-set statusline=...%{battery#component()}...
-let g:bufferline_echo = 0
-
