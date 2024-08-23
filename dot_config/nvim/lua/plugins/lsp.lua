@@ -178,6 +178,7 @@ return {
             client.server_capabilities.hoverProvider = false
           end,
         },
+        clangd = {},
         rust_analyzer = {},
         zls = {},
       }
