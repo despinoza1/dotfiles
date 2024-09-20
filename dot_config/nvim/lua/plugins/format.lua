@@ -17,7 +17,7 @@ return {
       notify_on_error = false,
       format_on_save = {
         timeout_ms = 500,
-        lsp_format = "fallback",
+        lsp_format = "fallback" and vim.fn.fnamemodify(vim.fn.bufname("%"), ":e") ~= "c" or "never",
       },
       formatters = {
         yamlfix = {
@@ -30,7 +30,7 @@ return {
         },
       },
       formatters_by_ft = {
-        c = { "clang-format" },
+        -- c = { "clang-format" },
         json = { "jq" },
         lua = { "stylua" },
         python = { "ruff_format", "isort" },
