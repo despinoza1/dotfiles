@@ -57,19 +57,37 @@ return {
     end,
   },
   {
-    "rolv-apneseth/tfm.nvim",
-    opts = {
-      file_manager = "yazi",
-      replace_netrw = false,
-      enable_cmds = true,
-    },
+    "mikavilpas/yazi.nvim",
+    event = "VeryLazy",
     keys = {
       {
         "<leader>fe",
-        ":Tfm<CR>",
-        desc = "File Explorer",
+        "<cmd>Yazi<cr>",
+        desc = "Open yazi at the current file",
+      },
+      {
+        "<leader>fw",
+        "<cmd>Yazi cwd<cr>",
+        desc = "Open the file manager in nvim's working directory",
       },
     },
+    opts = {
+      open_for_directories = false,
+      keymaps = {
+        show_help = "<f1>",
+      },
+    },
+  },
+
+  {
+    "amitds1997/remote-nvim.nvim",
+    version = "*",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = true,
   },
 
   -- Buffer Navigation
