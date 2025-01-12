@@ -53,6 +53,7 @@ return {
       formatters_by_ft = {
         c = { "clang-format" },
         json = { "jq" },
+        java = { "google-java-format" },
         lua = { "stylua" },
         python = { "ruff_format", "isort" },
         sh = { "shellcheck", "shfmt" },

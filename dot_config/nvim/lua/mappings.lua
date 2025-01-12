@@ -11,6 +11,9 @@ utils.keymap("n", "<M-l>", "<C-w>5>")
 utils.keymap("n", "<M-k>", "<C-w>+")
 utils.keymap("n", "<M-j>", "<C-w>-")
 
+utils.keymap("n", "<leader>o", "o<ESC>k")
+utils.keymap("n", "<leader>O", "O<ESC>j")
+
 -- Clipboard
 utils.map({ "n", "x" }, "<leader>y", '"+y', { desc = "Yank into Sytem Clipboard" })
 utils.keymap("n", "<leader>Y", '"+Y', { desc = "Yank to end into Sytem Clipboard" })
