@@ -51,7 +51,7 @@ return {
         },
         sync_install = false,
         auto_install = false,
-        ignore_install = {},
+        ignore_install = { "org" },
         modules = {},
         highlight = {
           enable = true,

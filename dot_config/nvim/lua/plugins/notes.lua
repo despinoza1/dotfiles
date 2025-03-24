@@ -1,5 +1,3 @@
-local utils = require("utils")
-
 return {
   -- LaTeX
   {
@@ -18,72 +16,63 @@ return {
     end,
   },
 
-  -- Neorg
   {
-    "nvim-neorg/neorg",
-    version = "*",
+    "nvim-orgmode/orgmode",
+    event = "VeryLazy",
     dependencies = {
-      "dhruvasagar/vim-table-mode",
-      "hrsh7th/nvim-cmp",
-    },
-    ft = { "norg" },
-    keys = {
-      { "<leader>ni", "<cmd>Neorg index<CR>", desc = "Open Neorg Index" },
-      { "<leader>nr", "<cmd>Neorg return<CR>", desc = "Close Neorg Notes" },
-      { "<leader>nt", "<cmd>edit ~/Documents/notes/todo.norg<CR>", desc = "Open Todo List" },
-      { "<leader>nv", "<cmd>vsplit ~/Documents/notes/todo.norg<CR>", desc = "Open Todo List" },
+      "nvim-orgmode/org-bullets.nvim",
+      "andreadev-it/orgmode-multi-key",
     },
     config = function()
-      require("neorg").setup({
-        load = {
-          ["core.defaults"] = {},
-          ["core.completion"] = {
-            config = {
-              engine = "nvim-cmp",
-            },
+      require("orgmode").setup({
+        org_agenda_files = "~/Documents/notes/**/*",
+        org_default_notes_file = "~/Documents/notes/refile.org",
+        org_hide_emphasis_markers = true,
+        org_capture_templates = {
+          b = {
+            description = "Bugfix",
+            template = "* TODO %?\n %u %a",
+            headline = "Bugfixes",
           },
-          ["core.integrations.nvim-cmp"] = {},
-          ["core.concealer"] = {
-            config = {
-              icon_preset = "diamond",
-            },
+          l = {
+            description = "Links",
+            template = "* [[%x][%(return string.match('%x', '([^/]+)$'))]]%?",
+            headline = "Links",
           },
-          ["core.summary"] = {},
-          ["core.esupports.metagen"] = {
-            config = {
-              type = "empty",
-              update_date = true,
-            },
+          t = {
+            description = "Task",
+            template = "* TODO %?\n %u",
+            headline = "Tasks",
           },
-          ["core.dirman"] = {
-            config = {
-              workspaces = {
-                notes = "~/Documents/notes",
-              },
-              default_workspace = "notes",
-            },
+        },
+        org_todo_keywords = { "TODO", "PENDING", "HOLD", "UNKNOWN", "|", "DONE", "CANCELLED" },
+        calendar_week_start_day = 0,
+        org_ellipsis = " ∇",
+        mappings = {
+          prefix = "<LocalLeader>o",
+          global = {
+            org_agenda = "<Leader>na",
+            org_capture = "<Leader>nc",
           },
-          ["core.tangle"] = { config = { report_on_empty = false } },
-          ["external.wtoc"] = {},
         },
       })
-
-      vim.api.nvim_create_autocmd("BufWritePost", {
-        pattern = "*.norg",
-        command = "Neorg tangle current-file",
+      require("org-bullets").setup({
+        symbols = {
+          checkboxes = {
+            half = { "󰥔", "@org.checkbox.halfchecked" },
+            done = { "󰄬", "@org.keyword.done" },
+            todo = { " ", "@org.keyword.todo" },
+          },
+        },
       })
-      utils.keymap("n", "<LocalLeader>w", "<Cmd>Neorg wtoc<CR>", { desc = "Open Workspace ToC" })
-
-      local frappe = require("catppuccin.palettes").get_palette("frappe")
-      vim.api.nvim_set_hl(0, "@neorg.links.location.timestamp.norg", { fg = frappe.red })
-
+      require("orgmode-multi-key").setup()
       require("cmp").setup.buffer({
         sources = {
           { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
           { name = "buffer", group_index = 2 },
           { name = "dotenv", group_index = 2 },
           { name = "async_path", group_index = 1 },
-          { name = "neorg", group_index = 1 },
+          { name = "orgmode", group_index = 1 },
         },
       })
     end,
@@ -92,10 +81,10 @@ return {
   -- Table Formatting
   {
     "dhruvasagar/vim-table-mode",
-    ft = { "markdown", "norg" },
+    ft = { "markdown", "org" },
     lazy = true,
     init = function()
-      vim.g.table_mode_corner = "|"
+      vim.g.table_mode_corner = "+"
     end,
     config = function()
       vim.cmd("TableModeEnable")
