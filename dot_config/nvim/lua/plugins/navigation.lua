@@ -79,42 +79,6 @@ return {
     },
   },
 
-  {
-    "amitds1997/remote-nvim.nvim",
-    version = "*",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = true,
-  },
-
-  -- Buffer Navigation
-  {
-    "chentoast/marks.nvim",
-    config = function()
-      require("marks").setup({
-        default_mappings = false,
-        builtin_marks = { ".", "^" },
-        cyclic = true,
-        force_write_shada = false,
-        refresh_interval = 250,
-        sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
-      })
-
-      utils.map(
-        "n",
-        "<leader>fm",
-        "<Cmd>MarksListAll<CR>",
-        { desc = "Find Marks on Opened Buffers" }
-      )
-
-      utils.keymap("n", "dm-", "<Plug>(Marks-deleteline)")
-      utils.keymap("n", "dm ", "<Plug>(Marks-deletebuf)")
-    end,
-  },
-
   -- tmux
   {
     "christoomey/vim-tmux-navigator",

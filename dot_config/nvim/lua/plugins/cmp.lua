@@ -1,9 +1,9 @@
 local default_sources = {
-  { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
-  { name = "buffer", group_index = 2 },
+  { name = "spell", option = { preselect_correct_word = false }, group_index = 3 },
+  { name = "buffer", group_index = 3 },
   { name = "nvim_lsp", group_index = 1 },
   { name = "luasnip", max_item_count = 5, group_index = 1 },
-  { name = "async_path", group_index = 1 },
+  { name = "async_path", group_index = 2 },
 }
 
 return {
@@ -102,18 +102,6 @@ return {
             cmp.config.compare.order,
           },
         },
-      })
-    end,
-  },
-  {
-    "vrslev/cmp-pypi",
-    dependencies = { "hrsh7th/nvim-cmp" },
-    ft = "toml",
-    config = function()
-      local sources = vim.deepcopy(default_sources)
-      sources[#sources + 1] = { name = "pypi", keyword_length = 4, group_index = 1 }
-      require("cmp").setup.buffer({
-        sources = sources,
       })
     end,
   },
