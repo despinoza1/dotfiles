@@ -89,7 +89,6 @@ return {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
       "nvim-telescope/telescope.nvim",
-      "nvim-java/nvim-java",
       { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
@@ -194,27 +193,6 @@ return {
 
       lsp_attach()
     end,
-  },
-
-  {
-    "nvim-java/nvim-java",
-    opts = {
-      java_test = {
-        enable = false,
-      },
-      java_debug_adapter = {
-        enable = true,
-      },
-      spring_boot_tools = {
-        enable = false,
-      },
-      jdk = {
-        auto_install = false,
-      },
-      notifications = {
-        dap = false,
-      },
-    },
   },
 
   -- Misc
