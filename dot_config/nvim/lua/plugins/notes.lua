@@ -75,6 +75,21 @@ return {
           { name = "orgmode", group_index = 1 },
         },
       })
+
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "org",
+        callback = function()
+          vim.keymap.set(
+            "i",
+            "<A-CR>",
+            '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>',
+            {
+              silent = true,
+              buffer = true,
+            }
+          )
+        end,
+      })
     end,
   },
 
