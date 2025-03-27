@@ -1,3 +1,39 @@
+vim.api.nvim_create_autocmd("BufNewFile", {
+  pattern = "*.org",
+  callback = function()
+    local name = vim.fn.fnamemodify(vim.fn.expand("%f"), ":r")
+    local today = require("orgmode.objects.date").now():to_wrapped_string(true)
+
+    vim.fn.append(0, "#+TITLE: " .. name)
+    vim.fn.append(1, "#+AUTHOR: " .. os.getenv("USER"))
+    vim.fn.append(2, "#+DATE: " .. today)
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "org",
+  callback = function()
+    require("cmp").setup.buffer({
+      sources = {
+        { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
+        { name = "buffer", group_index = 2 },
+        { name = "dotenv", group_index = 2 },
+        { name = "async_path", group_index = 1 },
+        { name = "orgmode", group_index = 1 },
+      },
+    })
+    vim.keymap.set(
+      "i",
+      "<A-CR>",
+      '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>',
+      {
+        silent = true,
+        buffer = true,
+      }
+    )
+  end,
+})
+
 return {
   -- LaTeX
   {
@@ -66,30 +102,6 @@ return {
         },
       })
       require("orgmode-multi-key").setup()
-      require("cmp").setup.buffer({
-        sources = {
-          { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
-          { name = "buffer", group_index = 2 },
-          { name = "dotenv", group_index = 2 },
-          { name = "async_path", group_index = 1 },
-          { name = "orgmode", group_index = 1 },
-        },
-      })
-
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "org",
-        callback = function()
-          vim.keymap.set(
-            "i",
-            "<A-CR>",
-            '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>',
-            {
-              silent = true,
-              buffer = true,
-            }
-          )
-        end,
-      })
     end,
   },
 
