@@ -8,113 +8,84 @@ local default_sources = {
 
 return {
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-nvim-lsp",
-      { url = "https://codeberg.org/FelipeLema/cmp-async-path.git" },
-      "saadparwaiz1/cmp_luasnip",
-      "f3fora/cmp-spell",
-      {
-        "L3MON4D3/LuaSnip",
-        build = "make install_jsregexp",
-        dependencies = { "rafamadriz/friendly-snippets" },
-      },
+      "rafamadriz/friendly-snippets",
+      "ribru17/blink-cmp-spell",
+      "bydlw98/blink-cmp-env",
     },
-    event = "InsertEnter",
-    config = function()
-      local cmp = require("cmp")
-      local luasnip = require("luasnip")
-
-      luasnip.config.setup({})
-      require("luasnip.loaders.from_vscode").lazy_load()
-
-      cmp.setup({
-        enabled = function()
-          if cmp.config.context then
-            local context = cmp.config.context
-
-            return not context.in_treesitter_capture("comment")
-              and not context.in_syntax_group("Comment")
+    version = "1.*",
+    event = "VimEnter",
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = { preset = "default" },
+      appearance = {
+        nerd_font_variant = "mono",
+      },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+      },
+      sources = {
+        default = function(ctx)
+          local success, node = pcall(vim.treesitter.get_node)
+          if
+            success
+            and node
+            and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+          then
+            return { "path", "buffer", "spell", "env" }
+          else
+            return { "lsp", "path", "snippets", "buffer", "spell", "env" }
           end
-
-          local buftype = vim.api.nvim_get_option_value("buftype", {})
-          if buftype == "prompt" then
-            return false
-          end
-
-          return true
         end,
-        completion = { completeopt = "menu,menuone,noinsert" },
-        sources = default_sources,
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+        per_filetype = {
+          org = { "orgmode", "path", "spell", "env" },
         },
-        mapping = cmp.mapping.preset.insert({
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-n>"] = function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            else
-              fallback()
-            end
-          end,
-          ["<C-p>"] = function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            else
-              fallback()
-            end
-          end,
-          ["<C-l>"] = cmp.mapping(function()
-            if luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            end
-          end, { "i", "s" }),
-          ["<C-h>"] = cmp.mapping(function()
-            if luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            end
-          end, { "i", "s" }),
-        }),
-        sorting = {
-          comparators = {
-            cmp.config.compare.offset,
-            cmp.config.compare.exact,
-            cmp.config.compare.score,
-            function(entry1, entry2)
-              local _, entry1_under = entry1.completion_item.label:find("^_+")
-              local _, entry2_under = entry2.completion_item.label:find("^_+")
-              entry1_under = entry1_under or 0
-              entry2_under = entry2_under or 0
-              if entry1_under > entry2_under then
-                return false
-              elseif entry1_under < entry2_under then
-                return true
-              end
-            end,
-            cmp.config.compare.kind,
-            cmp.config.compare.sort_text,
-            cmp.config.compare.length,
-            cmp.config.compare.order,
+        providers = {
+          spell = {
+            name = "Spell",
+            module = "blink-cmp-spell",
+            opts = {
+              use_cmp_spell_sorting = true,
+              enable_in_context = function()
+                local curpos = vim.api.nvim_win_get_cursor(0)
+                local captures = vim.treesitter.get_captures_at_pos(0, curpos[1] - 1, curpos[2] - 1)
+                local in_spell_capture = false
+                for _, cap in ipairs(captures) do
+                  if cap.capture == "spell" then
+                    in_spell_capture = true
+                  elseif cap.capture == "nospell" then
+                    return false
+                  end
+                end
+                return in_spell_capture
+              end,
+            },
+          },
+          env = {
+            name = "Env",
+            module = "blink-cmp-env",
+            score_offset = -1,
+          },
+          orgmode = {
+            name = "Orgmode",
+            module = "orgmode.org.autocompletion.blink",
+            fallbacks = { "buffer" },
+          },
+          snippets = {
+            score_offset = -2,
+            opts = {
+              should_show_items = function(ctx)
+                return ctx.trigger.initial_kind ~= "trigger_character"
+              end,
+            },
           },
         },
-      })
-    end,
-  },
-  {
-    "SergioRibera/cmp-dotenv",
-    dependencies = { "hrsh7th/nvim-cmp" },
-    ft = { "sh", "yaml", "python", "markdown" },
-    config = function()
-      local sources = vim.deepcopy(default_sources)
-      sources[#sources + 1] = { name = "dotenv", group_index = 2 }
-      require("cmp").setup.buffer({
-        sources = sources,
-      })
-    end,
+      },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+      signature = { enabled = true },
+    },
+    opts_extend = { "sources.default" },
   },
 }

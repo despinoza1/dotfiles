@@ -52,6 +52,7 @@ function M.setup(config)
   M.config = vim.tbl_deep_extend("force", M.config, config or {})
 
   utils.keymap("n", "<leader>qt", function()
+    print("Toggling QF auto-closer")
     M.config.enabled = not M.config.enabled
 
     if M.config.enabled then
