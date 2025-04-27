@@ -119,7 +119,7 @@ return {
   },
   {
     "danymat/neogen",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "L3MON4D3/LuaSnip" },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       {
         "<leader>cd",
@@ -130,7 +130,14 @@ return {
       },
     },
     opts = {
-      snippet_engine = "luasnip",
+      snippet_engine = "nvim",
+      languages = {
+        python = {
+          template = {
+            annotation_convention = "reST",
+          },
+        },
+      },
     },
   },
 }
