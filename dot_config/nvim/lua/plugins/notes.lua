@@ -13,15 +13,6 @@ vim.api.nvim_create_autocmd("BufNewFile", {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "org",
   callback = function()
-    require("cmp").setup.buffer({
-      sources = {
-        { name = "spell", option = { preselect_correct_word = false }, group_index = 2 },
-        { name = "buffer", group_index = 2 },
-        { name = "dotenv", group_index = 2 },
-        { name = "async_path", group_index = 1 },
-        { name = "orgmode", group_index = 1 },
-      },
-    })
     vim.keymap.set(
       "i",
       "<A-CR>",
@@ -81,7 +72,16 @@ return {
             headline = "Tasks",
           },
         },
-        org_todo_keywords = { "TODO", "PENDING", "HOLD", "UNKNOWN", "|", "DONE", "CANCELLED" },
+        org_todo_keywords = {
+          "TODO",
+          "PENDING",
+          "HOLD",
+          "UNKNOWN",
+          "ACTIVE",
+          "|",
+          "DONE",
+          "CANCELLED",
+        },
         calendar_week_start_day = 0,
         org_ellipsis = " ∇",
         mappings = {

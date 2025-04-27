@@ -1,3 +1,9 @@
+local is_local_ollama = function()
+  return vim.env.OLLAMA_HOST == nil
+    or vim.env.OLLAMA_HOST == "127.0.0.1"
+    or vim.env.OLLAMA_HOST == "localhost"
+end
+
 return {
   "nvim-lua/plenary.nvim",
   "tpope/vim-surround",
@@ -31,19 +37,19 @@ return {
     },
     config = function()
       require("gen").setup({
-        model = "phi3",
-        host = vim.env.OLLAMA_HOST,
-        port = vim.env.OLLAMA_PORT,
+        model = "qwq",
+        host = vim.env.OLLAMA_HOST ~= nil and vim.env.OLLAMA_HOST or "127.0.0.1",
+        port = vim.env.OLLAMA_HOST ~= nil and vim.env.OLLAMA_PORT or 11434,
         quit_map = "q",
         retry_map = "<c-r>",
         command = function(options)
           local body = { model = options.model, stream = true }
-          local cmd = "curl --silent --no-buffer -X POST https://"
+          local cmd = "curl --silent --no-buffer -X POST http://"
             .. options.host
             .. ":"
             .. options.port
 
-          if vim.env.OLLAMA_HOST == nil then
+          if is_local_ollama() then
             cmd = cmd .. "/api/chat"
           else
             cmd = cmd .. "/ollama/api/chat"
@@ -56,7 +62,7 @@ return {
           return cmd .. " -d $body"
         end,
         init = function(options)
-          if vim.env.OLLAMA_HOST == nil then
+          if is_local_ollama() then
             local exist = vim.fn.filereadable("/tmp/gen.nvim.pid")
             if exist ~= 1 then
               pcall(

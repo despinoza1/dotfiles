@@ -86,16 +86,10 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "b0o/schemastore.nvim",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
       "nvim-telescope/telescope.nvim",
       { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities =
-        vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
       local servers = {
         bashls = {},
         dockerls = {},
@@ -185,9 +179,6 @@ return {
       }
 
       for server_name, settings in pairs(servers) do
-        settings.capabilities =
-          vim.tbl_deep_extend("force", {}, capabilities, settings.capabilities or {})
-
         require("lspconfig")[server_name].setup(settings)
       end
 
