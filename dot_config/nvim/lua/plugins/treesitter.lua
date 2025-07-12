@@ -8,7 +8,6 @@ return {
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
-      "andymass/vim-matchup",
     },
     config = function()
       require("treesitter-context").setup({
@@ -18,7 +17,7 @@ return {
       utils.map(
         "n",
         "<Leader>tt",
-        "<Cmd>TSContextToggle<CR>",
+        "<Cmd>TSContext toggle<CR>",
         { desc = "Treesitter Context Toggle" }
       )
 
@@ -102,9 +101,6 @@ return {
             },
           },
         },
-        matchup = {
-          enable = true,
-        },
       })
 
       local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
@@ -116,6 +112,15 @@ return {
       vim.keymap.set({ "n", "x", "o" }, "t", ts_repeatable_move.builtin_t_expr, { expr = true })
       vim.keymap.set({ "n", "x", "o" }, "T", ts_repeatable_move.builtin_T_expr, { expr = true })
     end,
+  },
+  {
+    "andymass/vim-matchup",
+    ---@type matchup.Config
+    opts = {
+      treesitter = {
+        stopline = 500,
+      },
+    },
   },
   {
     "danymat/neogen",
