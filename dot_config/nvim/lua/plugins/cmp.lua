@@ -1,11 +1,3 @@
-local default_sources = {
-  { name = "spell", option = { preselect_correct_word = false }, group_index = 3 },
-  { name = "buffer", group_index = 3 },
-  { name = "nvim_lsp", group_index = 1 },
-  { name = "luasnip", max_item_count = 5, group_index = 1 },
-  { name = "async_path", group_index = 2 },
-}
-
 return {
   {
     "saghen/blink.cmp",
