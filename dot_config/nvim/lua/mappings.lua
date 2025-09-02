@@ -37,6 +37,7 @@ utils.keymap("i", "<C-k>", "<C-o>gk", { silent = true })
 -- Diagnostics
 utils.keymap("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open Diagnostic in Float" })
 utils.keymap("n", "<leader>cl", vim.diagnostic.setloclist, { desc = "Code List of Diagnostics" })
+vim.diagnostic.config({ virtual_text = true })
 
 -- Buffers
 utils.keymap("n", "<A-,>", ":bprevious<CR>", { silent = true })
