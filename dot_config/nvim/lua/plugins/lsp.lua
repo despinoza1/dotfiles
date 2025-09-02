@@ -87,6 +87,26 @@ return {
     dependencies = {
       "b0o/schemastore.nvim",
       "nvim-telescope/telescope.nvim",
+      {
+        "nvim-java/nvim-java",
+        opts = {
+          java_test = {
+            enable = false,
+          },
+          java_debug_adapter = {
+            enable = false,
+          },
+          spring_boot_tools = {
+            enable = false,
+          },
+          jdk = {
+            auto_install = false,
+          },
+          notifications = {
+            dap = false,
+          },
+        },
+      },
       { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
