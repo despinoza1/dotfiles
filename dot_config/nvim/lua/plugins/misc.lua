@@ -37,7 +37,7 @@ return {
     },
     config = function()
       require("gen").setup({
-        model = "qwq",
+        model = "gemma3",
         host = vim.env.OLLAMA_HOST ~= nil and vim.env.OLLAMA_HOST or "127.0.0.1",
         port = vim.env.OLLAMA_HOST ~= nil and vim.env.OLLAMA_PORT or 11434,
         quit_map = "q",
@@ -72,7 +72,7 @@ return {
             end
           end
         end,
-        display_mode = "split",
+        display_mode = "vertical-split",
         show_prompt = true,
         show_model = true,
         no_auto_close = false,

@@ -143,7 +143,26 @@ return {
             validate = { enabled = true },
           },
         },
-        jdtls = {},
+        jdtls = {
+          settings = {
+            java = {
+              configuration = {
+                runtimes = {
+                  {
+                    name = "JavaSE-24",
+                    path = "/usr/lib/jvm/java-24-openjdk/",
+                    default = false,
+                  },
+                  {
+                    name = "JavaSE-11",
+                    path = "/usr/lib/jvm/java-11-openjdk/",
+                    default = true,
+                  },
+                },
+              },
+            },
+          },
+        },
         taplo = {},
         lua_ls = {
           on_init = function(client)
@@ -199,7 +218,8 @@ return {
       }
 
       for server_name, settings in pairs(servers) do
-        require("lspconfig")[server_name].setup(settings)
+        vim.lsp.enable(server_name)
+        vim.lsp.config(server_name, settings)
       end
 
       lsp_attach()
