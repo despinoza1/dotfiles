@@ -5,6 +5,7 @@ return {
       "rafamadriz/friendly-snippets",
       "ribru17/blink-cmp-spell",
       "bydlw98/blink-cmp-env",
+      "moyiz/blink-emoji.nvim",
     },
     version = "1.*",
     event = "VimEnter",
@@ -26,13 +27,14 @@ return {
             and node
             and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
           then
-            return { "path", "buffer", "spell", "env" }
+            return { "path", "buffer", "spell", "env", "emoji" }
           else
             return { "lsp", "path", "snippets", "buffer", "spell", "env" }
           end
         end,
         per_filetype = {
           org = { "orgmode", "path", "spell", "env" },
+          markdown = { "emoji", "path", "spell", "env" },
         },
         providers = {
           spell = {
@@ -70,6 +72,20 @@ return {
             opts = {
               should_show_items = function(ctx)
                 return ctx.trigger.initial_kind ~= "trigger_character"
+              end,
+            },
+          },
+          emoji = {
+            module = "blink-emoji",
+            name = "Emoji",
+            score_offset = 15,
+            opts = {
+              insert = true,
+              trigger = function()
+                return { ":" }
+              end,
+              should_show_items = function()
+                return vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype)
               end,
             },
           },
