@@ -73,14 +73,14 @@ return {
           },
         },
         org_todo_keywords = {
-          "TODO",
-          "PENDING",
-          "HOLD",
-          "UNKNOWN",
-          "ACTIVE",
-          "|",
-          "DONE",
-          "CANCELLED",
+          {
+            "TODO",
+            "HOLD",
+            "ACTIVE",
+            "|",
+            "DONE",
+            "CANCELLED",
+          },
         },
         calendar_week_start_day = 0,
         org_ellipsis = " ∇",
@@ -102,6 +102,118 @@ return {
         },
       })
       require("orgmode-multi-key").setup()
+    end,
+  },
+
+  {
+    "hamidi-dev/org-super-agenda.nvim",
+    dependencies = {
+      "nvim-orgmode/orgmode",
+    },
+    config = function()
+      require("org-super-agenda").setup({
+        org_directories = { "~/Documents/notes/" },
+
+        todo_states = {
+          {
+            name = "TODO",
+            keymap = "ot",
+            color = "#BD93F9",
+            strike_through = false,
+            fields = { "filename", "todo", "headline", "priority", "date", "tags" },
+          },
+          {
+            name = "ACTIVE",
+            keymap = "oa",
+            color = "#FFAA00",
+            strike_through = false,
+            fields = { "filename", "todo", "headline", "priority", "date", "tags" },
+          },
+          {
+            name = "HOLD",
+            keymap = "oh",
+            color = "#FF5555",
+            strike_through = false,
+            fields = { "filename", "todo", "headline", "priority", "date", "tags" },
+          },
+          {
+            name = "DONE",
+            keymap = "od",
+            color = "#50FA7B",
+            strike_through = true,
+            fields = { "filename", "todo", "headline", "priority", "date", "tags" },
+          },
+          {
+            name = "CANCELLED",
+            keymap = "oc",
+            color = "#50FA7B",
+            strike_through = true,
+            fields = { "filename", "todo", "headline", "priority", "date", "tags" },
+          },
+        },
+
+        keymaps = {
+          filter_reset = "or",
+        },
+
+        groups = {
+          {
+            name = "Today",
+            matcher = function(i)
+              return i.scheduled and i.scheduled:is_today()
+            end,
+            sort = { by = "priority", order = "desc" },
+          },
+          {
+            name = "Tomorrow",
+            matcher = function(i)
+              return i.scheduled and i.scheduled:days_from_today() == 1
+            end,
+          },
+          {
+            name = "Deadlines",
+            matcher = function(i)
+              return i.deadline and i.todo_state ~= "DONE" and i.todo_state ~= "CANCELLED"
+            end,
+            sort = { by = "deadline", order = "asc" },
+          },
+          {
+            name = "Important",
+            matcher = function(i)
+              return i.priority == "A" and (i.deadline or i.scheduled)
+            end,
+            sort = { by = "date_nearest", order = "asc" },
+          },
+          {
+            name = "Overdue",
+            matcher = function(i)
+              return (i.todo_state ~= "DONE" and i.todo_state ~= "CANCELLED")
+                and (
+                  (i.deadline and i.deadline:is_past()) or (i.scheduled and i.scheduled:is_past())
+                )
+            end,
+            sort = { by = "date_nearest", order = "asc" },
+          },
+          {
+            name = "School",
+            matcher = function(i)
+              return i:has_tag("school")
+                and (i.todo_state ~= "DONE" and i.todo_state ~= "CANCELLED")
+            end,
+          },
+          {
+            name = "Upcoming",
+            matcher = function(i)
+              local days = require("org-super-agenda.config").get().upcoming_days or 10
+              local d1 = i.deadline and i.deadline:days_from_today()
+              local d2 = i.scheduled and i.scheduled:days_from_today()
+              return (d1 and d1 >= 0 and d1 <= days) or (d2 and d2 >= 0 and d2 <= days)
+            end,
+            sort = { by = "date_nearest", order = "asc" },
+          },
+        },
+      })
+      vim.keymap.set("n", "<leader>nA", "<CMD>OrgSuperAgenda!<CR>", { desc = "Org Super Agenda" })
     end,
   },
 
