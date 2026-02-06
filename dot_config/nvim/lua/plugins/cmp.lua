@@ -33,8 +33,8 @@ return {
           end
         end,
         per_filetype = {
-          org = { "orgmode", "path", "spell", "env" },
-          markdown = { "emoji", "path", "spell", "env" },
+          org = { "orgmode", "path", "spell", "env", "emoji" },
+          markdown = { "path", "spell", "env", "emoji" },
         },
         providers = {
           spell = {
@@ -85,7 +85,7 @@ return {
                 return { ":" }
               end,
               should_show_items = function()
-                return vim.tbl_contains({ "gitcommit", "markdown" }, vim.o.filetype)
+                return vim.tbl_contains({ "gitcommit", "markdown", "org" }, vim.o.filetype)
               end,
             },
           },

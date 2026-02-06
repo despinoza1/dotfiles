@@ -8,6 +8,9 @@ return {
         dockerfile = { "hadolint" },
         gitcommit = { "commitlint" },
         NeogitCommitMessage = { "commitlint" },
+        python = { "bandit", "ruff" },
+        sql = { "sqlfluff" },
+        zsh = { "zsh" },
       }
 
       local group = vim.api.nvim_create_augroup("lint", { clear = true })

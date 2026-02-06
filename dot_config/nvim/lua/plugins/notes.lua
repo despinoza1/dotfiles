@@ -202,6 +202,12 @@ return {
             end,
           },
           {
+            name = "PTO",
+            matcher = function(i)
+              return i:has_tag("pto")
+            end,
+          },
+          {
             name = "Upcoming",
             matcher = function(i)
               local days = require("org-super-agenda.config").get().upcoming_days or 10

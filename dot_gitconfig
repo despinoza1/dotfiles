@@ -18,6 +18,7 @@
 
 [pull]
 	ff = only
+	rebase = true
 
 [branch]
 	sort = -committerdate
