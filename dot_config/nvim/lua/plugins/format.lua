@@ -54,7 +54,6 @@ return {
         c = { "clang-format" },
         go = { "gofmt" },
         json = { "jq" },
-        -- java = { "google-java-format" },
         lua = { "stylua" },
         python = { "ruff_format", "ruff_organize_imports" },
         sh = { "shellcheck", "shfmt" },
