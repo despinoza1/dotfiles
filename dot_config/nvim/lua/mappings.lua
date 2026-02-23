@@ -88,7 +88,7 @@ utils.keymap(
   { desc = "Execute with Shell" }
 )
 
-vim.keymap.set("v", "<leader>yc", function()
+vim.keymap.set("v", "yc", function()
   local esc = vim.api.nvim_replace_termcodes("<Esc>", true, false, true)
   vim.api.nvim_feedkeys(esc, "x", false)
 
