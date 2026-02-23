@@ -6,6 +6,7 @@ return {
       "ribru17/blink-cmp-spell",
       "bydlw98/blink-cmp-env",
       "moyiz/blink-emoji.nvim",
+      "mayromr/blink-cmp-dap",
     },
     version = "1.*",
     event = "VimEnter",
@@ -35,6 +36,9 @@ return {
         per_filetype = {
           org = { "orgmode", "path", "spell", "env", "emoji" },
           markdown = { "path", "spell", "env", "emoji" },
+          ["dap-repl"] = { "dap", "lsp", "path", "buffer" },
+          dapui_watches = { "dap", "lsp", "path", "buffer" },
+          dapui_hover = { "dap", "lsp", "path", "buffer" },
         },
         providers = {
           spell = {
@@ -88,6 +92,10 @@ return {
                 return vim.tbl_contains({ "gitcommit", "markdown", "org" }, vim.o.filetype)
               end,
             },
+          },
+          dap = {
+            name = "dap",
+            module = "blink-cmp-dap",
           },
         },
       },
