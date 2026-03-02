@@ -55,5 +55,3 @@ opt.virtualedit = "block"
 
 -- Code Folding
 opt.foldlevelstart = 99
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
