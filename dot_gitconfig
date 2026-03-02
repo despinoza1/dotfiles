@@ -1,6 +1,3 @@
-[include]
-    path = /home/daniel/.config/delta/themes.gitconfig
-
 [user]
 	email = contact@daniel-espinoza.com
 	user = Daniel Espinoza
@@ -16,6 +13,14 @@
 [init]
 	defaultBranch = main
 
+[core]
+	pager = less -F -X
+	fsmonitor = true
+	untrackedcache = true
+
+[fetch]
+	writeCommitGraph = true
+
 [pull]
 	ff = only
 	rebase = true
@@ -23,17 +28,11 @@
 [branch]
 	sort = -committerdate
 
-[core]
-    pager = delta
+[column]
+	ui = auto
 
-[interactive]
-    diffFilter = delta --color-only
-
-[delta]
-    features = mellow-barbet
-    side-by-side = true
-    navigate = true    # use n and N to move between diff sections
-    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+[rerere]
+	enabled = true
 
 [merge]
     conflictstyle = diff3
@@ -43,6 +42,10 @@
 
 [commit]
 	gpgsign = true
+
 [gpg]
 	format = ssh
 
+[maintenance]
+	auto = false
+	strategy = incremental

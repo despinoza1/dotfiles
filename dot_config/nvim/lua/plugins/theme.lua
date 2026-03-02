@@ -12,6 +12,7 @@ return {
 
       vim.api.nvim_set_hl(0, "CatMantle", { bg = frappe.mantle })
       vim.api.nvim_set_hl(0, "CatCrustTeal", { bg = frappe.crust, fg = frappe.teal })
+      vim.api.nvim_set_hl(0, "SpellBad", { underline = true })
     end,
   },
 }
