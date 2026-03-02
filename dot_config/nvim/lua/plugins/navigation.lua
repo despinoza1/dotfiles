@@ -27,14 +27,14 @@ return {
     "folke/todo-comments.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
     },
     event = "VimEnter",
     config = function()
       -- Requires ripgrep for Telescope integration
       require("todo-comments").setup({ signs = false })
 
-      local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+      local ts_repeatable_move = require("repeat")
       local jump_next, jump_prev = ts_repeatable_move.make_repeatable_move_pair(
         require("todo-comments").jump_next,
         require("todo-comments").jump_prev

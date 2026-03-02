@@ -5,7 +5,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
       "sindrets/diffview.nvim",
       "nvim-telescope/telescope.nvim",
     },
@@ -73,7 +73,7 @@ return {
           { desc = "Find Git Diff on Buffer's History" }
         )
 
-        local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+        local ts_repeatable_move = require("repeat")
         local next_hunk, prev_hunk =
           ts_repeatable_move.make_repeatable_move_pair(gs.next_hunk, gs.prev_hunk)
 

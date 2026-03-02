@@ -47,7 +47,7 @@ utils.keymap("n", "<A-.>", ":bnext<CR>", { silent = true })
 utils.keymap("n", "<A-c>", ":bdelete<CR>", { silent = true })
 
 local make_repeatable = function(next, prev)
-  local ts_repeatable_move = require("nvim-treesitter.textobjects.repeatable_move")
+  local ts_repeatable_move = require("repeat")
   return ts_repeatable_move.make_repeatable_move_pair(function()
     vim.cmd(next)
   end, function()
