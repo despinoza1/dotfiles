@@ -26,7 +26,10 @@ return {
           if
             success
             and node
-            and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
+            and vim.tbl_contains(
+              { "comment", "line_comment", "block_comment", "string", "multiline_string" },
+              node:type()
+            )
           then
             return { "path", "buffer", "spell", "env", "emoji" }
           else

@@ -12,20 +12,10 @@ local function lsp_attach()
       utils.keymap("n", "gd", vim.lsp.buf.definition, extend_opts({ desc = "Goto Definition" }))
       utils.keymap("n", "gD", vim.lsp.buf.declaration, extend_opts({ desc = "Goto Declaration" }))
       utils.keymap("n", "K", vim.lsp.buf.hover, extend_opts({ desc = "Hover Documentation" }))
-      utils.keymap(
-        "n",
-        "gi",
-        vim.lsp.buf.implementation,
-        extend_opts({ desc = "Goto Implementation" })
-      )
+      utils.keymap("n", "gi", vim.lsp.buf.implementation, extend_opts({ desc = "Goto Implementation" }))
       utils.keymap("n", "gr", vim.lsp.buf.references, extend_opts({ desc = "Goto References" }))
 
-      utils.keymap(
-        "n",
-        "<leader>ca",
-        vim.lsp.buf.code_action,
-        extend_opts({ desc = "Code Action" })
-      )
+      utils.keymap("n", "<leader>ca", vim.lsp.buf.code_action, extend_opts({ desc = "Code Action" }))
       utils.keymap(
         "n",
         "<leader>cb",
@@ -39,17 +29,11 @@ local function lsp_attach()
         extend_opts({ desc = "Code Workspace Symbols" })
       )
 
-      utils.keymap(
-        "n",
-        "<leader>cr",
-        vim.lsp.buf.rename,
-        extend_opts({ desc = "Code Rename Symbol" })
-      )
+      utils.keymap("n", "<leader>cr", vim.lsp.buf.rename, extend_opts({ desc = "Code Rename Symbol" }))
 
       local client = vim.lsp.get_client_by_id(event.data.client_id)
       if client and client.server_capabilities.documentHighlightProvider then
-        local highlight_augroup =
-          vim.api.nvim_create_augroup("local-lsp-highlight", { clear = false })
+        local highlight_augroup = vim.api.nvim_create_augroup("local-lsp-highlight", { clear = false })
 
         vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
           buffer = event.buf,
@@ -87,27 +71,6 @@ return {
     dependencies = {
       "b0o/schemastore.nvim",
       "nvim-telescope/telescope.nvim",
-      -- {
-      --   "nvim-java/nvim-java",
-      --   opts = {
-      --     java_test = {
-      --       enable = false,
-      --     },
-      --     java_debug_adapter = {
-      --       enable = false,
-      --     },
-      --     spring_boot_tools = {
-      --       enable = false,
-      --     },
-      --     jdk = {
-      --       auto_install = false,
-      --     },
-      --     notifications = {
-      --       dap = false,
-      --     },
-      --   },
-      -- },
-      { "j-hui/fidget.nvim", opts = {} },
     },
     config = function()
       local servers = {
@@ -141,26 +104,6 @@ return {
             redhat = { telemetry = { enabled = false } },
             schemas = require("schemastore").yaml.schemas(),
             validate = { enabled = true },
-          },
-        },
-        jdtls = {
-          settings = {
-            java = {
-              configuration = {
-                runtimes = {
-                  {
-                    name = "JavaSE-24",
-                    path = "/usr/lib/jvm/java-24-openjdk/",
-                    default = false,
-                  },
-                  {
-                    name = "JavaSE-11",
-                    path = "/usr/lib/jvm/java-11-openjdk/",
-                    default = true,
-                  },
-                },
-              },
-            },
           },
         },
         taplo = {},
@@ -216,6 +159,7 @@ return {
         rust_analyzer = {},
         zls = {},
         gopls = {},
+        tofu_ls = {},
       }
 
       for server_name, settings in pairs(servers) do
