@@ -1,19 +1,27 @@
 local utils = require("utils")
 
+local has_query = function(language, name)
+  return #vim.treesitter.query.get_files(language, name) > 0
+end
+
 local ts_attach = function(buf, language)
   if not vim.treesitter.language.add(language) then
     return false
   end
 
   -- highlights
-  vim.treesitter.start(buf, language)
+  if has_query(language, "highlights") then
+    vim.treesitter.start(buf, language)
+  end
 
   -- folds
   vim.wo.foldmethod = "expr"
   vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
   -- indent
-  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  if has_query(language, "indents") then
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
 
   return true
 end
