@@ -34,6 +34,9 @@ return {
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
       },
+      current_line_blame_opts = {
+        ignore_whitespace = true,
+      },
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
 

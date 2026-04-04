@@ -1,51 +1,75 @@
 [user]
-	email = contact@daniel-espinoza.com
-	user = Daniel Espinoza
-	name = Daniel Espinoza
-	signingkey = /home/daniel/.ssh/id_ed25519.pub
+    email = contact@daniel-espinoza.com
+    name = Daniel Espinoza
+    signingkey = /home/daniel/.ssh/id_ed25519.pub
+
+[alias]
+    lol = log --decorate --oneline --graph --all
+    st = status -s -b -M
+    bl = blame -w -C -C -C
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [core]
-	pager = less -F -X
-	fsmonitor = true
-	untrackedcache = true
+    pager = less -F -X
+    ; fsmonitor = true
+    ; untrackedcache = true
 
 [fetch]
-	writeCommitGraph = true
+    writeCommitGraph = true
+    prune = true
+    pruneTags = true
+    all = true
+
+[push]
+    default = simple
+    followTags = true
+    autoSetupRemote = true
 
 [pull]
-	ff = only
-	rebase = true
+    rebase = true
 
 [branch]
-	sort = -committerdate
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
 
 [column]
-	ui = auto
+    ui = auto
 
 [rerere]
-	enabled = true
+    enabled = true
+    autoupdate = true
+
+[rebase]
+    updateRefs = true
+    autoSquash = true
+    autoStash = true
 
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
 
 [diff]
-    colorMoved = default
+    algorithm = histogram
+    colorMoved = plain
+    renames = true
+    mnemonicPrefix = true
 
 [commit]
-	gpgsign = true
+    gpgsign = true
+    verbose = true
 
 [gpg]
-	format = ssh
+    format = ssh
 
 [maintenance]
-	auto = false
-	strategy = incremental
+    auto = false
+    strategy = incremental

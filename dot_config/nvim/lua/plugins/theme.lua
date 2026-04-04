@@ -4,6 +4,7 @@ return {
     name = "catppuccin",
     lazy = false,
     priority = 1000,
+    version = "2.*",
     config = function()
       require("catppuccin").setup({})
 

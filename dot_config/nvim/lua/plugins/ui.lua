@@ -5,7 +5,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
-        theme = "catppuccin",
+        theme = "catppuccin-nvim",
       },
       sections = {
         lualine_c = {
@@ -32,7 +32,7 @@ return {
       })
 
       wk.add({
-        { "<leader>c", group = "Code Action/Lens" },
+        { "gr", group = "LSP" },
         { "<leader>f", group = "Find [Telescope]" },
         { "<leader>g", group = "Git" },
         { "<leader>l", group = "Location List" },

@@ -12,38 +12,34 @@ local function lsp_attach()
       utils.keymap("n", "gd", vim.lsp.buf.definition, extend_opts({ desc = "Goto Definition" }))
       utils.keymap("n", "gD", vim.lsp.buf.declaration, extend_opts({ desc = "Goto Declaration" }))
       utils.keymap("n", "K", vim.lsp.buf.hover, extend_opts({ desc = "Hover Documentation" }))
+      utils.keymap("n", "grf", vim.lsp.buf.format, extend_opts({ desc = "Format File" }))
       utils.keymap(
         "n",
-        "gi",
+        "gri",
         vim.lsp.buf.implementation,
         extend_opts({ desc = "Goto Implementation" })
       )
-      utils.keymap("n", "gr", vim.lsp.buf.references, extend_opts({ desc = "Goto References" }))
+      utils.keymap(
+        "n",
+        "grt",
+        vim.lsp.buf.type_definition,
+        extend_opts({ desc = "Goto Type Definition" })
+      )
+      utils.keymap("n", "gra", vim.lsp.buf.code_action, extend_opts({ desc = "Code Action" }))
+      utils.keymap("n", "grr", vim.lsp.buf.references, extend_opts({ desc = "Code Action" }))
+      utils.keymap("n", "grn", vim.lsp.buf.rename, extend_opts({ desc = "Code Action" }))
 
       utils.keymap(
         "n",
-        "<leader>ca",
-        vim.lsp.buf.code_action,
-        extend_opts({ desc = "Code Action" })
-      )
-      utils.keymap(
-        "n",
-        "<leader>cb",
+        "<leader>fd",
         require("telescope.builtin").lsp_document_symbols,
-        extend_opts({ desc = "Code Buffer Symbols" })
+        extend_opts({ desc = "LSP Buffer Symbols" })
       )
       utils.keymap(
         "n",
-        "<leader>cw",
+        "<leader>fw",
         require("telescope.builtin").lsp_dynamic_workspace_symbols,
-        extend_opts({ desc = "Code Workspace Symbols" })
-      )
-
-      utils.keymap(
-        "n",
-        "<leader>cr",
-        vim.lsp.buf.rename,
-        extend_opts({ desc = "Code Rename Symbol" })
+        extend_opts({ desc = "LSP Workspace Symbols" })
       )
 
       local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -73,7 +69,7 @@ local function lsp_attach()
       end
 
       if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-        utils.keymap("n", "<leader>ch", function()
+        utils.keymap("n", "grh", function()
           vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, extend_opts({ desc = "Toggle Inlay Hints" }))
       end
@@ -108,12 +104,14 @@ return {
           },
         },
         jsonls = {
-          settings = {
-            json = {
-              schemas = require("schemastore").json.schemas(),
-              validate = { enabled = true },
-            },
-          },
+          -- settings = {
+          --   json = {
+          --     validate = { enabled = true },
+          --   },
+          -- },
+          -- before_init = function(_, config)
+          --   config.settings.json.schemas = require("schemastore").json.schemas()
+          -- end,
         },
         yamlls = {
           settings = {
@@ -157,15 +155,7 @@ return {
           },
         },
         sqlls = {},
-        basedpyright = {
-          on_attach = function() end,
-          settings = {
-            basedpyright = {
-              typeCheckingMode = "standard",
-              disableOrganizeImports = true,
-            },
-          },
-        },
+        zuban = {},
         ruff = {
           on_attach = function(client, bufnr)
             client.server_capabilities.hoverProvider = false

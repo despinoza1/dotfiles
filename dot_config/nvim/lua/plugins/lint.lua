@@ -10,6 +10,7 @@ return {
         NeogitCommitMessage = { "commitlint" },
         python = { "bandit", "ruff" },
         sql = { "sqlfluff" },
+        terraform = { "tflint" },
         zsh = { "zsh" },
       }
 

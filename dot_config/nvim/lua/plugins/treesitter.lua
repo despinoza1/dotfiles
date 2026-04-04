@@ -232,7 +232,7 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       {
-        "<leader>cd",
+        "grd",
         function()
           require("neogen").generate({ type = "any" })
         end,

@@ -25,7 +25,6 @@ opt.relativenumber = true
 
 opt.wrap = true
 opt.scrolloff = 999
-
 opt.colorcolumn = "99"
 
 -- CMD Line
@@ -37,6 +36,7 @@ opt.wildoptions = "tagfile"
 
 opt.inccommand = "split"
 opt.ignorecase = true
+opt.smartcase = true
 
 -- Windows
 opt.splitbelow = true
@@ -55,3 +55,5 @@ opt.virtualedit = "block"
 
 -- Code Folding
 opt.foldlevelstart = 99
+
+opt.autowrite = true

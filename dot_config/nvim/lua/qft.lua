@@ -82,6 +82,11 @@ function M.setup(config)
       end
     end,
   })
+
+  vim.api.nvim_create_user_command("Vimgrep", function(opts)
+    vim.cmd({ cmd = "vimgrep", args = opts.fargs, bang = opts.bang, mods = { silent = true } })
+    vim.cmd.copen()
+  end, { nargs = "+" })
 end
 
 return M

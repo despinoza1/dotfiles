@@ -13,7 +13,11 @@ export DISABLE_AUTO_UPDATE="true"
 export PYTHON_AUTO_VRUN=true
 export PYTHON_VENV_NAME=".venv"
 
-plugins=(git colored-man-pages python timer vi-mode)
+function gbda() {
+  git branch --no-color --merged | command grep -vE "^([+*]|\s*(main|master|release|stable|trunk|dev|devel|develop|development)\s*$)" | command xargs git branch --delete 2>/dev/null
+}
+
+plugins=(colored-man-pages python timer vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -81,7 +85,7 @@ fi
 fortune | cowsay
 
 if [[ ! -e /tmp/weather ]]; then
-    curl -s 'http://v2.wttr.in/Irving,TX\?1uQF'
+    curl --max-time 5 -s 'http://v2.wttr.in/Irving,TX\?1uQF'
 
     touch /tmp/weather
 fi

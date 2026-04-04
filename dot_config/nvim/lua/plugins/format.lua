@@ -24,7 +24,7 @@ return {
     cmd = "ConformInfo",
     keys = {
       {
-        "<leader>cf",
+        "grf",
         function()
           require("conform").format({ async = true, lsp_fallback = true })
         end,
@@ -52,11 +52,13 @@ return {
       },
       formatters_by_ft = {
         c = { "clang-format" },
+        cpp = { "clang-format" },
         go = { "gofmt" },
         json = { "jq" },
         hcl = { "hcl" },
         lua = { "stylua" },
         python = { "ruff_format", "ruff_organize_imports" },
+        rust = { "rustfmt" },
         sh = { "shellcheck", "shfmt" },
         sql = { "sqlfluff", "sqlfmt" },
         terraform = { "tofu_fmt" },
