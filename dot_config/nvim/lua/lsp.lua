@@ -11,6 +11,9 @@ end, {
   desc = "Show LSP log",
 })
 
-vim.api.nvim_create_user_command("LspRestart", "lsp restart", {
+vim.api.nvim_create_user_command("LspRestart", function(opts)
+  vim.cmd("lsp restart " .. opts.fargs[1])
+end, {
   desc = "Restart LSP",
+  nargs = 1,
 })

@@ -3,6 +3,19 @@ local utils = require("utils")
 
 return {
   {
+    "sindrets/diffview.nvim",
+    config = function()
+      require("diffview").setup({
+        view = {
+          merge_tool = {
+            layout = "diff4_mixed",
+          },
+        },
+      })
+    end,
+  },
+
+  {
     "lewis6991/gitsigns.nvim",
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
