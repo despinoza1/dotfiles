@@ -17,3 +17,5 @@
 
 # Windows thumbnails
 Thumbs.db
+
+# vim:tw=78:et:ft=gitignore:norl:

@@ -88,3 +88,5 @@
 [maintenance]
     auto = false
     strategy = incremental
+
+# vim:tw=78:et:ft=gitconfig:norl:
