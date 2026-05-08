@@ -3,11 +3,27 @@
     name = Daniel Espinoza
     signingkey = 5F233DD1F3A48F07B00AD1CF8C8CBFC6D778F65E
 
+[core]
+    pager = less -F -X
+    excludesfile = /home/daniel/.config/git/ignore
+    whitespace = error
+
+    ; NOTE: use `* text=auto`
+    ; eol = lf
+    ; autocrlf = false
+
+    ; NOTE: useful for large repos
+    fsmonitor = true
+    ; untrackedcache = true
+
 [alias]
     lol = log --decorate --oneline --graph --all
     st = status -s -b -M
     bl = blame -w -C -C -C
+    psh = push --force-with-lease --force-if-includes
     rl = reflog --pretty
+    missing = show-branch --sha1-name --current
+    summary = shortlog -sn --no-merges
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
@@ -18,23 +34,21 @@
 [init]
     defaultBranch = main
 
-[core]
-    pager = less -F -X
-    excludesfile = /home/daniel/.gitignore
+[help]
+    autocorrect = prompt
 
-    ; NOTE: use `* text=auto`
-    ; eol = lf
-    ; autocrlf = false
+[transfer]
+    fsckObjects = true
 
-    ; NOTE: useful for large repos
-    ; fsmonitor = true
-    ; untrackedcache = true
+[receive]
+    fsckObjects = true
 
 [fetch]
     writeCommitGraph = true
     prune = true
     pruneTags = true
     all = true
+    fsckObjects = true
 
 [push]
     default = simple
@@ -43,6 +57,7 @@
     gpgsign = if-asked
 
 [pull]
+    default = current
     rebase = true
 
 [branch]
@@ -60,13 +75,14 @@
     autoupdate = true
 
 [rebase]
+    stat = true
     updateRefs = true
     autoSquash = true
     autoStash = true
-    stat = true
+    missingCommitsCheck = warn
 
 [merge]
-    conflictstyle = zdiff3
+    conflictstyle = diff3
 
 [diff]
     algorithm = histogram
@@ -78,6 +94,10 @@
     gpgsign = true
     verbose = true
 
+[log]
+    date = rfc2822-local
+    graphColors = "#8caaee","#81c8be","#ca9ee6","#a6d189","#e78284","#f4b8e4","#ef9f76"
+
 [grep]
     lineNumber = true
     patternType = perl
@@ -85,8 +105,31 @@
 ; [gpg]
 ;     format = ssh
 
+[color.diff]
+    context = "#c6d0f5"
+    meta = "#c6d0f5" bold
+    frag = "#81c8be"
+    new = "#a6d189"
+    old = "#e78284"
+    oldMoved = "#ca9ee6"
+    newMoved = "#8caaee"
+
+[color.status]
+    added = "#a6d189"
+    changed = "#e78284"
+    untracked = "#ca9ee6"
+    branch = "#a6d189"
+    localBranch = "#a6d189"
+    remoteBranch = "#e78284"
+
+[color.decorate]
+    branch = "#a6d189" bold
+    remoteBranch = "#e78284" bold
+    tag = "#e5c890" bold
+    HEAD = "#81c8be" bold
+
 [maintenance]
     auto = false
     strategy = incremental
 
-# vim:tw=78:et:ft=gitconfig:norl:
+# vim:ft=gitconfig:
