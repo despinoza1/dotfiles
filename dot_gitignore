@@ -1,0 +1,19 @@
+*.bkp
+*.bak
+*.tmp
+
+*.log
+
+.env
+
+# Vim
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+.Trashes
+.AppleDouble
+
+# Windows thumbnails
+Thumbs.db

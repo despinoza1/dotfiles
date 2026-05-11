@@ -1,12 +1,13 @@
 [user]
     email = contact@daniel-espinoza.com
     name = Daniel Espinoza
-    signingkey = /home/daniel/.ssh/id_ed25519.pub
+    signingkey = 5F233DD1F3A48F07B00AD1CF8C8CBFC6D778F65E
 
 [alias]
     lol = log --decorate --oneline --graph --all
     st = status -s -b -M
     bl = blame -w -C -C -C
+    rl = reflog --pretty
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
@@ -19,6 +20,13 @@
 
 [core]
     pager = less -F -X
+    excludesfile = /home/daniel/.gitignore
+
+    ; NOTE: use `* text=auto`
+    ; eol = lf
+    ; autocrlf = false
+
+    ; NOTE: useful for large repos
     ; fsmonitor = true
     ; untrackedcache = true
 
@@ -32,6 +40,7 @@
     default = simple
     followTags = true
     autoSetupRemote = true
+    gpgsign = if-asked
 
 [pull]
     rebase = true
@@ -41,6 +50,7 @@
 
 [tag]
     sort = version:refname
+    gpgsign = true
 
 [column]
     ui = auto
@@ -53,6 +63,7 @@
     updateRefs = true
     autoSquash = true
     autoStash = true
+    stat = true
 
 [merge]
     conflictstyle = zdiff3
@@ -67,8 +78,12 @@
     gpgsign = true
     verbose = true
 
-[gpg]
-    format = ssh
+[grep]
+    lineNumber = true
+    patternType = perl
+
+; [gpg]
+;     format = ssh
 
 [maintenance]
     auto = false
