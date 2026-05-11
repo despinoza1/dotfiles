@@ -1,6 +1,6 @@
 font-family="IosevkaTerm Nerd Font Mono"
 font-size=15
 
-theme = Catppuccin Frappe
+theme = Doom One
 
 initial-command = tmux
