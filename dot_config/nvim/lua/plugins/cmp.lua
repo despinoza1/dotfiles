@@ -2,11 +2,8 @@ return {
   {
     "saghen/blink.cmp",
     dependencies = {
-      "rafamadriz/friendly-snippets",
       "ribru17/blink-cmp-spell",
       "bydlw98/blink-cmp-env",
-      "moyiz/blink-emoji.nvim",
-      "mayromr/blink-cmp-dap",
     },
     version = "1.*",
     event = "VimEnter",
@@ -31,17 +28,14 @@ return {
               node:type()
             )
           then
-            return { "path", "buffer", "spell", "env", "emoji" }
+            return { "path", "buffer", "spell", "env" }
           else
-            return { "lsp", "path", "snippets", "buffer", "spell", "env" }
+            return { "lsp", "path", "buffer", "spell", "env" }
           end
         end,
         per_filetype = {
-          org = { "orgmode", "path", "spell", "env", "emoji" },
-          markdown = { "path", "spell", "env", "emoji" },
-          ["dap-repl"] = { "dap", "lsp", "path", "buffer" },
-          dapui_watches = { "dap", "lsp", "path", "buffer" },
-          dapui_hover = { "dap", "lsp", "path", "buffer" },
+          org = { "orgmode", "path", "spell", "env" },
+          markdown = { "path", "spell", "env" },
         },
         providers = {
           spell = {
@@ -73,32 +67,6 @@ return {
             name = "Orgmode",
             module = "orgmode.org.autocompletion.blink",
             fallbacks = { "buffer" },
-          },
-          snippets = {
-            score_offset = -2,
-            opts = {
-              should_show_items = function(ctx)
-                return ctx.trigger.initial_kind ~= "trigger_character"
-              end,
-            },
-          },
-          emoji = {
-            module = "blink-emoji",
-            name = "Emoji",
-            score_offset = 15,
-            opts = {
-              insert = true,
-              trigger = function()
-                return { ":" }
-              end,
-              should_show_items = function()
-                return vim.tbl_contains({ "gitcommit", "markdown", "org" }, vim.o.filetype)
-              end,
-            },
-          },
-          dap = {
-            name = "dap",
-            module = "blink-cmp-dap",
           },
         },
       },

@@ -20,6 +20,8 @@ vim.api.nvim_create_autocmd("FileType", {
     "notify",
     "qf",
     "checkhealth",
+    "man",
+    "nvim-undotree",
   },
   callback = function(event)
     vim.bo[event.buf].buflisted = false

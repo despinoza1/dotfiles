@@ -149,3 +149,7 @@ end, { desc = "b64 encode selection" })
 vim.keymap.set("v", "<leader>bd", function()
   base64_transform("base64 --decode")
 end, { desc = "b64 decode selection" })
+
+-- undo tree
+vim.cmd("packadd nvim.undotree")
+utils.keymap("n", "<leader>u", "<CMD>Undotree<CR>", { desc = "Open Undo Tree" })
