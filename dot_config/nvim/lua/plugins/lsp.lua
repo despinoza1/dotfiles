@@ -26,8 +26,13 @@ local function lsp_attach()
         extend_opts({ desc = "Goto Type Definition" })
       )
       utils.keymap("n", "gra", vim.lsp.buf.code_action, extend_opts({ desc = "Code Action" }))
-      utils.keymap("n", "grr", vim.lsp.buf.references, extend_opts({ desc = "Code Action" }))
-      utils.keymap("n", "grn", vim.lsp.buf.rename, extend_opts({ desc = "Code Action" }))
+      utils.keymap(
+        "n",
+        "grr",
+        vim.lsp.buf.references,
+        extend_opts({ desc = "Find All References" })
+      )
+      utils.keymap("n", "grn", vim.lsp.buf.rename, extend_opts({ desc = "Rename Symbol" }))
 
       utils.keymap(
         "n",
