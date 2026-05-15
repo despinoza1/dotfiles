@@ -7,14 +7,12 @@
     pager = less -F -X
     excludesfile = /home/daniel/.config/git/ignore
     whitespace = error
+    fsmonitor = true
+    ; untrackedcache = true
 
     ; NOTE: use `* text=auto`
     ; eol = lf
     ; autocrlf = false
-
-    ; NOTE: useful for large repos
-    fsmonitor = true
-    ; untrackedcache = true
 
 [alias]
     lol = log --decorate --oneline --graph --all

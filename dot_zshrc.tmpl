@@ -17,7 +17,7 @@ function gbda() {
   git branch --no-color --merged | command grep -vE "^([+*]|\s*(main|master|release|stable|trunk|dev|devel|develop|development)\s*$)" | command xargs git branch --delete 2>/dev/null
 }
 
-plugins=(colored-man-pages python timer vi-mode)
+plugins=(colored-man-pages gitfast python timer vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
