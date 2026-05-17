@@ -1,0 +1,73 @@
+set charset=UTF-8
+
+color status green default
+set editor = "nvim +':set textwidth=0'"
+
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+set mailcap_path = "~/.config/mutt/mailcap"
+
+set sort=threads
+set sort_aux = reverse-last-date-received
+set date_format="%y/%m/%d %I:%M%p"
+
+color sidebar_new brightred default
+# set sidebar_visible
+set sidebar_format = "%B%<F? [%F]>%* %<N?%N/>%S"
+set mail_check_stats
+
+bind index,pager \Cp sidebar-prev
+bind index,pager \Cn sidebar-next
+bind index,pager \Co sidebar-open
+
+set mbox_type=Maildir
+set alias_file = "~/.cache/mutt/alias"
+
+set crypt_use_gpgme=yes
+
+unset ssl_use_sslv3
+unset ssl_use_tlsv1
+set ssl_verify_dates
+set ssl_verify_host
+set smart_wrap
+
+set realname = "Daniel Espinoza"
+
+set ssl_starttls = yes
+set ssl_force_tls = yes
+set send_charset = "us-ascii:utf-8"
+set imap_user = "contact@daniel-espinoza.com"
+set imap_pass = "PASSWORD"
+set smtp_url = "smtp://contact@daniel-espinoza.com:PASSWORD@127.0.0.1:1025"
+
+# set spoolfile = "imap://127.0.0.1:1143/INBOX"
+# set postponed = "imap://127.0.0.1:1143/[Protonmail]/Drafts"
+# set mbox = "imap://127.0.0.1:1143/[Protonmail]/All Mail"
+set folder = "imap://127.0.0.1:1143"
+set record =+Sent
+set postponed =+Drafts
+set spoolfile =+Inbox
+set imap_list_subscribed
+set imap_check_subscribed
+
+set header_cache=~/.cache/mutt
+set message_cachedir=~/.cache/mutt
+set certificate_file=~/.cache/mutt/certificates
+
+set smtp_authenticators = "gssapi:login"
+
+# Vim-like bindings
+bind pager j next-line
+bind pager k previous-line
+bind pager g top
+bind pager G bottom
+bind attach,index,pager } next-page
+bind attach,index,pager { previous-page
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+set mail_check = 120
+set imap_keepalive = 900
+set from = "contact@daniel-espinoza.com"
+set use_from = yes
+unset use_domain
