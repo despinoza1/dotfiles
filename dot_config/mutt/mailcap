@@ -1,2 +1,5 @@
 text/html; $BROWSER %s
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
+application/pdf; zathura %s &
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice %s & disown
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet; libreoffice %s & disown

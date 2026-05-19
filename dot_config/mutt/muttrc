@@ -1,19 +1,45 @@
 set charset=UTF-8
-
+set send_charset = "us-ascii:utf-8"
+set editor = "nvim +':set textwidth=0'"
 color status green default
 source ~/.config/mutt/Gruvbox-Light.rc
-set editor = "nvim +':set textwidth=0'"
 
-auto_view text/html
-alternative_order text/plain text/enriched text/html
-set mailcap_path = "~/.config/mutt/mailcap"
+set realname = "Daniel Espinoza"
+set from = "contact@daniel-espinoza.com"
+unset use_domain
+
+# TLS
+set ssl_starttls = yes
+set ssl_force_tls = yes
+unset ssl_use_sslv3
+unset ssl_use_tlsv1
+set ssl_verify_dates
+set ssl_verify_host
+
+set imap_user = "contact@daniel-espinoza.com"
+set imap_pass = "PASSWORD"
+set smtp_url = "smtp://contact@daniel-espinoza.com:PASSWORD@127.0.0.1:1025"
+set smtp_authenticators = "gssapi:login"
+
+set folder = "imap://127.0.0.1:1143"
+set spoolfile =+Inbox
+set record =+Sent
+set postponed =+Drafts
+
+set imap_list_subscribed
+set imap_check_subscribed
+set mail_check = 120
+set imap_keepalive = 900
 
 set sort=threads
 set sort_aux = reverse-last-date-received
 set date_format="%y/%m/%d %I:%M%p"
+set index_format='%4C %Z %<[y?%<[m?%<[d?%[%H:%M ]&%[%a %d]>&%[%b %d]>&%[%m/%y ]> %-15.15L (%?l?%4l&%4c?) %s'
 
+# Sidebar
 color sidebar_new brightred default
-# set sidebar_visible
+set sidebar_visible
+set sidebar_width = 18
 set sidebar_format = "%B%<F? [%F]>%* %<N?%N/>%S"
 set mail_check_stats
 
@@ -22,6 +48,7 @@ bind index,pager \Cn sidebar-next
 bind index,pager \Co sidebar-open
 bind index,pager B sidebar-toggle-visible
 
+# Local Directories
 set mbox_type=Maildir
 set alias_file = "~/.cache/mutt/alias"
 set header_cache=~/.cache/mutt
@@ -30,43 +57,30 @@ set certificate_file=~/.cache/mutt/certificates
 
 set crypt_use_gpgme=yes
 
-unset ssl_use_sslv3
-unset ssl_use_tlsv1
-set ssl_verify_dates
-set ssl_verify_host
-set smart_wrap
-
-set realname = "Daniel Espinoza"
-
-set ssl_starttls = yes
-set ssl_force_tls = yes
-set send_charset = "us-ascii:utf-8"
-set imap_user = "contact@daniel-espinoza.com"
-set imap_pass = "PASSWORD"
-set smtp_url = "smtp://contact@daniel-espinoza.com:PASSWORD@127.0.0.1:1025"
-
-set folder = "imap://127.0.0.1:1143"
-set spoolfile =+Inbox
-set record =+Sent
-set postponed =+Drafts
-set imap_list_subscribed
-set imap_check_subscribed
-
-set smtp_authenticators = "gssapi:login"
-
-# Vim-like bindings
+# Vim bindings
 bind pager j next-line
 bind pager k previous-line
-bind pager g top
+bind pager g noop
+bind pager gg top
 bind pager G bottom
 bind attach,index,pager } next-page
 bind attach,index,pager { previous-page
-bind attach,index g first-entry
+bind attach,index g noop
+bind attach,index gg first-entry
 bind attach,index G last-entry
 bind index S imap-fetch-mail
 
-set mail_check = 120
-set imap_keepalive = 900
-set from = "contact@daniel-espinoza.com"
+# Composing
+set edit_headers=yes
 set use_from = yes
-unset use_domain
+set forward_format = "Fwd: %s"
+set forward_quote = yes
+set include = yes
+set indent_string = '> '
+
+# Viewing
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+set mailcap_path = "~/.config/mutt/mailcap"
+set smart_wrap
+set abort_key = "<Esc>"
