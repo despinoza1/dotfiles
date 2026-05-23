@@ -79,8 +79,10 @@ color compose_security_both color65 color230
 # Diff / Patch
 ########################################
 
-color body color230 color3 "^\\+.*"
-color body color230 color160 "^-.*"
-color body color230 color172 "^@@.*"
+color body color76 color230 "^\\+.*"
+color body color160 color230 "^-.*"
+color body color43 color230 "^@@.*"
+color body color68 color230 "diff --git .*"
+color body color68 color230 "index [0-9a-f]+\.\.\.?[0-9a-f]+ [0-9]+"
 
 # vim: ft=neomuttrc

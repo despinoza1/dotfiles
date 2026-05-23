@@ -38,6 +38,7 @@ set index_format='%4C %Z %<[y?%<[m?%<[d?%[%H:%M ]&%[%a %d]>&%[%b %d]>&%[%m/%y ]>
 
 # Sidebar
 color sidebar_new brightred default
+set sidebar_divider_char = '|'
 set sidebar_visible
 set sidebar_width = 18
 set sidebar_format = "%B%<F? [%F]>%* %<N?%N/>%S"
