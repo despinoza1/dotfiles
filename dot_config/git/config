@@ -20,8 +20,10 @@
     bl = blame -w -C -C -C
     psh = push --force-with-lease --force-if-includes
     rl = reflog --pretty
+    amend = commit --amend --no-edit
     missing = show-branch --sha1-name --current
     summary = shortlog -sn --no-merges
+    purge = clean -fxfd
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
@@ -81,6 +83,9 @@
 
 [merge]
     conflictstyle = diff3
+    ff = only
+    stat = true
+    autoStash = true
 
 [diff]
     algorithm = histogram
