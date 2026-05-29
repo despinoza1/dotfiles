@@ -54,9 +54,11 @@ alias bat="bat --theme=Catppuccin-macchiato --paging=never"
 alias vim=nvim
 alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-alias sync-bucket="aws s3 sync $HOME/s3-bucket/ {{ .s3 }}"
 alias lua="/usr/bin/lua5.1"
 alias scc="scc --no-cocomo"
+
+# Syncs
+alias sync-roms="rclone sync --progress $HOME/Documents/ROMs/ secret:/games"
 
 alias python=python3
 alias pip="python3 -m pip"

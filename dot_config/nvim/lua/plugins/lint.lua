@@ -8,7 +8,7 @@ return {
         dockerfile = { "hadolint" },
         gitcommit = { "commitlint" },
         NeogitCommitMessage = { "commitlint" },
-        python = { "bandit", "ruff" },
+        python = { "ruff" },
         sql = { "sqlfluff" },
         terraform = { "tflint" },
         zsh = { "zsh" },
