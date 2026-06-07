@@ -20,10 +20,15 @@
     bl = blame -w -C -C -C
     psh = push --force-with-lease --force-if-includes
     rl = reflog --pretty
+
     amend = commit --amend --no-edit
+    wdiff = diff --word-diff
     missing = show-branch --sha1-name --current
     summary = shortlog -sn --no-merges
     purge = clean -fxfd
+
+    pr = !sh -c 'git fetch $1 pull/$2/head:pr-$1-$2 && git checkout pr-$1-$2'
+    mr = !sh -c 'git fetch $1 merge-requests/$2/head:mr-$1-$2 && git checkout mr-$1-$2'
 
 [filter "lfs"]
     clean = git-lfs clean -- %f
