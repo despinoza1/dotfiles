@@ -109,14 +109,14 @@ return {
           },
         },
         jsonls = {
-          -- settings = {
-          --   json = {
-          --     validate = { enabled = true },
-          --   },
-          -- },
-          -- before_init = function(_, config)
-          --   config.settings.json.schemas = require("schemastore").json.schemas()
-          -- end,
+          settings = {
+            json = {
+              validate = { enabled = true },
+            },
+          },
+          before_init = function(_, config)
+            config.settings.json.schemas = require("schemastore").json.schemas()
+          end,
         },
         yamlls = {
           settings = {
@@ -160,8 +160,20 @@ return {
           },
         },
         sqlls = {},
-        zuban = {},
+        zuban = {
+          init_options = {
+            settings = {
+              typeCheckingMode = "mypy",
+            },
+          },
+        },
         ruff = {
+          init_options = {
+            settings = {
+              configurationPreference = "filesystemFirst",
+              lineLength = 88,
+            },
+          },
           on_attach = function(client, bufnr)
             client.server_capabilities.hoverProvider = false
           end,
