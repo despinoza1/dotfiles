@@ -6,8 +6,6 @@ return {
       local lint = require("lint")
       lint.linters_by_ft = {
         dockerfile = { "hadolint" },
-        gitcommit = { "commitlint" },
-        NeogitCommitMessage = { "commitlint" },
         python = { "ruff" },
         sql = { "sqlfluff" },
         terraform = { "tflint" },
