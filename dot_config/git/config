@@ -4,6 +4,7 @@
     signingkey = 5F233DD1F3A48F07B00AD1CF8C8CBFC6D778F65E
 
 [core]
+    editor = nvim
     pager = less -F -X
     excludesfile = /home/daniel/.config/git/ignore
     whitespace = error
