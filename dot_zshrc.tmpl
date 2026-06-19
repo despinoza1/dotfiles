@@ -48,6 +48,8 @@ export OLLAMA_HOST={{ .ollama.host }}
 export OLLAMA_PORT={{ .ollama.port }}
 export OLLAMA_BEARER_TOKEN='{{ .ollama.token }}'
 
+export MANPAGER='nvim +Man!'
+
 # Aliases
 alias ls=lsd
 alias bat="bat --theme=Catppuccin-macchiato --paging=never"
@@ -59,7 +61,7 @@ alias scc="scc --no-cocomo"
 
 # Syncs
 alias sync-roms="rclone sync --progress $HOME/Documents/ROMs/ secret:/games"
-alias sync-ebooks="rclone sync --progress $HOME/Calibre Library/ secret:/books"
+alias sync-ebooks='rclone sync --progress $HOME/Calibre\ Library/ secret:/books'
 
 alias python=python3
 alias pip="python3 -m pip"
