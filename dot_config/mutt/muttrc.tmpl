@@ -5,7 +5,7 @@ color status green default
 source ~/.config/mutt/Gruvbox-Light.rc
 
 set realname = "Daniel Espinoza"
-set from = "contact@daniel-espinoza.com"
+set from = "{{ .mail.address }}"
 unset use_domain
 
 # TLS
@@ -16,12 +16,12 @@ unset ssl_use_tlsv1
 set ssl_verify_dates
 set ssl_verify_host
 
-set imap_user = "contact@daniel-espinoza.com"
-set imap_pass = "PASSWORD"
-set smtp_url = "smtp://contact@daniel-espinoza.com:PASSWORD@127.0.0.1:1025"
+set imap_user = "{{ .mail.user }}"
+set imap_pass = "{{ .mail.password }}"
+set smtp_url = "smtp://{{ .mail.user }}:{{ .mail.password }}@{{ .mail.smtp }}"
 set smtp_authenticators = "gssapi:login"
 
-set folder = "imap://127.0.0.1:1143"
+set folder = "imap://{{ .mail.imap }}"
 set spoolfile =+Inbox
 set record =+Sent
 set postponed =+Drafts
