@@ -1,7 +1,19 @@
 nnoremap <SPACE> <Nop>
 
+for i in range(97,122)
+  let c = nr2char(i)
+  exec "map \e".c." <M-".c.">"
+  exec "map! \e".c." <M-".c.">"
+  exec "iunmap <Esc>".c
+  exec "nunmap <Esc>".c
+endfor
+
+set background=dark
+
 let mapleader=' '
 let maplocalleader='\\'
+
+imap <Esc> <C-c>
 
 set encoding=utf-8
 set nocompatible
@@ -32,8 +44,9 @@ set undofile
 
 set ttimeout
 if &ttimeout == -1
-    set ttimeoutlen=50
+    set ttimeoutlen=300
 endif
+set updatetime=250
 
 set spell
 set spelllang=en_us
@@ -46,6 +59,7 @@ set relativenumber
 set scrolloff=999
 
 set wrap
+set colorcolumn=75
 
 set nobackup
 set nowritebackup
@@ -61,26 +75,28 @@ set signcolumn=number
 set wildoptions=tagfile
 
 set ignorecase
+set smartcase
 
 set splitbelow
 set splitright
+
+set list
+set listchars=tab:<->,trail:·,nbsp:␣
 
 set virtualedit=block
 
 autocmd FileType json syntax match Comment +\/\/.\+$+
 
+augroup close-with-q
+    autocmd!
+    au FileType help {
+        setlocal nobuflisted
+        nnoremap <silent> <buffer> q :close<CR>
+    }
+augroup END
+
 nnoremap <silent> <Esc> :nohlsearch<CR>
 
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-for i in range(97,122)
-  let c = nr2char(i)
-  exec "map \e".c." <M-".c.">"
-  exec "map! \e".c." <M-".c.">"
-endfor
 nmap <M-h> <C-w>5<
 nmap <M-l> <C-w>5>
 nmap <M-k> <C-w>+
@@ -104,6 +120,11 @@ vnoremap <leader>xs y'<P'<O<ESC>'>o<ESC>:<C-u>'<,'>!/bin/sh<CR>
 nnoremap k gk
 nnoremap j gj
 
+nnoremap gh _
+vnoremap gh _
+nnoremap gl $
+vnoremap gl $
+
 nnoremap <leader>qo :copen<CR>
 nnoremap <leader>qc :cclose<CR>
 nnoremap ]q :cnext<CR>
@@ -126,7 +147,8 @@ if filereadable($HOME."/.vim/autoload/plug.vim")
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-vinegar'
     Plug 'tpope/vim-repeat'
-    Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+    " Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+    Plug 'morhetz/gruvbox'
     Plug 'mbbill/undotree'
     Plug 'junegunn/fzf'
 
@@ -134,7 +156,11 @@ if filereadable($HOME."/.vim/autoload/plug.vim")
 
     nmap <leader>u :UndotreeToggle<CR>
 
-    colorscheme catppuccin_frappe
+    let g:gruvbox_contrast_dark = "soft"
+    let g:gruvbox_contrast_light = "soft"
+
+    " colorscheme catppuccin_frappe
+    colorscheme gruvbox
 
     hi clear SpellBad
     hi SpellBad cterm=underline,bold ctermfg=red
