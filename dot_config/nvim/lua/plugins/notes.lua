@@ -105,6 +105,17 @@ return {
     end,
   },
 
+  {
+    "habamax/vim-asciidoctor",
+    config = function()
+      vim.g.asciidoctor_folding = 1
+      vim.g.asciidoctor_fold_options = 1
+      vim.g.asciidoctor_syntax_conceal = 0
+      vim.g.asciidoctor_syntax_indented = 1
+      vim.g.asciidoctor_fenced_languages = { "python", "c" }
+    end,
+  },
+
   -- Table Formatting
   {
     "dhruvasagar/vim-table-mode",
