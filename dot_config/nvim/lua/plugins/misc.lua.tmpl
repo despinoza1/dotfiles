@@ -1,0 +1,37 @@
+return {
+  "nvim-lua/plenary.nvim",
+  "tpope/vim-surround",
+  "tpope/vim-repeat",
+
+  {
+    "David-Kunz/gen.nvim",
+    cmd = "Gen",
+    config = function()
+      require("gen").setup({
+        model = "qwen/qwen3-coder-30b",
+        host = "{{ .llm.url }}",
+        port = 443,
+        quit_map = "q",
+        retry_map = "<c-r>",
+        command = function(options)
+          local body = { model = options.model, stream = true }
+          local cmd = "curl --silent --no-buffer -X POST https://"
+            .. options.host
+            .. ":"
+            .. options.port
+
+          cmd = cmd .. "/v1/chat/completions"
+          cmd = cmd .. ' -H "Content-Type: application/json"'
+
+          return cmd .. " -d $body"
+        end,
+        init = function(options) end,
+        display_mode = "vertical-split",
+        show_prompt = true,
+        show_model = true,
+        no_auto_close = false,
+        debug = false,
+      })
+    end,
+  },
+}
