@@ -70,7 +70,7 @@ set shiftwidth=4
 
 set noshowmode
 set cursorline
-set cmdheight=2
+set cmdheight=1
 set signcolumn=number
 set wildoptions=tagfile
 
