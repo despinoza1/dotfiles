@@ -1,0 +1,106 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "autoshare": false,
+    "autoupdate": false,
+    "permission": {
+        "*": "ask",
+        "read": {
+            "*": "allow",
+            ".env": "deny",
+            "*.env": "deny",
+            "*.key": "deny",
+        },
+        "edit": "deny",
+        "glob": "allow",
+        "grep": "allow",
+        "bash": {
+            "*": "ask",
+            "echo *": "allow",
+            "grep *": "allow",
+            "find *": "allow",
+            "git diff": "allow",
+            "git --no-pager diff": "allow",
+            "git diff *": "allow",
+            "git --no-pager diff *": "allow",
+            "git log": "allow",
+            "git --no-pager log": "allow",
+            "git log *": "allow",
+            "git --no-pager log *": "allow",
+            "git blame *": "allow",
+            "git grep *": "allow",
+            "git --no-pager grep *": "allow",
+            "git status *": "allow",
+        },
+        "task": "ask",
+        "skill": "ask",
+        "lsp": "ask",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "external_directory": "deny",
+        "doom_loop": "allow",
+    },
+    "enabled_providers": ["xolotl"],
+    "provider": {
+        "xolotl": {
+            "npm": "@ai-sdk/openai-compatible",
+            "name": "Xolotl",
+            "options": {
+                "baseURL": "{{ .llm.url }}"
+            },
+            "models": {
+                "poolside/laguna-s-2.1": {
+                    "name": "Laguna S 2.1",
+                    "limit": {
+                        "context": 262144,
+                        "output": 32768,
+                    }
+                },
+                "qwen/qwen3.8-27b": {
+                    "name": "Qwen 3.8",
+                    "limit": {
+                        "context": 262144,
+                        "output": 65536,
+                    }
+                },
+                "qwen/qwen3-coder-30b": {
+                    "name": "Qwen 3 Coder",
+                    "limit": {
+                        "context": 262144,
+                        "output": 65536,
+                    }
+                },
+                "google/gemma-4-e4b": {
+                    "name": "Gemma 4",
+                    "limit": {
+                        "context": 131072,
+                        "output": 16384,
+                    }
+                },
+            }
+        }
+    },
+    "lsp": {
+        "pyright": {
+            "disabled": true
+        },
+        "zuban": {
+            "command": ["uvx", "zuban@latest", "server"],
+            "extensions": [".py", ".pyi"],
+            "initialization": {
+                "preferences": {
+                    "typeCheckingMode": "mypy",
+                },
+            }
+        }
+    },
+    "mcp": {
+        "kagi": {
+            "type": "local",
+            "enabled": true,
+            "command": ["uvx", "kagimcp"],
+            "env": {
+                "KAGI_API_KEY": "{env:KAGI_API_KEY}"
+            }
+        }
+    }
+}
