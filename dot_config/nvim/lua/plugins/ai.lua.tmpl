@@ -1,15 +1,11 @@
 return {
-  "nvim-lua/plenary.nvim",
-  "tpope/vim-surround",
-  "tpope/vim-repeat",
-
   {
     "David-Kunz/gen.nvim",
     cmd = "Gen",
     config = function()
       require("gen").setup({
-        model = "qwen/qwen3-coder-30b",
-        host = "{{ .llm.url }}",
+        model = "google/gemma-4-e4b",
+        host = "{{ trimSuffix "/v1" (trimPrefix "https://" .llm.url) }}",
         port = 443,
         quit_map = "q",
         retry_map = "<c-r>",
@@ -33,5 +29,26 @@ return {
         debug = false,
       })
     end,
+  },
+
+  {
+    "olimorris/codecompanion.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      interactions = {
+        chat = {
+          adapter = {
+            name = "opencode",
+            model = "xolotl/qwen/qwen3-coder-30b",
+          },
+        },
+      },
+      opts = {
+        log_level = "DEBUG",
+      },
+    },
   },
 }
