@@ -81,7 +81,7 @@ very easily understood by users who might perhaps want to leverage it.
 Below is the current work in progress patch; only suggest a commit message
 using the above guidance.
 
-Recent git commits:
+Last ten commits:
 !`git log --oneline -10`
 
 Patch:
