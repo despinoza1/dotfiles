@@ -1,0 +1,30 @@
+{
+    "lastChangelogVersion": "0.85.1",
+    "theme": "catppuccin-macchiato",
+    "externalEditor": "nvim",
+    "defaultProvider": "xolotl",
+    "defaultModel": "poolside/laguna-s-2.1",
+    "defaultThinkingLevel": "off",
+    "hideThinkingBlock": false,
+    "showCacheMissNotices": true,
+    "sessionDir": "~/.local/state/pi/sessions",
+    "packages": [
+        "npm:@gotgenes/pi-permission-system"
+    ],
+    "extensions": [
+        "./extensions/prompt-bash.ts",
+        "./extensions/inline-bash.ts",
+        "./extensions/pi-skill-toggle",
+        "./extensions/git-interceptor.ts"
+    ],
+    "enableAnalytics": false,
+    "enableInstallTelemetry": false,
+    "themes": [
+        "themes/catppuccin-macchiato.json"
+    ],
+    "compaction": {
+        "enabled": true,
+        "reserveTokens": 16384,
+        "keepRecentTokens": 20000
+    }
+}

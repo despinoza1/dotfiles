@@ -1,0 +1,52 @@
+{
+    "providers": {
+        "xolotl": {
+            "baseUrl": "{{ .llm.url }}",
+            "api": "openai-completions",
+            "apiKey": "{{ .llm.token }}",
+            "models": [
+                {
+                    "id": "poolside/laguna-s-2.1",
+                    "name": "Laguna S 2.1",
+                    "contextWindow": 262144,
+                    "maxTokens": 32768
+                },
+                {
+                    "id": "qwen/qwen3.8-27b",
+                    "name": "Qwen 3.8",
+                    "input": [
+                        "text",
+                        "image"
+                    ],
+                    "contextWindow": 262144,
+                    "maxTokens": 65536,
+                    "reasoning": true,
+                    "thinkingLevelMap": {
+                        "minimal": null,
+                        "low": "low",
+                        "medium": "medium",
+                        "high": null,
+                        "xhigh": "xhigh",
+                        "max": null
+                    }
+                },
+                {
+                    "id": "qwen/qwen3-coder-30b",
+                    "name": "Qwen 3 Coder",
+                    "contextWindow": 262144,
+                    "maxTokens": 65536
+                },
+                {
+                    "id": "google/gemma-4-e4b",
+                    "name": "Gemma 4",
+                    "input": [
+                        "text",
+                        "image"
+                    ],
+                    "contextWindow": 131072,
+                    "maxTokens": 16384
+                }
+            ]
+        }
+    }
+}

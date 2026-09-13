@@ -1,0 +1,7 @@
+# pi-permission-system
+dot_pi/agent/extensions/pi-permission-system/logs/
+dot_pi/agent/extensions/pi-permission-system/logs/**
+
+# npm ( •̀_•́ )
+dot_pi/agent/npm/node_modules/
+dot_pi/agent/npm/node_modules/**
