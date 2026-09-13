@@ -5,6 +5,10 @@ local has_query = function(language, name)
 end
 
 local ts_attach = function(buf, language)
+  if language == "tex" or language == "latex" then
+    return
+  end
+
   if not vim.treesitter.language.add(language) then
     return false
   end
